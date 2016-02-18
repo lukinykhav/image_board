@@ -1,0 +1,34 @@
+{
+  "name": "imageBoard",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.3",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "express-session": "^1.13.0",
+    "fs": "0.0.2",
+    "jade": "~1.11.0",
+    "mongodb-migrations": "^0.5.0",
+    "mongoose": "^4.4.3",
+    "morgan": "~1.6.1",
+    "multer": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "serve-favicon": "~2.3.0",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.1",
+    "gulp-html2jade": "^1.1.1",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-sass": "^2.2.0"
+  }
+}
