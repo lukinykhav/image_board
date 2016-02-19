@@ -22,19 +22,17 @@ router.get('/register', function(req, res) {
   res.render('register', { });
 });
 
-router.post('/register', upload.single('image'), function(req, res) {
+router.post('/register', function(req, res) {
   Account.register(new Account({
     username : req.body.username,
-    email: req.body.email,
-    name: req.body.name,
-    image: req.file.path,
-    description: req.body.description
+    email: req.body.email
   }), req.body.password,  function(err, account) {
     if (err) {
       return res.render('register', { account : account });
     }
 
     passport.authenticate('local')(req, res, function () {
+      req.session.username = req.body.username;
       res.redirect('/');
     });
   });
@@ -45,6 +43,7 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
+  req.session.username = req.body.username;
   res.redirect('/');
 });
 
@@ -55,6 +54,25 @@ router.get('/logout', function(req, res) {
 
 router.get('/ping', function(req, res){
   res.status(200).send("pong!");
+});
+
+router.get('/profile', function(req, res){
+  res.render('profile', { });
+});
+
+
+// when don't enter value in input save null
+router.post('/profile', upload.single('image'), function(req, res){
+  Account.findOneAndUpdate({ username: req.session.username },
+      {
+        username: req.body.username,
+        email: req.body.email,
+        name: req.body.name,
+        image: req.file.path,
+        description: req.body.description
+      }, function(err, docs) {
+        res.json(docs);
+      });
 });
 
 module.exports = router;
