@@ -6,11 +6,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var BasicStrategy = require('passport-http').BasicStrategy;
 var multer  = require('multer');
-var LocalStrategy = require('passport-local').Strategy;
 
-var routes = require('./routes/index');
+var basicAuth = require('basic-auth');
+//var LocalStrategy = require('passport-local').Strategy;
+
+var user = require('./routes/user');
 var users = require('./routes/users');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
+  }
+});
+var upload = multer({ storage: storage });
+
 
 var app = express();
 
@@ -33,11 +46,50 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+passport.use(new BasicStrategy(
+    function(username, password, done) {
+      console.log(username);
+      User.findOne({ username: username }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        if (!user.verifyPassword(password)) { return done(null, false); }
+        return done(null, user);
+      });
+    }
+));
+//app.use('/', routes);
+
+var auth = function (req, res, next) {
+  var user = basicAuth(req);
+
+  if (!user || user.name !== 'anna12' || user.pass !== '123') {
+    res.statusCode = 401;
+    res.setHeader('WWW-Authenticate', 'Basic realm="example"');
+    res.end('Access denied');
+  } else {
+    res.setHeader('WWW-Authenticate', 'Basic realm="'+ token + '"');
+    next();
+    //res.end('Access granted');
+  }
+
+
+};
+
+app.get('/', auth, function (req, res) {
+  res.send(200, 'Authenticated');
+});
+
+app.post('/register', user.signUp);
+
+app.post('/login', user.signIn);
+
+app.get('/profile', auth, user.profile);
+
+app.post('/profile', upload.single('image'), user.editProfile);
 
 // passport config
 var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
+//passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
