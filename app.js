@@ -83,7 +83,7 @@ app.post('/register', user.signUp);
 
 app.post('/login', user.signIn);
 
-app.get('/profile', auth, user.profile);
+app.get('/profile', user.profile);
 
 app.post('/profile', upload.single('image'), user.editProfile);
 

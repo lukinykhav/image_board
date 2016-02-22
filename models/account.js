@@ -8,7 +8,8 @@ var Account = new Schema({
     name: String,
     image: String,
     description: String,
-    password: String
+    password: String,
+    token: String
 });
 
 Account.plugin(passportLocalMongoose);
