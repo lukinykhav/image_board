@@ -6,11 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var BasicStrategy = require('passport-http').BasicStrategy;
 var multer  = require('multer');
-
-var basicAuth = require('basic-auth');
-//var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 var user = require('./routes/user');
 var users = require('./routes/users');
@@ -46,55 +43,22 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-passport.use(new BasicStrategy(
-    function(username, password, done) {
-      console.log(username);
-      User.findOne({ username: username }, function (err, user) {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        if (!user.verifyPassword(password)) { return done(null, false); }
-        return done(null, user);
-      });
-    }
-));
-//app.use('/', routes);
-
-var auth = function (req, res, next) {
-  var user = basicAuth(req);
-
-  if (!user || user.name !== 'anna12' || user.pass !== '123') {
-    res.statusCode = 401;
-    res.setHeader('WWW-Authenticate', 'Basic realm="example"');
-    res.end('Access denied');
-  } else {
-    res.setHeader('WWW-Authenticate', 'Basic realm="'+ token + '"');
-    next();
-    //res.end('Access granted');
-  }
-
-
-};
-
-app.get('/', auth, function (req, res) {
-  res.send(200, 'Authenticated');
-});
-
-app.post('/register', user.signUp);
-
-app.post('/login', user.signIn);
-
-app.get('/profile', user.profile);
-
-app.post('/profile', upload.single('image'), user.editProfile);
-
 // passport config
 var Account = require('./models/account');
-//passport.use(new LocalStrategy(Account.authenticate()));
+passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
 mongoose.connect('mongodb://localhost/test');
+
+app.post('/register', user.signUp);
+
+app.post('/login',  passport.authenticate('local'), user.signIn);
+
+app.get('/profile', user.profile);
+
+app.post('/profile', upload.single('image'), user.editProfile);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

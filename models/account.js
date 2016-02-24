@@ -8,9 +8,19 @@ var Account = new Schema({
     name: String,
     image: String,
     description: String,
-    password: String,
-    token: String
+    token: String,
+    role: String,
+    password: String
 });
+
+exports.findAllUsers = function() {
+    Account.find({}, function(err, users){
+        console.log(users);
+        return users;
+    });
+
+};
+
 
 Account.plugin(passportLocalMongoose);
 
