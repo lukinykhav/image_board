@@ -13,15 +13,6 @@ var Account = new Schema({
     password: String
 });
 
-exports.findAllUsers = function() {
-    Account.find({}, function(err, users){
-        console.log(users);
-        return users;
-    });
-
-};
-
-
 Account.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Account', Account);

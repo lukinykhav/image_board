@@ -60,6 +60,10 @@ app.get('/profile', user.profile);
 
 app.post('/profile', upload.single('image'), user.editProfile);
 
+app.get('/admin', user.getAllUsers);
+
+app.post('/assign_role', user.assignRole);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

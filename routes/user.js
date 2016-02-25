@@ -3,27 +3,28 @@ var passport = require('passport');
 var Account = require('../models/account');
 var jwt    = require('jsonwebtoken');
 
-exports.signUp = function(req, res, callback) {
-    //var a = Account.findAllUsers();
-    var role = 'user';
-    //if(!Account.findAllUsers()) {
-    //    role = 'admin';
-    //}
-    Account.register(new Account({
-    username : req.body.username,
-    email: req.body.email,
-    }), req.body.password,  function(err, account) {
-        if (err) {
-          return res.send('err');
+exports.signUp = function(req, res) {
+    Account.find({}, function(err, users) {
+        var role = 'user';
+        if(err) console.log('error');
+        if(!users.length) {
+            role = 'admin';
         }
-        //passport.authenticate('local')(req, res, function () {
-        //    res.send('success');
-        //});
+        Account.register(new Account({
+            username : req.body.username,
+            email: req.body.email,
+            role: role
+            }), req.body.password,  function(err, account) {
+                if (err) {
+                  return res.send('err');
+                }
+                res.send(account);
+        });
     });
 };
 
 exports.signIn = function(req, res) {
-    var token = jwt.sign(req.user.name, Date.now() + '', {
+    var token = jwt.sign(req.body.username, Date.now() + '', {
         expiresIn: 6840 // expires in 24 hours
     });
     Account.findOneAndUpdate({username: req.body.username}, {token: token}, function(err, user) {
@@ -48,7 +49,33 @@ exports.editProfile = function(req, res){
         name: req.body.name,
         image: req.file.path,
         description: req.body.description
-      }, function(err, docs) {
-        res.json(docs);
+      }, function(err, user) {
+        res.json(user);
       });
+};
+
+exports.getAllUsers = function(req, res) {
+    Account.findOne({token: req.headers.authorization}, function(err, docs) {
+        Account.find({}, function(err, users) {
+            res.json(users);
+        });
+    });
+};
+
+exports.assignRole = function(req, res) {
+    Account.findOne({username: req.body.username}, function(err, user) {
+        if(user.role == 'user') {
+            user.role = 'admin';
+        }
+        else {
+            user.role = 'user';
+        }
+        user.save(function (err) {
+            if(err) {
+                console.error('ERROR!');
+            }
+        });
+        res.json(user);
+
+    });
 };
