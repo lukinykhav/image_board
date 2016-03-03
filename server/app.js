@@ -10,7 +10,6 @@ var multer  = require('multer');
 var LocalStrategy = require('passport-local').Strategy;
 
 var user = require('./routes/user');
-var users = require('./routes/users');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads/')
@@ -25,8 +24,8 @@ var upload = multer({ storage: storage });
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.use(express.static(path.join(__dirname, '../client')));
+// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -52,17 +51,23 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
-app.post('/register', user.signUp);
+app.use('/user/', user);
 
-app.post('/login',  passport.authenticate('local'), user.signIn);
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+});
 
-app.get('/profile', user.profile);
-
-app.post('/profile', upload.single('image'), user.editProfile);
-
-app.get('/admin', user.getAllUsers);
-
-app.post('/assign_role', user.assignRole);
+// app.post('/register', user.signUp);
+//
+// app.post('/login',  passport.authenticate('local'), user.signIn);
+//
+// app.get('/profile', user.profile);
+//
+// app.post('/profile', upload.single('image'), user.editProfile);
+//
+// app.get('/admin', user.getAllUsers);
+//
+// app.post('/assign_role', user.assignRole);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -30,6 +30,7 @@ exports.signIn = function(req, res) {
     Account.findOneAndUpdate({username: req.body.username}, {token: token}, function(err, user) {
         if(err){
             console.log("Something wrong when updating data!");
+            return res.send(err);
         }
         res.send(token);
     });
