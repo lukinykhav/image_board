@@ -59,8 +59,8 @@ angular.module('myApp').controller('registerController',
         // handle success
         .then(function () {
           $location.path('/login');
-          $scope.disabled = false;
-          $scope.registerForm = {};
+          // $scope.disabled = false;
+          // $scope.registerForm = {};
         })
         // handle error
         .catch(function () {

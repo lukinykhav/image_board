@@ -1,24 +1,26 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var multer  = require('multer');
-var LocalStrategy = require('passport-local').Strategy;
 
+var LocalStrategy = require('passport-local').Strategy;
 var user = require('./routes/user');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
-  }
-});
-var upload = multer({ storage: storage });
+
+//delete after test function in user.js
+// var multer  = require('multer');
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './uploads/')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
+//   }
+// });
+// var upload = multer({ storage: storage });
 
 
 var app = express();
@@ -28,7 +30,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 // app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -40,7 +42,7 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // passport config
 var Account = require('./models/account');
@@ -57,6 +59,7 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
+//this comment to see routes (refactoring), delete after test function in user.js
 // app.post('/register', user.signUp);
 //
 // app.post('/login',  passport.authenticate('local'), user.signIn);

@@ -49,6 +49,7 @@ angular.module('myApp').factory('AuthService',
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
+            console.log(data);
             user = true;
             deferred.resolve();
           } else {
@@ -91,7 +92,7 @@ angular.module('myApp').factory('AuthService',
     }
 
     function register(username, email, password) {
-
+      console.log(email);
       // create a new instance of deferred
       var deferred = $q.defer();
 
