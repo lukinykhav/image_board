@@ -20,12 +20,14 @@ myApp.config(function ($routeProvider) {
       controller: 'registerController',
       access: {restricted: true}
     })
-    .when('/one', {
-      template: '<h1>This is page one!</h1>',
+    .when('/profile', {
+      templateUrl: 'partials/profile.html',
+      // controller: profileController,
       access: {restricted: true}
     })
     .when('/two', {
-      template: '<h1>This is page two!</h1>',
+      templateUrl: '<h1>This is page two!</h1>',
+
       access: {restricted: false}
     })
     .otherwise({

@@ -44,6 +44,16 @@ angular.module('myApp').controller('logoutController',
 
 }]);
 
+angular.module('myApp').controller('profileController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+
+    $scope.profile = function () {
+      
+    }
+
+}]);
+
 angular.module('myApp').controller('registerController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
