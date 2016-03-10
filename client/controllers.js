@@ -49,7 +49,7 @@ angular.module('myApp').controller('profileController',
   function ($scope, $location, AuthService) {
 
     $scope.profile = function () {
-      
+      AuthService.profile();
     }
 
 }]);

@@ -22,7 +22,7 @@ myApp.config(function ($routeProvider) {
     })
     .when('/profile', {
       templateUrl: 'partials/profile.html',
-      // controller: profileController,
+      controller: 'profileController',
       access: {restricted: true}
     })
     .when('/two', {

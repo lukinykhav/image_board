@@ -94,6 +94,17 @@ router.post('/profile', upload.single('image'), function(req, res){
       });
 });
 
+router.get('/status', function(req, res) {
+  if (!req.isAuthenticated()) {
+    return res.status(200).json({
+      status: false
+    });
+  }
+  res.status(200).json({
+    status: true
+  });
+});
+
 module.exports = router;
 
 //this comment to refactoring code

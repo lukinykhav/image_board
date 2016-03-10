@@ -11,7 +11,8 @@ angular.module('myApp').factory('AuthService',
       getUserStatus: getUserStatus,
       login: login,
       logout: logout,
-      register: register
+      register: register,
+      profile: profile
     });
 
     function isLoggedIn() {
@@ -92,7 +93,6 @@ angular.module('myApp').factory('AuthService',
     }
 
     function register(username, email, password) {
-      console.log(email);
       // create a new instance of deferred
       var deferred = $q.defer();
 
@@ -115,6 +115,46 @@ angular.module('myApp').factory('AuthService',
       // return promise object
       return deferred.promise;
 
+    }
+
+    function profile() {
+      $http.get('/user/profile')
+        .then(function(response) {
+          $scope.myWelcome = response.data;
+        });
+      // var deferred = $q.defer();
+
+      // // send a get request to the server
+      // $http.get('/user/profile')
+      //   // handle success
+      //   .success(function (data) {
+      //     console.log(data);
+      //     deferred.resolve();
+      //   })
+      //   // handle error
+      //   .error(function (data) {
+      //     deferred.reject();
+      //   });
+
+      // // return promise object
+      // return deferred.promise;  
+    }
+
+
+    function getUserStatus() {
+      $http.get('/user/status')
+      // handle success
+      .success(function (data) {
+        if(data.status){
+          user = true;
+        } else {
+          user = false;
+        }
+      })
+      // handle error
+      .error(function (data) {
+        user = false;
+      });
     }
 
 }]);
