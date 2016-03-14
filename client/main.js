@@ -25,11 +25,10 @@ myApp.config(function ($routeProvider) {
       controller: 'profileController',
       access: {restricted: true}
     })
-    .when('/two', {
-      templateUrl: '<h1>This is page two!</h1>',
-
-      access: {restricted: false}
-    })
+    // .when('/editProfile', {
+    //   controller: 'profileController',
+    //   access: {restricted: true}
+    // })
     .otherwise({
       redirectTo: '/'
     });

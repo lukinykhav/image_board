@@ -12,7 +12,7 @@ angular.module('myApp').controller('loginController',
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success
         .then(function () {
-          $location.path('/');
+          $location.path('/profile');
           $scope.disabled = false;
           $scope.loginForm = {};
         })
@@ -48,8 +48,30 @@ angular.module('myApp').controller('profileController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
+    $scope.toggle = function () {
+      $scope.myVar = !$scope.myVar;
+    };
     $scope.profile = function () {
-      AuthService.profile();
+      AuthService.profile()
+        .then(function (data) {
+           console.log(data.name);
+           $scope.name = data.name;
+           $scope.email = data.email;
+           $scope.description = data.description;
+        })
+    }
+
+}]);
+
+angular.module('myApp').controller('profileController',
+  ['$scope', '$location', 'AuthService',
+  function ($scope, $location, AuthService) {
+    console.log($scope.name);
+    $scope.editProfile = function () {
+      AuthService.editProfile($scope.name, $scope.email, $scope.description)
+        .then(function (data) {
+           console.log(data);
+        })
     }
 
 }]);

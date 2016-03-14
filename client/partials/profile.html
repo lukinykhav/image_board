@@ -1,32 +1,53 @@
-<div class="profile" ng-controller="profileController" ng-init="profile()">
+<div class="profile" ng-controller="profileController">
         <div class="avatar">
 		    <img src="../image/default-avatar.png">
 		    <a href=""><img src="../image/pencil_image.png"></a>
         </div>
-        
         <div class="info">
-	        <form class="form-horizontal">
+	        <form class="form-horizontal" ng-hide="myVar" ng-init="profile()">
 	        	<div class="form-group">
 		        	<label for="" class="col-sm-3">Name</label>
-				    <div class="col-sm-9">{{myWelcome}}
-				      <input type="text" class="form-control" id="">
+				    <div class="col-sm-9">
+				    	{{ name }}
 				    </div>
 	        	</div>
 		        <div class="form-group">
 		        	<label for="" class="col-sm-3">Email</label>
 					<div class="col-sm-9">
-					    <input type="email" class="form-control" id="">
+						{{email}}
 					</div>
 		        </div>
 		        <div class="form-group">
 		        	<label for="" class="col-sm-3">Description</label>
 				    <div class="col-sm-9">
-				      <input type="text" class="form-control" id="">
+				    	{{ description }}
 				    </div>
 	        	</div>      	
 	        </form>
+
+	        <form class="form-horizontal" ng-show="editProfile" ng-submit="editProfile()">
+				<div class="form-group">
+			    	<label for="" class="col-sm-3">Name</label>
+				    <div class="col-sm-9">
+				      <input type="text" class="form-control" ng-model="user.name">
+				    </div>
+				</div>
+			    <div class="form-group">
+			    	<label for="" class="col-sm-3">Email</label>
+					<div class="col-sm-9">
+					    <input type="email" class="form-control" ng-model="user.email">
+					</div>
+			    </div>
+			    <div class="form-group">
+			    	<label for="" class="col-sm-3">Description</label>
+				    <div class="col-sm-9">
+				    	<input type="text" class="form-control" ing-model="user.description">
+				    </div>
+				</div>    
+				<button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>  	
+			</form>
         </div>
-    	<a href="/" class="edit_profile">
-    		<img src="../image/edit_profile.png">
+    	<a href="" class="edit_profile" ng-click="editProfile = ! editProfile">
+    		<img src="../image/edit_profile.png" ng-click="toggle()">
     	</a>	
 </div>

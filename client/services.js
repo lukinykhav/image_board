@@ -12,7 +12,8 @@ angular.module('myApp').factory('AuthService',
       login: login,
       logout: logout,
       register: register,
-      profile: profile
+      profile: profile,
+      editProfile: editProfile
     });
 
     function isLoggedIn() {
@@ -102,7 +103,7 @@ angular.module('myApp').factory('AuthService',
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            deferred.resolve();
+            deferred.resolve(data);
           } else {
             deferred.reject();
           }
@@ -118,43 +119,44 @@ angular.module('myApp').factory('AuthService',
     }
 
     function profile() {
+      var deferred = $q.defer();
+
+      // send a get request to the server
       $http.get('/user/profile')
-        .then(function(response) {
-          $scope.myWelcome = response.data;
+        // handle success
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        // handle error
+        .error(function (data) {
+          deferred.reject();
         });
-      // var deferred = $q.defer();
 
-      // // send a get request to the server
-      // $http.get('/user/profile')
-      //   // handle success
-      //   .success(function (data) {
-      //     console.log(data);
-      //     deferred.resolve();
-      //   })
-      //   // handle error
-      //   .error(function (data) {
-      //     deferred.reject();
-      //   });
-
-      // // return promise object
-      // return deferred.promise;  
+      // return promise object
+      return deferred.promise;  
     }
 
+    function editProfile(name, email, desciption) {
+      var deferred = $q.defer();
 
-    function getUserStatus() {
-      $http.get('/user/status')
-      // handle success
-      .success(function (data) {
-        if(data.status){
-          user = true;
-        } else {
-          user = false;
-        }
-      })
-      // handle error
-      .error(function (data) {
-        user = false;
-      });
+      // send a post request to the server
+      $http.post('/user/profile',
+        {name: name, email: email, desciption: desciption})
+        // handle success
+        .success(function (data, status) {
+          if(status === 200 && data.status){
+            deferred.resolve(data);
+          } else {
+            deferred.reject();
+          }
+        })
+        // handle error
+        .error(function (data) {
+          deferred.reject();
+        });
+
+      // return promise object
+      return deferred.promise;
     }
 
 }]);
