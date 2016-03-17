@@ -4,24 +4,19 @@
 		    <a href=""><img src="../image/pencil_image.png"></a>
         </div>
         <div class="info">
-	        <form class="form-horizontal" ng-init="profile()" ng-hide="infoProfile">
+	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">
 	        	<div class="form-group">
-		        	<label for="" class="col-sm-3">Name</label>
-				    <div class="col-sm-9">
-				    	{{ name }}
-				    </div>
+		        	<label for="" class="col-sm-4">Name </label>
+			    	<span class="col-sm-8">{{ name }}</span>
 	        	</div>
 		        <div class="form-group">
-		        	<label for="" class="col-sm-3">Email</label>
-					<div class="col-sm-9">
-						{{ email }}
-					</div>
+		        	<label for="" class="col-sm-4">Email </label>
+					<span class="col-sm-8">{{ email }}</span>
+				
 		        </div>
 		        <div class="form-group">
-		        	<label for="" class="col-sm-3">Description</label>
-				    <div class="col-sm-9">
-				    	{{ description }}
-				    </div>
+		        	<label for="" class="col-sm-4">Description </label>
+				    <span class="col-sm-8">{{ description }}</span>
 	        	</div>      	
 	        </form>
 
@@ -49,5 +44,8 @@
         </div>
     	<a href="" class="edit_profile" ng-click="showForm()">
     		<img src="../image/edit_profile.png" >
-    	</a>	
+    	</a>
+</div>
+<div ng-controller="logoutController" class="ng-scope">
+  <a ng-click="logout()" class="btn btn-default">Logout</a>
 </div>

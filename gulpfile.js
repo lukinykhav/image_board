@@ -12,9 +12,9 @@ var gulp = require('gulp'),
 //});
 
 gulp.task('sass', function () {
-    return gulp.src('./sass/**/*.scss')
+    return gulp.src('./client/style/sass/*.scss')
         .pipe(sass.sync().on('error', sass.logError))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./client/style/css'));
 });
 
 gulp.task('sass:watch', function () {

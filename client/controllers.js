@@ -26,6 +26,10 @@ angular.module('myApp').controller('loginController',
         });
     };
 
+    $scope.showRegister = function() {
+      $location.path('/register');
+    }
+
 }]);
 
 angular.module('myApp').controller('logoutController',
@@ -51,15 +55,6 @@ angular.module('myApp').controller('profileController',
 
     $scope.showForm = function () {
       $scope.formProfile = !$scope.formProfile;
-      $scope.infoProfile = function() {
-        if($scope.hide) {
-          $scope.hide = false;
-        }
-        else {
-          $scope.hide = true;
-        }
-      }
-      // $scope.infoProfile = !$scope.infoProfile;
     };
 
     $scope.profile = function () {
@@ -95,8 +90,8 @@ angular.module('myApp').controller('registerController',
         // handle success
         .then(function () {
           $location.path('/login');
-          // $scope.disabled = false;
-          // $scope.registerForm = {};
+          $scope.disabled = false;
+          $scope.registerForm = {};
         })
         // handle error
         .catch(function () {

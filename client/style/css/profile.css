@@ -33,9 +33,11 @@
 .info {
   float: left;
   margin: 125px 50px 0px; }
+  .info label {
+    font-size: 13px; }
+  .info span {
+    font-size: 13px; }
 
 .edit_profile img {
   height: 24px;
   margin-top: 95px; }
-
-/*# sourceMappingURL=profile.css.map */
