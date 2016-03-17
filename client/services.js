@@ -1,6 +1,6 @@
 angular.module('myApp').factory('AuthService',
-  ['$q', '$timeout', '$http',
-  function ($q, $timeout, $http) {
+  ['$customHttp', '$q', '$timeout', '$http',
+  function ($customHttp, $q, $timeout, $http) {
 
     // create user variable
     var user = null;
@@ -17,6 +17,7 @@ angular.module('myApp').factory('AuthService',
     });
 
     function isLoggedIn() {
+      console.log(user);
       if(user) {
         return true;
       } else {
@@ -51,9 +52,8 @@ angular.module('myApp').factory('AuthService',
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            console.log(data);
             user = true;
-            deferred.resolve();
+            deferred.resolve(data.token);
           } else {
             user = false;
             deferred.reject();
@@ -79,6 +79,7 @@ angular.module('myApp').factory('AuthService',
       $http.get('/user/logout')
         // handle success
         .success(function (data) {
+          console.log(data);
           user = false;
           deferred.resolve();
         })
@@ -121,6 +122,7 @@ angular.module('myApp').factory('AuthService',
     function profile() {
       var deferred = $q.defer();
 
+      $customHttp.addToken();
       // send a get request to the server
       $http.get('/user/profile')
         // handle success
@@ -136,12 +138,12 @@ angular.module('myApp').factory('AuthService',
       return deferred.promise;  
     }
 
-    function editProfile(name, email, desciption) {
+    function editProfile(name, email, description) {
       var deferred = $q.defer();
 
       // send a post request to the server
       $http.post('/user/profile',
-        {name: name, email: email, desciption: desciption})
+        {name: name, email: email, description: description})
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
@@ -159,4 +161,17 @@ angular.module('myApp').factory('AuthService',
       return deferred.promise;
     }
 
+}]);
+
+angular.module('myApp').service('$customHttp', ['$http', function ($http) {
+  this.addToken = function () {
+        var token = localStorage.getItem('token');
+        if(token) {
+          $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
+        }
+        else {
+          $http.defaults.headers.common['Authorization'] = 'Basic ';
+        }
+        
+      }
 }]);

@@ -34,7 +34,8 @@ myApp.config(function ($routeProvider) {
     });
 });
 
-// myApp.run(function ($rootScope, $location, $route, AuthService) {
+myApp.run(function ($rootScope, $location, $route, AuthService) {
+  
 //   $rootScope.$on('$routeChangeStart',
 //     function (event, next, current) {
 //       AuthService.getUserStatus();
@@ -44,4 +45,4 @@ myApp.config(function ($routeProvider) {
 //         $route.reload();
 //       }
 //   });
-// });
+});

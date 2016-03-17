@@ -4,7 +4,7 @@
 		    <a href=""><img src="../image/pencil_image.png"></a>
         </div>
         <div class="info">
-	        <form class="form-horizontal" ng-hide="myVar" ng-init="profile()">
+	        <form class="form-horizontal" ng-init="profile()" ng-hide="infoProfile">
 	        	<div class="form-group">
 		        	<label for="" class="col-sm-3">Name</label>
 				    <div class="col-sm-9">
@@ -14,7 +14,7 @@
 		        <div class="form-group">
 		        	<label for="" class="col-sm-3">Email</label>
 					<div class="col-sm-9">
-						{{email}}
+						{{ email }}
 					</div>
 		        </div>
 		        <div class="form-group">
@@ -25,29 +25,29 @@
 	        	</div>      	
 	        </form>
 
-	        <form class="form-horizontal" ng-show="editProfile" ng-submit="editProfile()">
+	        <form class="form-horizontal" ng-show="formProfile">
 				<div class="form-group">
 			    	<label for="" class="col-sm-3">Name</label>
 				    <div class="col-sm-9">
-				      <input type="text" class="form-control" ng-model="user.name">
+				      <input type="text" class="form-control" ng-model="name">
 				    </div>
 				</div>
 			    <div class="form-group">
 			    	<label for="" class="col-sm-3">Email</label>
 					<div class="col-sm-9">
-					    <input type="email" class="form-control" ng-model="user.email">
+					    <input type="email" class="form-control" ng-model="email">
 					</div>
 			    </div>
 			    <div class="form-group">
 			    	<label for="" class="col-sm-3">Description</label>
 				    <div class="col-sm-9">
-				    	<input type="text" class="form-control" ing-model="user.description">
+				    	<input type="text" class="form-control" ng-model="description">
 				    </div>
 				</div>    
-				<button type="submit" class="btn btn-default" ng-disabled="disabled">Submit</button>  	
+				<button type="submit" class="btn btn-default" ng-click="editProfile()">Submit</button>  	
 			</form>
         </div>
-    	<a href="" class="edit_profile" ng-click="editProfile = ! editProfile">
-    		<img src="../image/edit_profile.png" ng-click="toggle()">
+    	<a href="" class="edit_profile" ng-click="showForm()">
+    		<img src="../image/edit_profile.png" >
     	</a>	
 </div>

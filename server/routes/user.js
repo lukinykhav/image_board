@@ -16,7 +16,6 @@ var upload = multer({ storage: storage });
 
 var Account = require('../models/account.js');
 
-
 router.post('/register', function(req, res) {
     Account.find({}, function(err, users) {
           var role = 'user';
@@ -60,9 +59,14 @@ router.post('/login', function(req, res, next) {
           err: 'Could not log in user'
         });
       }
-      res.status(200).json({
-        status: 'Login successful!',
-        token: token
+      Account.findOneAndUpdate({username: req.body.username}, {token: token}, function(err, user) {
+        if(err){
+          console.log("Something wrong when updating data!");
+        }
+        res.status(200).json({
+          status: 'Login successful!',
+          token: token
+        });
       });
     });
   })(req, res, next);
@@ -76,18 +80,23 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/profile', function(req, res){
-  Account.findOne({token: req.headers.authorization}, function(err, docs) {
+  var token = req.headers.authorization.split(' ')[1];
+  Account.findOne({ token: token }, function(err, docs) {
+    if(err) {
+      res.send('err');
+    }
+    else {
       res.send(docs);
+    }
   });
 });
 
 router.post('/profile', upload.single('image'), function(req, res){
-  Account.findOneAndUpdate({ token: req.headers.authorization },
+  var token = req.headers.authorization.split(' ')[1];
+  Account.findOneAndUpdate({ token: token },
       {
-        username: req.body.username,
-        email: req.body.email,
         name: req.body.name,
-        image: req.file.path,
+        email: req.body.email,
         description: req.body.description
       }, function(err, user) {
         res.json(user);

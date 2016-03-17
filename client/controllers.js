@@ -11,7 +11,8 @@ angular.module('myApp').controller('loginController',
       // call login from service
       AuthService.login($scope.loginForm.username, $scope.loginForm.password)
         // handle success
-        .then(function () {
+        .then(function (token) {
+          localStorage.setItem('token', token);
           $location.path('/profile');
           $scope.disabled = false;
           $scope.loginForm = {};
@@ -23,7 +24,6 @@ angular.module('myApp').controller('loginController',
           $scope.disabled = false;
           $scope.loginForm = {};
         });
-
     };
 
 }]);
@@ -37,6 +37,7 @@ angular.module('myApp').controller('logoutController',
       // call logout from service
       AuthService.logout()
         .then(function () {
+          localStorage.removeItem('token');
           $location.path('/login');
         });
 
@@ -48,31 +49,34 @@ angular.module('myApp').controller('profileController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-    $scope.toggle = function () {
-      $scope.myVar = !$scope.myVar;
+    $scope.showForm = function () {
+      $scope.formProfile = !$scope.formProfile;
+      $scope.infoProfile = function() {
+        if($scope.hide) {
+          $scope.hide = false;
+        }
+        else {
+          $scope.hide = true;
+        }
+      }
+      // $scope.infoProfile = !$scope.infoProfile;
     };
+
     $scope.profile = function () {
       AuthService.profile()
         .then(function (data) {
-           console.log(data.name);
            $scope.name = data.name;
            $scope.email = data.email;
            $scope.description = data.description;
         })
-    }
+    };
 
-}]);
-
-angular.module('myApp').controller('profileController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
-    console.log($scope.name);
     $scope.editProfile = function () {
       AuthService.editProfile($scope.name, $scope.email, $scope.description)
         .then(function (data) {
            console.log(data);
         })
-    }
+    };
 
 }]);
 

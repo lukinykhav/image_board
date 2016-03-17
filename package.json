@@ -6,6 +6,7 @@
     "start": "node ./server/bin/www"
   },
   "dependencies": {
+    "angular-local-storage": "^0.2.7",
     "basic-auth": "^1.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
