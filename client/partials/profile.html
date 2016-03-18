@@ -4,6 +4,21 @@
 		    <a href=""><img src="../image/pencil_image.png"></a>
         </div>
         <div class="info">
+        	<form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile">
+			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group" >
+			    <input class="mdl-textfield__input" type="text">
+			    <label class="mdl-textfield__label">Name...</label>
+			  </div>
+			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
+			    <input class="mdl-textfield__input" type="email">
+			    <label class="mdl-textfield__label">Email...</label>
+			  </div>
+			   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
+			    <input class="mdl-textfield__input" type="text">
+			    <label class="mdl-textfield__label">Description...</label>
+			  </div>
+			</form>
+
 	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">
 	        	<div class="form-group">
 		        	<label for="" class="col-sm-4">Name </label>
@@ -20,7 +35,7 @@
 	        	</div>      	
 	        </form>
 
-	        <form class="form-horizontal" ng-show="formProfile">
+	    <!--     <form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile">
 				<div class="form-group">
 			    	<label for="" class="col-sm-3">Name</label>
 				    <div class="col-sm-9">
@@ -38,9 +53,8 @@
 				    <div class="col-sm-9">
 				    	<input type="text" class="form-control" ng-model="description">
 				    </div>
-				</div>    
-				<button type="submit" class="btn btn-default" ng-click="editProfile()">Submit</button>  	
-			</form>
+				</div>    	
+			</form> -->
         </div>
     	<a href="" class="edit_profile" ng-click="showForm()">
     		<img src="../image/edit_profile.png" >

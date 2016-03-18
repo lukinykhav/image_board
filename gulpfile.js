@@ -2,28 +2,46 @@
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-//coffee = require('gulp-coffee');
-    nodemon = require('gulp-nodemon');
+    nodemon = require('gulp-nodemon'),
+    bourbon = require('node-bourbon'),
+    ngmin = require('gulp-ngmin'),
+    concat = require('gulp-concat'),
+    stylesPath = './client/style/sass/*.scss',
+    scriptsPath = './client/script/*.js',
+    distPath = './client';
 
-//gulp.task('coffee', function() {
-//    gulp.src('./*.coffee')
-//        .pipe(coffee({bare: true}).on('error', gutil.log))
-//        .pipe(gulp.dest('./public/'));
-//});
+gulp.task('scripts', function() {
+    return gulp.src(scriptsPath)
+        .pipe(concat('all.js'))
+        .pipe(ngmin({dynamic: true}))
+        .pipe(gulp.dest(distPath));
+});
 
 gulp.task('sass', function () {
-    return gulp.src('./client/style/sass/*.scss')
-        .pipe(sass.sync().on('error', sass.logError))
-        .pipe(gulp.dest('./client/style/css'));
+    gulp.src(stylesPath)
+        .pipe(sass({
+            outputStyle: 'compressed',
+            includePaths: bourbon.includePaths
+        }).on('error', sass.logError))
+        .pipe(gulp.dest(distPath));
+});
+
+
+// gulp.task('sass', function () {
+//     return gulp.src('./client/style/sass/*.scss')
+//         .pipe(sass.sync().on('error', sass.logError))
+//         .pipe(gulp.dest('./client/style/css'));
+// });
+
+gulp.task('scripts:watch', function () {
+    gulp.watch(scriptsPath, ['scripts']);
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch('./sass/**/*.scss', ['sass']);
+    gulp.watch(stylesPath, ['sass']);
 });
 
-gulp.task('default', function() {
-    console.log(123);
-});
+gulp.task('watch', ['sass:watch', 'scripts:watch']);
 
 gulp.task('nodemon', function () {
     nodemon({

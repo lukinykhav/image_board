@@ -55,7 +55,6 @@ angular.module('myApp').controller('profileController',
 
     $scope.showForm = function () {
       $scope.formProfile = !$scope.formProfile;
-      $scope.editProfile();
     };
 
     $scope.profile = function () {
