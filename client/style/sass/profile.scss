@@ -25,15 +25,12 @@
 		@include centerer;
 	}
 
-	a {
+	button {
 		height: 71px;
 		width: 69px;
 	    position: absolute;
 	    top: -35px;
 	    left: 242px;
-	    border: 1px solid #333;
-	    border-radius: 40px;
-	    background-color: #CFAEE8;
 
 		img {
 			height: 24px;
@@ -46,11 +43,15 @@
 	float: left;
     margin: 125px 50px 0px;	
 
-    label {
-    	font-size: 13px;
+    form {
+    	width: 350px;
     }
+
     span {
-    	font-size: 13px;
+    	font-size:18px;
+	  	width:300px;
+	  	float: left;
+	  	margin-top: 10px;
     }
 }
 
@@ -60,4 +61,40 @@
 		height: 24px;
 		margin-top: 95px;
 	}
+}
+
+/* form starting stylings ------------------------------- */
+.group        { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+input         {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+  background-color: inherit;
+}
+input:focus     { outline:none; }
+
+
+/* LABEL ======================================= */
+label          {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label     {
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
 }

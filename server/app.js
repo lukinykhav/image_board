@@ -27,6 +27,8 @@ var app = express();
 
 // view engine setup
 app.use(express.static(path.join(__dirname, '../client')));
+
+app.use(express.static(path.join(__dirname, '../node_modules')));
 // app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -61,7 +63,7 @@ app.get('/', function(req, res) {
 
 //this comment to see routes (refactoring), delete after test function in user.js
 // app.post('/register', user.signUp);
-//
+// 
 // app.post('/login',  passport.authenticate('local'), user.signIn);
 //
 // app.get('/profile', user.profile);

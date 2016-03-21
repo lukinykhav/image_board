@@ -1,60 +1,48 @@
 <div class="profile" ng-controller="profileController">
         <div class="avatar">
 		    <img src="../image/default-avatar.png">
-		    <a href=""><img src="../image/pencil_image.png"></a>
+		    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"><img src="../image/pencil_image.png"></button>
+		    <!-- <a href=""></a> -->
         </div>
         <div class="info">
         	<form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile">
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group" >
-			    <input class="mdl-textfield__input" type="text">
-			    <label class="mdl-textfield__label">Name...</label>
-			  </div>
-			  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
-			    <input class="mdl-textfield__input" type="email">
-			    <label class="mdl-textfield__label">Email...</label>
-			  </div>
-			   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label form-group">
-			    <input class="mdl-textfield__input" type="text">
-			    <label class="mdl-textfield__label">Description...</label>
-			  </div>
+	        	<div class="group">      
+					<input type="text" required ng-model="name">
+				    <span class="highlight"></span>
+				    <span class="bar"></span>
+				    <label>Name</label>
+				</div>
+				    
+				<div class="group">      
+				    <input type="text" required ng-model="email">
+				    <span class="highlight"></span>
+				    <span class="bar"></span>
+				    <label>Email</label>
+				</div>
+
+				<div class="group">
+					<input type="text" required ng-model="description"></input>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label>Description</label>
+				</div>
 			</form>
 
 	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">
 	        	<div class="form-group">
-		        	<label for="" class="col-sm-4">Name </label>
-			    	<span class="col-sm-8">{{ name }}</span>
+		        	<label for="" class="col-sm-3">Name </label>
+			    	<span class="col-sm-6">{{ name }}</span>
 	        	</div>
 		        <div class="form-group">
-		        	<label for="" class="col-sm-4">Email </label>
+		        	<label for="" class="col-sm-3">Email </label>
 					<span class="col-sm-8">{{ email }}</span>
 				
 		        </div>
 		        <div class="form-group">
-		        	<label for="" class="col-sm-4">Description </label>
+		        	<label for="" class="col-sm-3">Description </label>
 				    <span class="col-sm-8">{{ description }}</span>
 	        	</div>      	
 	        </form>
-
-	    <!--     <form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile">
-				<div class="form-group">
-			    	<label for="" class="col-sm-3">Name</label>
-				    <div class="col-sm-9">
-				      <input type="text" class="form-control" ng-model="name">
-				    </div>
-				</div>
-			    <div class="form-group">
-			    	<label for="" class="col-sm-3">Email</label>
-					<div class="col-sm-9">
-					    <input type="email" class="form-control" ng-model="email">
-					</div>
-			    </div>
-			    <div class="form-group">
-			    	<label for="" class="col-sm-3">Description</label>
-				    <div class="col-sm-9">
-				    	<input type="text" class="form-control" ng-model="description">
-				    </div>
-				</div>    	
-			</form> -->
         </div>
     	<a href="" class="edit_profile" ng-click="showForm()">
     		<img src="../image/edit_profile.png" >
