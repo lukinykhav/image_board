@@ -1,0 +1,27 @@
+$border: 1px solid #756575;
+
+.login {
+	width: 700px;
+	height: 326px;
+	border: $border;
+	border-radius: 10px;
+
+	.login_header {
+		// background-color: #823D82;
+		height: 33px;
+		border-bottom: $border;
+		border-radius: 10px;
+
+		.logo {
+			height: 100px;
+			width: 100px;
+			border: $border;
+			border-radius: 50px;
+			background-color: #fff;
+
+			img {
+			height: 60px;
+			}
+		}
+	}
+}

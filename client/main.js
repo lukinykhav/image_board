@@ -1,44 +1,71 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ui.router']);
 
-myApp.config(function ($routeProvider) {
-  $routeProvider
-    .when('/', {
-      templateUrl: 'partials/home.html',
-      access: {restricted: true}
+myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('anon', {
+      abstract: true,
+      templateUrl: 'partials/auth.html',
     })
-    .when('/login', {
+    .state('anon.login', {
+      url: '/login',
       templateUrl: 'partials/login.html',
       controller: 'loginController',
-      access: {restricted: false}
     })
-    .when('/logout', {
-      controller: 'logoutController',
-      access: {restricted: true}
-    })
-    .when('/register', {
+    .state('anon.register', {
+      url: '/register',
       templateUrl: 'partials/register.html',
       controller: 'registerController',
-      access: {restricted: true}
     })
-    .when('/profile', {
-      templateUrl: 'partials/profile.html',
-      controller: 'profileController',
-      access: {restricted: true}
+
+
+  $stateProvider
+    .state('user', {
+        abstract: true,
+        templateUrl: 'partials/main.html',
     })
-    .otherwise({
-      redirectTo: '/'
-    });
+    .state('user.profile', {
+        url: '/profile',
+        templateUrl: 'partials/profile.html',
+        controller: 'profileController'
+    })
+    .state('user.logout', {
+      url: '/logout',
+      controller: 'logoutController'
+    })
+}]);
+
+myApp.run(function ($rootScope, $state, AuthService) {
+
+   $rootScope.$on('$stateChangeStart',
+      function (event, toState, toParams, fromState, fromParams) {
+          AuthService.getUserStatus()
+            .then(function(data) {
+              if(data) {
+                $state.go('user.profile');
+              }
+              else {
+                if(toState.url === '/register') {
+                  $state.go('anon.register');
+                }
+                else {
+                  $state.go('anon.login');
+                } 
+              }
+              event.preventDefault();
+            })
+      }
+  );
 });
 
-myApp.run(function ($rootScope, $location, $route, AuthService) {
-  
-  // $rootScope.$on('$routeChangeStart',
-  //   function (event, next, current) {
-  //     AuthService.getUserStatus();
-  //     if (next.access.restricted &&
-  //         !AuthService.isLoggedIn()) {
-  //       $location.path('/login');
-  //       $route.reload();
-  //     }
-  // });
-});
+
+
+
+
+
+
+
+
+
+
+
+

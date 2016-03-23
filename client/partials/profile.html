@@ -29,25 +29,22 @@
 			</form>
 
 	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">
-	        	<div class="form-group">
-		        	<label for="" class="col-sm-3">Name </label>
-			    	<span class="col-sm-6">{{ name }}</span>
+	        	<div class="form-group row col-sm-12">
+		        	<label for="">Name </label>
+			    	<span>{{ name }}</span>
 	        	</div>
-		        <div class="form-group">
-		        	<label for="" class="col-sm-3">Email </label>
-					<span class="col-sm-8">{{ email }}</span>
+		        <div class="form-group row col-sm-12">
+		        	<label for="">Email </label>
+					<span>{{ email }}</span>
 				
 		        </div>
-		        <div class="form-group">
-		        	<label for="" class="col-sm-3">Description </label>
-				    <span class="col-sm-8">{{ description }}</span>
+		        <div class="form-group row col-sm-12">
+		        	<label for="">Description </label>
+				    <span>{{ description }}</span>
 	        	</div>      	
 	        </form>
         </div>
     	<a href="" class="edit_profile" ng-click="showForm()">
     		<img src="../image/edit_profile.png" >
     	</a>
-</div>
-<div ng-controller="logoutController" class="ng-scope">
-  <a ng-click="logout()" class="btn btn-default">Logout</a>
 </div>

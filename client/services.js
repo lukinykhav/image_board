@@ -26,19 +26,25 @@ angular.module('myApp').factory('AuthService',
     }
 
     function getUserStatus() {
+      var deferred = $q.defer();
+
       $http.get('/user/status')
       // handle success
       .success(function (data) {
-        if(data.status){
+        console.log(data);
+        if(data){
           user = true;
         } else {
           user = false;
         }
+        deferred.resolve(user);
       })
       // handle error
       .error(function (data) {
         user = false;
       });
+
+      return deferred.promise;
     }
 
     function login(username, password) {
