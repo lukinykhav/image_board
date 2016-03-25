@@ -24,4 +24,34 @@ $border: 1px solid #756575;
 			}
 		}
 	}
+
+	form {
+		position: absolute;
+	    margin-top: 70px;
+	    margin-left: 96px;
+
+		.group {
+			margin: 0;
+
+			.remember {
+				margin-left: 150px;
+				padding-top: 8px;
+			}
+
+			input {
+				width: 500px;
+			}
+		}
+	}
+
+	.btn-signIn {
+		width: 500px;
+		margin-top: 30px;
+	}
+}
+
+.link_register {
+	position: absolute;
+	top: 85%;
+	left: 45%;
 }

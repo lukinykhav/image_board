@@ -1,4 +1,4 @@
-.login{width:700px;height:326px;border:1px solid #756575;border-radius:10px}.login .login_header{height:33px;border-bottom:1px solid #756575;border-radius:10px}.login .login_header .logo{height:100px;width:100px;border:1px solid #756575;border-radius:50px;background-color:#fff}.login .login_header .logo img{height:60px}
+.login{width:700px;height:326px;border:1px solid #756575;border-radius:10px}.login .login_header{height:33px;border-bottom:1px solid #756575;border-radius:10px}.login .login_header .logo{height:100px;width:100px;border:1px solid #756575;border-radius:50px;background-color:#fff}.login .login_header .logo img{height:60px}.login form{position:absolute;margin-top:70px;margin-left:96px}.login form .group{margin:0}.login form .group .remember{margin-left:150px;padding-top:8px}.login form .group input{width:500px}.login .btn-signIn{width:500px;margin-top:30px}.link_register{position:absolute;top:85%;left:45%}
 
 .parent{position:relative}.child{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 
