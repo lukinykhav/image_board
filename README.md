@@ -10,10 +10,10 @@ How to start with development
 2. install [express.js]
 3. install [mongoDB]
 4. install [git]
-5. clone repo: git clone git://github.com/lukinykhav/image_board
-6. cd to the repo :
+5. clone repo:
 ```sh
- cd image_board
+$ git clone git://github.com/lukinykhav/image_board
+$ cd image_board
 ```
 
 ###Development
@@ -34,7 +34,7 @@ $ gulp watch
 ###Running project
 
 ```sh
-npm start
+$ npm start
 ```
 
 Contacts
