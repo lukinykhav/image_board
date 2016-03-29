@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ui.router']);
+var myApp = angular.module('myApp', ['ngMaterial', 'ui.router', 'vcRecaptcha']);
 
 myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
   $stateProvider

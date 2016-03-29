@@ -6,25 +6,6 @@ $border: 1px solid #756575;
 	border: $border;
 	border-radius: 10px;
 
-	.login_header {
-		// background-color: #823D82;
-		height: 33px;
-		border-bottom: $border;
-		border-radius: 10px;
-
-		.logo {
-			height: 100px;
-			width: 100px;
-			border: $border;
-			border-radius: 50px;
-			background-color: #fff;
-
-			img {
-			height: 60px;
-			}
-		}
-	}
-
 	form {
 		position: absolute;
 	    margin-top: 70px;
@@ -43,15 +24,35 @@ $border: 1px solid #756575;
 			}
 		}
 	}
-
-	.btn-signIn {
-		width: 500px;
-		margin-top: 30px;
-	}
 }
 
 .link_register {
 	position: absolute;
 	top: 85%;
 	left: 45%;
+}
+
+.form_header {
+		// background-color: #823D82;
+		height: 33px;
+		border-bottom: $border;
+		border-radius: 10px;
+
+		.logo {
+			height: 100px;
+			width: 100px;
+			border: $border;
+			border-radius: 50px;
+			background-color: #fff;
+
+			img {
+			height: 60px;
+			}
+		}
+	}
+
+.btn-form {
+	width: 500px;
+	margin-top: 30px;
+	margin-bottom: 10px;
 }

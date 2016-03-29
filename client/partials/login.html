@@ -1,87 +1,21 @@
-<!-- <div class="col-md-4">
-  <h1>Login</h1>
-  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-  <form class="form" ng-submit="login()">
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
-      </div>
-      <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
-      </div>
-  </form>
-</div>
-<div>
-  <a ng-click="showRegister()" class="btn btn-default">Register</a>
-</div>
- -->
-
-
-
-
-<!-- <div id="login-page" class=" login row">
-    <div class="col s12 z-depth-6 card-panel">
-      <form class="login-form">
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="email" type="email">
-            <label for="email" data-error="wrong" data-success="right" class="center-align">Email</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password">
-            <label for="password">Password</label>
-          </div>
-        </div>
-        <div class="row">         
-          <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember-me" />
-              <label for="remember-me">Remember me</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <a href="login.html" class="btn waves-effect waves-light col s12">Login</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="register.html">Register Now!</a></p>
-          </div>
-          <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>
-          </div>         
-        </div>
-      </form>
-    </div>
-  </div>
- -->
-
-
 <div class="login child">
-  <div class="login_header parent">
+  <div class="form_header parent">
     <div class="child logo">
       <img src="/image/default-avatar.png" class="child">
     </div>
   </div>
   <div>
-    <form ng-submit="login()">
+    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+    <form class="form" ng-submit="login()">
       <div class="group">      
-          <input type="text" required ng-model="loginForm.username">
+          <input type="text" name="username" ng-model="loginForm.username" required>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>Username</label>
         </div>
             
         <div class="group">      
-            <input type="text" required ng-model="loginForm.password">
+            <input type="password" name="password" ng-model="loginForm.password" required>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>Password</label>
@@ -92,7 +26,7 @@
           <md-switch aria-label="Switch 1" class="remember"></md-switch>
         </div>
 
-        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-signIn">Sign in</md-button>
+        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-" type="submit" ng-disabled="disabled">Sign in</md-button>
     </form>
   </div>
 </div>

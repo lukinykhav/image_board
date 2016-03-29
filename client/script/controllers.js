@@ -2,6 +2,8 @@ angular.module('myApp').controller('loginController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
+    console.log('sadasd');
+
     $scope.login = function () {
 
       // initial values

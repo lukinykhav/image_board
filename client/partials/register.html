@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<!-- <div class="col-md-4">
   <h1>Register</h1>
   <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
   <form class="form" ng-submit="register()">
@@ -19,3 +19,63 @@
       </div>
   </form>
 </div>
+ -->
+
+
+ <div class="signUp">
+  <div class="form_header parent">
+    <div class="child logo">
+      <img src="/image/default-avatar.png" class="child">
+    </div>
+  </div>
+  <div>
+    <!-- <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div> -->
+    <form class="form" ng-submit="register()">
+      <md-input-container class="md-block">
+        <label>Username</label>
+        <input required="" name="username" ng-model="registerForm.username"> 
+        <div ng-messages="registerForm.username.$error">
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Email address</label>
+        <input required="" name="email" type="email" ng-model="registerForm.email">
+         <div ng-messages="registerForm.email.$error">
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <input required="" name="password" type="password" ng-model="registerForm.password">
+        <div ng-messages="registerForm.password.$error" >
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Confirm password</label>
+        <input required="" name="confirm_password" type="password" ng-model="registerForm.confirm_password" pw-check="registerForm.password">
+        <div ng-show="registerForm.$error"> <span class="msg-error" ng-show="registerForm.confirm_password.$error.pwmatch">Passwords don't match.</span> 
+            </div>
+
+        <div ng-messages="registerForm.confirm_password.$error">
+        </div>
+      </md-input-container>
+
+      <div layout="row" layout-align='left start'>  
+        <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
+      </div>
+      
+      <div class="captcha parent">
+        <div class="child"
+            vc-recaptcha
+            key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
+        ></div>
+
+      </div>
+
+      <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" type="submit" ng-disabled="disable">Sign up</md-button>
+    </form>
+  </div>
+ </div>
+
