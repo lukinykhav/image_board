@@ -82,6 +82,8 @@ angular.module('myApp').controller('registerController',
 
     $scope.register = function () {
 
+      $scope.registerForm.username = 'anna';
+
       // initial values
       $scope.error = false;
       $scope.disabled = true;

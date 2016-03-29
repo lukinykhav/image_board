@@ -31,7 +31,6 @@ angular.module('myApp').factory('AuthService',
       $http.get('/user/status')
       // handle success
       .success(function (data) {
-        console.log(data);
         if(data){
           user = true;
         } else {
@@ -181,3 +180,29 @@ angular.module('myApp').service('$customHttp', ['$http', function ($http) {
         
       }
 }]);
+
+
+angular.module('myApp').directive('pwCheck', function () {
+    return {
+        require: 'ngModel',
+        // link: function (scope, elm, attrs, ctrl) {
+        //   console.log(ctrl.$parsers);
+        //     ctrl.$parsers.unshift(function (viewValue, $scope) {
+        //         var noMatch = viewValue != scope.myForm.password.$viewValue
+        //         ctrl.$setValidity('noMatch', !noMatch)
+        //     })
+        //     console.log(ctrl);
+        // }
+
+        link: function (scope, elem, attrs, ctrl) {
+          var firstPassword = '#' + attrs.pwCheck;
+          elem.add(firstPassword).on('keyup', function () {
+            scope.$apply(function () {
+              var v = elem.val()===$(firstPassword).val();
+              console.log(v);
+              ctrl.$setValidity('pwmatch', v);
+            });
+          });
+        }
+    }
+})
