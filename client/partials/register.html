@@ -19,9 +19,9 @@
       </div>
   </form>
 </div>  -->
-<div ng-controller="registerController">
-  <md-content layout-padding>
-    <div class="signUp" ng-controller="registerController" ng-cloak="">
+<!-- <div ng-controller="registerController">
+  <md-content layout-padding> -->
+    <div class="signUp" ng-cloak="">
     <div class="form_header parent">
       <div class="child logo">
         <img src="/image/default-avatar.png" class="child">
@@ -29,7 +29,7 @@
     </div>
     <div>
       <!-- <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div> -->
-      <form name="myForm" class="form" ng-submit="register()">
+      <form name="myForm" class="form">
         <md-input-container class="md-block" id="username">
           <label>Username</label>
           <input name="username" ng-model="registerForm.username" required role="alert"> 
@@ -59,11 +59,11 @@
           <input id="password_c" name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
           <div ng-messages="myForm.password_c.$error">
             <div ng-hide="!myForm.password_c.$error.required" ng-message="required">Confirm password is required.</div>
-            <div ng-hide="!myForm.password.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
+            <div ng-hide="!myForm.password_c.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
           </div>
         </md-input-container>
 
-        <div layout="row" layout-align='left start'>  
+      <!--   <div layout="row" layout-align='left start'>  
           <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
         </div>
         
@@ -71,16 +71,16 @@
           <div class="child"
               vc-recaptcha
               key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
-          ></div>
+          ></div> -->
 
         </div>
 
-        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" type="submit" ng-disabled="disabled">Sign up</md-button>
+        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" type="submit" ng-disabled="myForm.$invalid" ng-click="register($event)">Sign up</md-button>
       </form>
     </div>
    </div>
-  </md-content>
-</div>
+<!--   </md-content>
+</div> -->
  
 
 
