@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 var LocalStrategy = require('passport-local').Strategy;
-var user = require('./routes/user');
+var user = require('./controllers/user');
 
 
 //delete after test function in user.js
