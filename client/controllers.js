@@ -85,7 +85,9 @@ angular.module('myApp').controller('registerController',
 
 console.log(1);
 
-    $scope.register = function (event) {
+    $scope.register = function () {
+
+      console.log(2);
       
       // initial values
       $scope.error = false;
@@ -97,19 +99,18 @@ console.log(1);
       AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
         // handle success
         .then(function () {
+          console.log(4);
           $location.path('/login');
-          $scope.disabled = false;
-          $scope.registerForm = {};
+          // $scope.disabled = false;
+          // $scope.registerForm = {};
         })
         // handle error
-        .catch(function () {
-          $scope.error = true;
-          $scope.errorMessage = "Something went wrong!";
-          $scope.disabled = false;
-          $scope.registerForm = {};
-        });
-
-        event.preventDefault();
+        // .catch(function () {
+        //   $scope.error = true;
+        //   $scope.errorMessage = "Something went wrong!";
+        //   $scope.disabled = false;
+        //   $scope.registerForm = {};
+        // });
 
     };
 

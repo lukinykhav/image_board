@@ -109,6 +109,7 @@ angular.module('myApp').factory('AuthService',
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
+            console.log(data, status);
             deferred.resolve(data);
           } else {
             deferred.reject();

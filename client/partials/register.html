@@ -19,21 +19,19 @@
       </div>
   </form>
 </div>  -->
-<!-- <div ng-controller="registerController">
-  <md-content layout-padding> -->
-    <div class="signUp" ng-cloak="">
+
+    <div class="signUp">
     <div class="form_header parent">
       <div class="child logo">
         <img src="/image/default-avatar.png" class="child">
       </div>
     </div>
     <div>
-      <!-- <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div> -->
       <form name="myForm" class="form">
-        <md-input-container class="md-block" id="username">
+        <md-input-container class="md-block">
           <label>Username</label>
-          <input name="username" ng-model="registerForm.username" required role="alert"> 
-          <div ng-messages="myForm.username.$error" > 
+          <input name="username" ng-model="registerForm.username" required> 
+          <div ng-messages="myForm.username.$error"> 
               <div ng-hide="!myForm.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
           </div>
         </md-input-container>
@@ -63,7 +61,7 @@
           </div>
         </md-input-container>
 
-      <!--   <div layout="row" layout-align='left start'>  
+        <div layout="row" layout-align='left start'>  
           <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
         </div>
         
@@ -71,16 +69,14 @@
           <div class="child"
               vc-recaptcha
               key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
-          ></div> -->
+          ></div>
 
         </div>
 
-        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" type="submit" ng-disabled="myForm.$invalid" ng-click="register($event)">Sign up</md-button>
+        <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" ng-disabled="disabled" ng-click="register()">Sign up</md-button>
       </form>
     </div>
    </div>
-<!--   </md-content>
-</div> -->
  
 
 
