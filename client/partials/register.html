@@ -32,7 +32,7 @@
 
     <md-input-container class="md-block">
       <label>Confirm password</label>
-      <input id="password_c" name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
+      <input name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
       <div ng-messages="myForm.password_c.$error">
         <div ng-hide="!myForm.password_c.$error.required" ng-message="required">Confirm password is required.</div>
         <div ng-hide="!myForm.password_c.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
@@ -41,7 +41,6 @@
 
     <div layout="row" layout-align='left start'>  
       <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
-      {{registerForm.agree}}
        <div ng-messages="myForm.agree.$error">
         <div ng-hide="!myForm.agree.$error.required" ng-message="required">Confirm password is required.</div>
       </div>
