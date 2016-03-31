@@ -62,6 +62,14 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
+// app.use('/', board);
+
+app.post('/create_board', board.createBoard);
+
+// app.post('/create_board', function(req, res) {
+//   console.log(req.body);
+//   res.send(req.body.name);
+// })
 
 //this comment to see routes (refactoring), delete after test function in user.js
 // app.post('/register', user.signUp);

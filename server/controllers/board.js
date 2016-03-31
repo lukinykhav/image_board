@@ -1,10 +1,45 @@
 var express = require('express');
-var router = express.Router();
+// var router = express.Router();
 
 var Board = require('../models/board.js');
+var Account = require('../models/account.js')
 
-router.post('/create_board', function(req, res) {
-	console.log(1);
-})
+// router.post('/create_board', function(req, res) {
 
-module.exports = router;
+//   console.log(req.body);
+//   res.send(req.body.name);
+// })
+
+// module.exports = router;
+
+
+exports.createBoard = function(req, res) {
+
+	var token = req.headers.authorization.split(' ')[1];
+
+	Account.findOne({ token: token }, function(err, user) {
+	    if(err) {
+	      res.send('err');
+	    }
+	    else {
+	    	// Create a new instance of the Board model
+			var board = new Board();
+
+			// Set the board properties that came from the POST data
+			board.name = req.body.name;
+			board.description = req.body.description;
+			board.user_id = user._id;
+
+			// Save the board and check for errors
+			board.save(function(err) {
+			if (err)
+				console.log(999999999);
+			  res.send(err);
+
+			res.json({ message: 'Beer added to the locker!', data: board });
+			});
+	    }
+	});
+
+	
+};
