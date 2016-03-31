@@ -9,6 +9,7 @@ var passport = require('passport');
 
 var LocalStrategy = require('passport-local').Strategy;
 var user = require('./controllers/user');
+var board = require('./controllers/board');
 
 
 //delete after test function in user.js
@@ -65,6 +66,7 @@ app.use('/', user);
 app.use('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
+
 
 //this comment to see routes (refactoring), delete after test function in user.js
 // app.post('/register', user.signUp);
