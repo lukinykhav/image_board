@@ -9,8 +9,8 @@
   <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
     <md-input-container class="md-block">
       <label>Username</label>
-      <input name="username" ng-model="registerForm.username" required> 
-      <div ng-messages="myForm.username.$error"> 
+      <input name="username" ng-model="registerForm.username" required>
+      <div ng-messages="myForm.username.$error">
         <div ng-hide="!myForm.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
       </div>
     </md-input-container>
@@ -40,13 +40,13 @@
       </div>
     </md-input-container>
 
-    <div layout="row" layout-align='left start'>  
+    <div layout="row" layout-align='left start'>
       <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
        <div ng-messages="myForm.agree.$error">
         <div ng-hide="!myForm.agree.$error.required" ng-message="required">Confirm password is required.</div>
       </div>
     </div>
-    
+
     <div class="captcha parent">
       <div class="child"
           vc-recaptcha

@@ -9,8 +9,8 @@
     <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
       <md-input-container class="md-block">
         <label>Username</label>
-        <input name="username" ng-model="loginForm.username" required> 
-        <div ng-messages="form_login.username.$error"> 
+        <input name="username" ng-model="loginForm.username" required>
+        <div ng-messages="form_login.username.$error">
           <div ng-hide="!form_login.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
         </div>
       </md-input-container>
