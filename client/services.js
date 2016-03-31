@@ -84,7 +84,6 @@ angular.module('myApp').factory('AuthService',
       $http.get('/user/logout')
         // handle success
         .success(function (data) {
-          console.log(data);
           user = false;
           deferred.resolve();
         })
@@ -109,7 +108,6 @@ angular.module('myApp').factory('AuthService',
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            console.log(data, status);
             deferred.resolve(data);
           } else {
             deferred.reject();
