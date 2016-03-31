@@ -5,28 +5,29 @@
     </div>
   </div>
   <div>
-    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-    <form class="form" ng-submit="login()">
-      <div class="group">      
-          <input type="text" name="username" ng-model="loginForm.username" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Username</label>
+    <form class="form" name="form_login" novalidate>
+      <md-input-container class="md-block">
+        <label>Username</label>
+        <input name="username" ng-model="loginForm.username" required> 
+        <div ng-messages="form_login.username.$error"> 
+          <div ng-hide="!form_login.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
         </div>
-            
-        <div class="group">      
-            <input type="password" name="password" ng-model="loginForm.password" required>
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Password</label>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Password</label>
+        <input name="password" type="password" ng-model="loginForm.password" required>
+        <div ng-messages="form_login.password.$error" >
+        <div ng-hide="!form_login.password.$error.required" ng-message="required">Password is required.</div>
         </div>
-      
-        <div class="group">
+      </md-input-container>
+
+      <md-input-container class="md-block">
           <label>Remember me:</label>
           <md-switch aria-label="Switch 1" class="remember"></md-switch>
-        </div>
+        </md-input-container>
 
-        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-" type="submit" ng-disabled="disabled">Sign in</md-button>
+      <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" ng-disabled="form_login.$invalid" ng-click="login()">Sign in</md-button>
     </form>
   </div>
 </div>

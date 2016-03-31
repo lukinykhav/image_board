@@ -54,9 +54,13 @@
     span {
     	font-size:18px;
 	  	width:300px;
-	  	float: left;
-	  	margin-top: 10px;
-	  	margin-left: 100px;
+	  	// float: left;
+	  	// margin-top: 10px;
+	  	margin-left: 50px;
+    }
+
+    label {
+    	width: 35px;
     }
 
     .form-group {
@@ -71,39 +75,3 @@
 		margin-top: 95px;
 	}
 }
-
-// /* form starting stylings ------------------------------- */
-// .group        { 
-//   position:relative; 
-//   margin-bottom:45px; 
-// }
-// input         {
-//   font-size:18px;
-//   padding:10px 10px 10px 5px;
-//   display:block;
-//   width:300px;
-//   border:none;
-//   border-bottom: 1px solid #757575;
-//   background-color: inherit;
-// }
-// input:focus     { outline:none; }
-
-
-// /* LABEL ======================================= */
-// label          {
-//   color:#999; 
-//   font-size:18px;
-//   font-weight:normal;
-//   position:absolute;
-//   pointer-events:none;
-//   left:5px;
-//   top:10px;
-//   transition:0.2s ease all; 
-// }
-
-// /* active state */
-// input:focus ~ label, input:valid ~ label     {
-//   top:-20px;
-//   font-size:14px;
-//   color:#5264AE;
-// }

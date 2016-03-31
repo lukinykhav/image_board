@@ -1,107 +1,60 @@
-<!-- <div class="col-md-4">
-  <h1>Register</h1>
-  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-  <form class="form" ng-submit="register()">
-    <div class="form-group">
+<div class="signUp">
+<div class="form_header parent">
+  <div class="child logo">
+    <img src="/image/default-avatar.png" class="child">
+  </div>
+</div>
+<div>
+  <form name="myForm" class="form" novalidate>
+    <md-input-container class="md-block">
       <label>Username</label>
-      <input type="text" class="form-control" name="username" ng-model="registerForm.username" required>
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" class="form-control" name="email" ng-model="registerForm.email" required>
-    </div>
-    <div class="form-group">
+      <input name="username" ng-model="registerForm.username" required> 
+      <div ng-messages="myForm.username.$error"> 
+        <div ng-hide="!myForm.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label>Email address</label>
+      <input name="email" type="email" ng-model="registerForm.email" required>
+      <div ng-messages="myForm.email.$error">
+        <div ng-hide="!myForm.email.$error.required" ng-message="required">Email is required.</div>
+      </div>
+    </md-input-container>
+
+    <md-input-container class="md-block">
       <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="registerForm.password" required>
+      <input id="password" name="password" type="password" ng-model="registerForm.password" required>
+      <div ng-messages="myForm.password.$error" >
+      <div ng-hide="!myForm.password.$error.required" ng-message="required">Password is required.</div>
       </div>
-      <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Register</button>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      <label>Confirm password</label>
+      <input name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
+      <div ng-messages="myForm.password_c.$error">
+        <div ng-hide="!myForm.password_c.$error.required" ng-message="required">Confirm password is required.</div>
+        <div ng-hide="!myForm.password_c.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
       </div>
+    </md-input-container>
+
+    <div layout="row" layout-align='left start'>  
+      <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
+       <div ng-messages="myForm.agree.$error">
+        <div ng-hide="!myForm.agree.$error.required" ng-message="required">Confirm password is required.</div>
+      </div>
+    </div>
+    
+    <div class="captcha parent">
+      <div class="child"
+          vc-recaptcha
+          key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
+      ></div>
+
+    </div>
+
+    <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" ng-disabled="myForm.$invalid" ng-click="register()">Sign up</md-button>
   </form>
-</div>  -->
-<!-- <div ng-controller="registerController">
-  <md-content layout-padding> -->
-    <div class="signUp" ng-cloak="">
-    <div class="form_header parent">
-      <div class="child logo">
-        <img src="/image/default-avatar.png" class="child">
-      </div>
-    </div>
-    <div>
-      <!-- <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div> -->
-      <form name="myForm" class="form">
-        <md-input-container class="md-block" id="username">
-          <label>Username</label>
-          <input name="username" ng-model="registerForm.username" required role="alert"> 
-          <div ng-messages="myForm.username.$error" > 
-              <div ng-hide="!myForm.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>Email address</label>
-          <input name="email" type="email" ng-model="registerForm.email" required>
-          <div ng-messages="myForm.email.$error">
-            <div ng-hide="!myForm.email.$error.required" ng-message="required">Email is required.</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>Password</label>
-          <input id="password" name="password" type="password" ng-model="registerForm.password" required>
-          <div ng-messages="myForm.password.$error" >
-          <div ng-hide="!myForm.password.$error.required" ng-message="required">Password is required.</div>
-          </div>
-        </md-input-container>
-
-        <md-input-container class="md-block">
-          <label>Confirm password</label>
-          <input id="password_c" name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
-          <div ng-messages="myForm.password_c.$error">
-            <div ng-hide="!myForm.password_c.$error.required" ng-message="required">Confirm password is required.</div>
-            <div ng-hide="!myForm.password_c.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
-          </div>
-        </md-input-container>
-
-      <!--   <div layout="row" layout-align='left start'>  
-          <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
-        </div>
-        
-        <div class="captcha parent">
-          <div class="child"
-              vc-recaptcha
-              key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
-          ></div> -->
-
-        </div>
-
-        <md-button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" type="submit" ng-disabled="myForm.$invalid" ng-click="register($event)">Sign up</md-button>
-      </form>
-    </div>
-   </div>
-<!--   </md-content>
-</div> -->
- 
-
-
-<!--  <md-content layout-padding="" ng-cloak="">
-    <form name="projectForm">
-
-      <md-input-container class="md-block">
-        <label>Description</label>
-        <input md-maxlength="30" required="" md-no-asterisk="" name="description" ng-model="project.description">
-        <div ng-messages="projectForm.description.$error" md-auto-hide="true">
-          <div ng-message="required">This is required.</div>
-          <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
-        </div>
-      </md-input-container>
-
-      <md-input-container class="md-block">
-        <label>Client Name</label>
-        <input required="" name="clientName" ng-model="project.clientName" md-auto-hide="true">
-        <div ng-messages="projectForm.clientName.$error">
-          <div ng-message="required">This is required.</div>
-        </div>
-      </md-input-container>
-      </form>
-      </md-content>
+</div>
+</div>

@@ -5,27 +5,31 @@
 		    <!-- <a href=""></a> -->
         </div>
         <div class="info">
-        	<form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile">
-	        	<div class="group">      
-					<input type="text" required ng-model="name">
-				    <span class="highlight"></span>
-				    <span class="bar"></span>
-				    <label>Name</label>
-				</div>
-				    
-				<div class="group">      
-				    <input type="text" required ng-model="email">
-				    <span class="highlight"></span>
-				    <span class="bar"></span>
-				    <label>Email</label>
-				</div>
+        	<form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile" name="form_profile">
 
-				<div class="group">
-					<input type="text" required ng-model="description"></input>
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Description</label>
-				</div>
+        		<md-input-container class="md-block">
+				  <label>Name</label>
+				  <input name="name" ng-model="name"> 
+				  <!-- <div ng-messages="form_profile.name.$error"> 
+				    <div ng-hide="!form_profile.name.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div> -->
+				</md-input-container>
+
+				<md-input-container class="md-block">
+				  <label>Email</label>
+				  <input name="email" ng-model="email" required> 
+				  <div ng-messages="form_profile.email.$error"> 
+				    <div ng-hide="!form_profile.email.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+				  <label>Description</label>
+				  <input name="description" ng-model="description"> 
+				<!--   <div ng-messages="form_profile.description.$error"> 
+				    <div ng-hide="!form_profile.description.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div> -->
+				</md-input-container>
 			</form>
 
 	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">

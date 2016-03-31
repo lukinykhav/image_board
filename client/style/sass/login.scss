@@ -1,27 +1,25 @@
 $border: 1px solid #756575;
 
 .login {
+	position:absolute;
 	width: 700px;
-	height: 326px;
+	height: auto;
 	border: $border;
 	border-radius: 10px;
 
 	form {
-		position: absolute;
-	    margin-top: 70px;
+	    margin-top: 45px;
 	    margin-left: 96px;
+	    height: 100%;
 
-		.group {
-			margin: 0;
 
-			.remember {
-				margin-left: 150px;
-				padding-top: 8px;
-			}
+		input {
+			width: 500px;
+		}
 
-			input {
-				width: 500px;
-			}
+		.remember {
+			margin-left: 150px;
+			margin-top: 0px;
 		}
 	}
 }
@@ -56,3 +54,4 @@ $border: 1px solid #756575;
 	margin-top: 30px;
 	margin-bottom: 10px;
 }
+

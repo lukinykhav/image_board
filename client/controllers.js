@@ -2,8 +2,6 @@ angular.module('myApp').controller('loginController',
   ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService) {
 
-    console.log(3);
-
     $scope.login = function () {
 
       // initial values
@@ -79,19 +77,14 @@ angular.module('myApp').controller('profileController',
 }]);
 
 angular.module('myApp').controller('registerController',
-  ['$scope', '$location', 'AuthService',
-  function ($scope, $location, AuthService) {
+  ['$scope', '$location', 'AuthService', '$state',
+  function ($scope, $location, AuthService, $state) {
 
-
-console.log(1);
-
-    $scope.register = function (event) {
+    $scope.register = function () {
       
       // initial values
       $scope.error = false;
       $scope.disabled = true;
-
-      console.log($scope.error, $scope.disabled);
 
       // call register from service
       AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
@@ -108,8 +101,6 @@ console.log(1);
           $scope.disabled = false;
           $scope.registerForm = {};
         });
-
-        event.preventDefault();
 
     };
 
