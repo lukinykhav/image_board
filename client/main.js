@@ -32,6 +32,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
       url: '/logout',
       controller: 'logoutController'
     })
+    .state('user.boards', {
+      url: '/boards',
+      templateUrl: 'partials/boards.html',
+      controller: 'boardsController'
+    })
 }]);
 
 myApp.run(function ($rootScope, $state, AuthService) {
@@ -41,7 +46,7 @@ myApp.run(function ($rootScope, $state, AuthService) {
           AuthService.getUserStatus()
             .then(function(data) {
               if(data) {
-                $state.go('user.profile');
+                // $state.go('user.profile');
               }
               else {
                 if(toState.url === '/register') {

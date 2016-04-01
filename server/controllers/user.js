@@ -110,6 +110,23 @@ router.get('/status', function(req, res) {
 
 module.exports = router;
 
+
+// exports.getUserId = function (req, res) {
+// // exports.getUserId = function (req, res) {
+//   console.log(888888888);
+//   // var token = req.headers.authorization.split(' ')[1];
+//   // Account.findOne({token: token}, function(err, user) {
+//   //  if(err) {
+//   //       return false;
+//   //     }
+//   //     else {
+//   //      return user._id;
+//   //     }
+//   // });
+//   res.send('898989');
+// };
+
+
 //this comment to refactoring code
 // exports.profile = function(req, res) {
 //     Account.findOne({token: req.headers.authorization}, function(err, docs) {

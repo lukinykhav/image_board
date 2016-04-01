@@ -77,7 +77,7 @@ angular.module('myApp').controller('profileController',
 }]);
 
 angular.module('myApp').controller('registerController',
-  ['$scope', '$location', 'AuthService', '$state',
+  ['$scope', '$location', 'AuthService',
   function ($scope, $location, AuthService, $state) {
 
     $scope.register = function () {
@@ -104,6 +104,15 @@ angular.module('myApp').controller('registerController',
 
     };
 
+}]);
 
-
+angular.module('myApp').controller('boardsController', 
+  ['$scope', '$location', 'BoardService',
+  function ($scope, $location, BoardService) {
+    $scope.listBoard = function () {
+        BoardService.listBoard()
+          .then(function (data) {
+            $scope.boards = data;
+          })
+    }
 }]);
