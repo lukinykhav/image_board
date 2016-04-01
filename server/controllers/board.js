@@ -2,7 +2,8 @@ var express = require('express');
 // var router = express.Router();
 
 var Board = require('../models/board.js');
-var Account = require('../models/account.js')
+var Account = require('../models/account.js');
+var User = require('../controllers/user.js')
 
 // router.post('/create_board', function(req, res) {
 
@@ -14,7 +15,6 @@ var Account = require('../models/account.js')
 
 
 exports.createBoard = function(req, res) {
-
 	var token = req.headers.authorization.split(' ')[1];
 
 	Account.findOne({ token: token }, function(err, user) {
@@ -32,14 +32,30 @@ exports.createBoard = function(req, res) {
 
 			// Save the board and check for errors
 			board.save(function(err) {
-			if (err)
-				console.log(999999999);
-			  res.send(err);
-
-			res.json({ message: 'Beer added to the locker!', data: board });
+			if (err){
+				res.send('This name of board exists.');
+			}
+			else{
+				res.json({ message: 'Board added!', data: board });
+			}
 			});
 	    }
 	});
+};
 
-	
+exports.listBoard = function(req, res) {
+	var token = req.headers.authorization.split(' ')[1];
+	var user_id;
+
+	Account.findOne({token: token}, function(err, user) {
+		if(err) {
+		    return ('err');
+		}
+		else {
+			Board.find({user_id: user._id}, function(err, boards) {
+				res.send(boards);
+			});
+		}
+	});
+
 };

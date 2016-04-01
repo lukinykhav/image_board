@@ -70,6 +70,7 @@ app.use('/*', function (req, res) {
 // app.use('/', board);
 
 app.post('/create_board', board.createBoard);
+app.get('/list_board', board.listBoard);
 
 // app.post('/create_board', function(req, res) {
 //   console.log(req.body);

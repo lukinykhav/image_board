@@ -195,4 +195,48 @@ angular.module('myApp').directive('pwCheck', [function () {
         }
         
     }
-}])
+}]);
+
+angular.module('myApp').factory('BoardService',
+  ['$customHttp', '$q', '$timeout', '$http',
+  function ($customHttp, $q, $timeout, $http) {
+
+    // return available functions for use in the controllers
+    return ({
+      listBoard: listBoard,
+      addBoard: addBoard,
+
+    });
+
+    function listBoard() {
+      var deferred = $q.defer();
+
+      // send a get request to the server
+      $http.get('/list_board')
+        // handle success
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        // handle error
+        .error(function (data) {
+          deferred.reject();
+        });
+
+      // return promise object
+      return deferred.promise; 
+    }
+
+    function addBoard() {
+      var deferred = $q.defer();
+
+      $http.post('/create_board')
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        .error(function (data) {
+          deferred.reject();
+        })
+
+      return deferred.promise;
+    }
+}]);
