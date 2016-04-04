@@ -22,23 +22,30 @@ exports.createBoard = function(req, res) {
 	      res.send('err');
 	    }
 	    else {
-	    	// Create a new instance of the Board model
-			var board = new Board();
+	    	// Find the same name of board
+	    	Board.findOne({ name: req.body.name }, function(err, board) {
+	    		if (board === null) {
+	    			// Create a new instance of the Board model
+	    			var board = new Board();
 
-			// Set the board properties that came from the POST data
-			board.name = req.body.name;
-			board.description = req.body.description;
-			board.user_id = user._id;
+					// Set the board properties that came from the POST data
+					board.name = req.body.name;
+					board.description = req.body.description;
+					board.user_id = user._id;
 
-			// Save the board and check for errors
-			board.save(function(err) {
-			if (err){
-				res.send('This name of board exists.');
-			}
-			else{
-				res.json({ message: 'Board added!', data: board });
-			}
-			});
+					// Save the board and check for errors
+					board.save(function(err, board) {
+						if(err) {
+							res.send(err);
+						}
+						res.json({ message: 'Board added!', data: board });
+					});
+	    		}
+	    		else {
+	    			res.send('this name of board exists');
+	    		}
+
+	    	});
 	    }
 	});
 };
@@ -49,7 +56,7 @@ exports.listBoard = function(req, res) {
 
 	Account.findOne({token: token}, function(err, user) {
 		if(err) {
-		    return ('err');
+		    res.send('err');
 		}
 		else {
 			Board.find({user_id: user._id}, function(err, boards) {

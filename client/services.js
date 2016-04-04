@@ -198,8 +198,8 @@ angular.module('myApp').directive('pwCheck', [function () {
 }]);
 
 angular.module('myApp').factory('BoardService',
-  ['$customHttp', '$q', '$timeout', '$http',
-  function ($customHttp, $q, $timeout, $http) {
+  ['$customHttp', '$q', '$timeout', '$http', '$customHttp',
+  function ($customHttp, $q, $timeout, $http, $customHttp) {
 
     // return available functions for use in the controllers
     return ({
@@ -211,6 +211,7 @@ angular.module('myApp').factory('BoardService',
     function listBoard() {
       var deferred = $q.defer();
 
+       $customHttp.addToken();
       // send a get request to the server
       $http.get('/list_board')
         // handle success
@@ -226,15 +227,15 @@ angular.module('myApp').factory('BoardService',
       return deferred.promise; 
     }
 
-    function addBoard() {
+    function addBoard(name, description) {
       var deferred = $q.defer();
 
-      $http.post('/create_board')
+      $http.post('/create_board', {name: name, description: description})
         .success(function (data) {
           deferred.resolve(data);
         })
         .error(function (data) {
-          deferred.reject();
+          deferred.reject(data);
         })
 
       return deferred.promise;
