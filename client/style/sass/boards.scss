@@ -1,0 +1,38 @@
+.boards {
+
+	.board {
+		width: 295px;
+		height: 195px;
+		border: 1px solid black;
+		border-radius: 10px;
+		display: inline-block;
+		margin-left: 10px;
+
+		.board_content {
+			width: 273px;
+			height: 170px;
+			margin: 10px;
+			background-color: #F0F8FF;
+
+			h4 {
+				margin: 0px;
+			}
+		}
+	}
+
+	form {
+		margin-left: 290px;
+		width: 450px;
+	}
+
+	.list {
+		width: 930px;
+		margin-left: 20px;
+	}
+
+	.add-board {
+		float: right;
+		margin-right: 0px;
+		margin-top: 20px;
+	}
+}
