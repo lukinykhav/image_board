@@ -41,7 +41,7 @@ myApp.run(function ($rootScope, $state, AuthService) {
           AuthService.getUserStatus()
             .then(function(data) {
               if(data) {
-                $state.go('user.profile');
+                $state.go(toState.name);
               }
               else {
                 if(toState.url === '/register') {
