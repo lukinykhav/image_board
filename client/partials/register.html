@@ -5,7 +5,8 @@
   </div>
 </div>
 <div>
-  <form name="myForm" class="form" novalidate>
+  <form name="myForm" class="form" >
+  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
     <md-input-container class="md-block">
       <label>Username</label>
       <input name="username" ng-model="registerForm.username" required> 

@@ -6,6 +6,7 @@
   </div>
   <div>
     <form class="form" name="form_login" novalidate>
+    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
       <md-input-container class="md-block">
         <label>Username</label>
         <input name="username" ng-model="loginForm.username" required> 
