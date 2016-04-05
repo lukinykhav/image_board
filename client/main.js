@@ -32,6 +32,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
       url: '/logout',
       controller: 'logoutController'
     })
+
+    $urlRouterProvider.otherwise('/profile');
 }]);
 
 myApp.run(function ($rootScope, $state, AuthService) {
