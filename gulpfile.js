@@ -1,5 +1,3 @@
-'use strict';
-
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     nodemon = require('gulp-nodemon'),
@@ -10,7 +8,7 @@ var gulp = require('gulp'),
     scriptsPath = './client/script/*.js',
     distPath = './client';
 
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
     return gulp.src(scriptsPath)
         .pipe(concat('all.js'))
         .pipe(ngmin({dynamic: true}))
@@ -48,7 +46,7 @@ gulp.task('nodemon', function () {
     nodemon({
         script: 'app.js'
         , ext: 'js html css sass scss coffee'
-        , env: { 'NODE_ENV': 'development' }
+        , env: {'NODE_ENV': 'development'}
     });
 });
 // not work yet
