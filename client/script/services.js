@@ -28,7 +28,7 @@ angular.module('myApp').factory('AuthService',
             function getUserStatus() {
                 var deferred = $q.defer();
 
-                $http.get('/user/status')
+                $http.get('/status')
                     // handle success
                     .success(function (data) {
                         if (data) {
@@ -52,7 +52,7 @@ angular.module('myApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 // send a post request to the server
-                $http.post('/user/login',
+                $http.post('/login',
                     {username: username, password: password})
                     // handle success
                     .success(function (data, status) {
@@ -81,7 +81,7 @@ angular.module('myApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 // send a get request to the server
-                $http.get('/user/logout')
+                $http.get('/logout')
                     // handle success
                     .success(function (data) {
                         user = false;
@@ -103,7 +103,7 @@ angular.module('myApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 // send a post request to the server
-                $http.post('/user/register',
+                $http.post('/register',
                     {username: username, email: email, password: password})
                     // handle success
                     .success(function (data, status) {
@@ -128,7 +128,7 @@ angular.module('myApp').factory('AuthService',
 
                 $customHttp.addToken();
                 // send a get request to the server
-                $http.get('/user/profile')
+                $http.get('/profile')
                     // handle success
                     .success(function (data) {
                         deferred.resolve(data);
@@ -146,7 +146,7 @@ angular.module('myApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 // send a post request to the server
-                $http.post('/user/profile',
+                $http.post('/profile',
                     {name: name, email: email, description: description})
                     // handle success
                     .success(function (data, status) {

@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var user = require('./routes/user');
 
+
 //delete after test function in user.js
 // var multer  = require('multer');
 // var storage = multer.diskStorage({
@@ -29,7 +30,11 @@ var app = express();
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.use(express.static(path.join(__dirname, '../node_modules')));
-// app.set('view engine', 'jade');
+
+// view engine setup
+// app.set('views', path.join(__dirname, '../client/partials'));
+// app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -55,9 +60,9 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
-app.use('/user/', user);
+app.use('/', user);
 
-app.get('/', function (req, res) {
+app.use('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
@@ -88,10 +93,12 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+        console.log(err);
+        res.send();
+        // res.render('error', {
+        //     message: err.message,
+        //     error: err
+        // });
     });
 }
 
@@ -99,10 +106,12 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+    console.log(err);
+    res.send();
+    // res.render('error', {
+    //     message: err.message,
+    //     error: {}
+    // });
 });
 
 

@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'vcRecaptcha']);
 
-myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
         .state('anon', {
             abstract: true,
@@ -21,7 +21,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
     $stateProvider
         .state('user', {
             abstract: true,
-            templateUrl: 'partials/main.html',
+            templateUrl: 'partials/main.html'
         })
         .state('user.profile', {
             url: '/profile',
@@ -31,9 +31,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, 
         .state('user.logout', {
             url: '/logout',
             controller: 'logoutController'
-        })
+        });
 
+    $urlRouterProvider.when('/', '/login');
     $urlRouterProvider.otherwise('/profile');
+    $locationProvider.html5Mode(true).hashPrefix('!');
 }]);
 
 myApp.run(function ($rootScope, $state, AuthService) {

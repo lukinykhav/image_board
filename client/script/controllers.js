@@ -51,6 +51,8 @@ angular.module('myApp').controller('profileController',
     ['$scope', '$location', 'AuthService',
         function ($scope, $location, AuthService) {
 
+            console.log(65);
+
             $scope.showForm = function () {
                 $scope.formProfile = !$scope.formProfile;
                 $scope.editProfile();
