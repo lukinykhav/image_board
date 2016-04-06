@@ -58,7 +58,7 @@ mongoose.connect('mongodb://localhost/test');
 app.use('/user/', user);
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, '../client', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
 //this comment to see routes (refactoring), delete after test function in user.js

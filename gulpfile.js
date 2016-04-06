@@ -21,7 +21,7 @@ gulp.task('sass', function () {
             outputStyle: 'compressed',
             includePaths: bourbon.includePaths
         }).on('error', sass.logError))
-        .pipe(concat('main.css'))
+        .pipe(concat('style/main.css'))
         .pipe(gulp.dest(distPath));
 });
 
