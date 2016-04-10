@@ -40,7 +40,7 @@ gulp.task('sass:watch', function () {
     gulp.watch(stylesPath, ['sass']);
 });
 
-gulp.task('watch', ['sass:watch', 'scripts:watch']);
+gulp.task('watch', ['sass:watch']);
 
 gulp.task('nodemon', function () {
     nodemon({

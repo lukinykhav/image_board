@@ -130,3 +130,11 @@ angular.module('myApp').controller('boardsController',
     ]
 );
 
+angular.module('myApp').controller('boardController',
+    ['$scope', '$location', 'BoardService',
+        function ($scope, $location, BoardService) {
+            $scope.board_name = $location.path().split('/')[2];
+
+        }
+    ]
+);
