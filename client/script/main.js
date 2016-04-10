@@ -31,10 +31,15 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
         .state('user.logout', {
             url: '/logout',
             controller: 'logoutController'
+        })
+        .state('user.boards', {
+            url: '/boards',
+            templateUrl: 'partials/boards.html',
+            controller: 'boardsController'
         });
 
     $urlRouterProvider.when('/', '/login');
-    $urlRouterProvider.otherwise('/profile');
+    // $urlRouterProvider.otherwise('/profile');
     $locationProvider.html5Mode(true).hashPrefix('!');
 }]);
 

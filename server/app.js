@@ -61,16 +61,18 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
+app.post('/create_board', board.createBoard);
+app.get('/list_board', board.listBoard);
+
 app.use('/', user);
 
-app.use('/*', function (req, res) {
+app.use('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 
 // app.use('/', board);
 
-app.post('/create_board', board.createBoard);
-app.get('/list_board', board.listBoard);
+
 
 // app.post('/create_board', function(req, res) {
 //   console.log(req.body);

@@ -3,7 +3,6 @@ var express = require('express');
 
 var Board = require('../models/board.js');
 var Account = require('../models/account.js');
-var User = require('../controllers/user.js')
 
 // router.post('/create_board', function(req, res) {
 
@@ -52,13 +51,14 @@ exports.createBoard = function(req, res) {
 
 exports.listBoard = function(req, res) {
 	var token = req.headers.authorization.split(' ')[1];
-	var user_id;
-
+	
 	Account.findOne({token: token}, function(err, user) {
+		console.log(user);
 		if(err) {
 		    res.send('err');
 		}
 		else {
+
 			Board.find({user_id: user._id}, function(err, boards) {
 				res.send(boards);
 			});

@@ -51,8 +51,6 @@ angular.module('myApp').controller('profileController',
     ['$scope', '$location', 'AuthService',
         function ($scope, $location, AuthService) {
 
-            console.log(65);
-
             $scope.showForm = function () {
                 $scope.formProfile = !$scope.formProfile;
                 $scope.editProfile();
@@ -103,3 +101,32 @@ angular.module('myApp').controller('registerController',
         }
     ]
 );
+
+angular.module('myApp').controller('boardsController',
+    ['$scope', '$location', 'BoardService',
+        function ($scope, $location, BoardService) {
+
+            $scope.showAddBoardForm = function () {
+                $scope.addBoardForm = !$scope.addBoardForm;
+                $scope.listBoard();
+            };
+
+            $scope.listBoard = function () {
+                BoardService.listBoard()
+                    .then(function (data) {
+                        $scope.boards = data;
+                    })
+            };
+
+            $scope.addBoard = function () {
+                BoardService.addBoard($scope.name, $scope.description)
+                    .then(function (data) {
+                    })
+                    .catch(function () {
+                       $scope.errorMessage = "Error";
+                    });
+            };
+        }
+    ]
+);
+

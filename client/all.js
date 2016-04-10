@@ -1,3 +1,217 @@
+angular.module('myApp').controller('loginController',
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
+
+            $scope.login = function () {
+
+                // initial values
+                $scope.error = false;
+
+                // call login from service
+                AuthService.login($scope.loginForm.username, $scope.loginForm.password)
+                    // handle success
+                    .then(function (token) {
+                        localStorage.setItem('token', token);
+                        $location.path('/profile');
+                    })
+                    // handle error
+                    .catch(function () {
+                        $scope.error = true;
+                        $scope.errorMessage = "Invalid username and/or password";
+                    });
+                $scope.loginForm = {};
+            };
+
+            $scope.showRegister = function () {
+                $location.path('/register');
+            }
+
+        }]);
+
+angular.module('myApp').controller('logoutController',
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
+
+            $scope.logout = function () {
+
+                // call logout from service
+                AuthService.logout()
+                    .then(function () {
+                        localStorage.removeItem('token');
+                        $location.path('/login');
+                    });
+
+            };
+
+        }
+    ]
+);
+
+angular.module('myApp').controller('profileController',
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
+
+            $scope.showForm = function () {
+                $scope.formProfile = !$scope.formProfile;
+                $scope.editProfile();
+            };
+
+            $scope.profile = function () {
+                AuthService.profile()
+                    .then(function (data) {
+                        $scope.name = data.name;
+                        $scope.email = data.email;
+                        $scope.description = data.description;
+                    })
+            };
+
+            $scope.editProfile = function () {
+                AuthService.editProfile($scope.name, $scope.email, $scope.description)
+                    .then(function (data) {
+                        console.log(data);
+                    })
+            };
+
+        }
+    ]
+);
+
+angular.module('myApp').controller('registerController',
+    ['$scope', '$location', 'AuthService', '$state',
+        function ($scope, $location, AuthService, $state) {
+
+            $scope.register = function () {
+
+                // initial values
+                $scope.error = false;
+
+                // call register from service
+                AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
+                    // handle success
+                    .then(function () {
+                        $location.path('/login');
+                    })
+                    // handle error
+                    .catch(function () {
+                        $scope.error = true;
+                        $scope.errorMessage = "This name of user exists!";
+                    });
+                $scope.registerForm = {};
+            };
+        }
+    ]
+);
+
+angular.module('myApp').controller('boardsController',
+    ['$scope', '$location', 'BoardService',
+        function ($scope, $location, BoardService) {
+
+            $scope.showAddBoardForm = function () {
+                $scope.addBoardForm = !$scope.addBoardForm;
+                $scope.listBoard();
+            };
+
+            $scope.listBoard = function () {
+                BoardService.listBoard()
+                    .then(function (data) {
+                        $scope.boards = data;
+                    })
+            };
+
+            $scope.addBoard = function () {
+                BoardService.addBoard($scope.name, $scope.description)
+                    .then(function (data) {
+                    })
+                    .catch(function () {
+                       $scope.errorMessage = "Error";
+                    });
+            };
+        }
+    ]
+);
+
+
+var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'vcRecaptcha']);
+
+myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+    $stateProvider
+        .state('anon', {
+            abstract: true,
+            templateUrl: 'partials/auth.html'
+        })
+        .state('anon.login', {
+            url: '/login',
+            templateUrl: 'partials/login.html',
+            controller: 'loginController'
+        })
+        .state('anon.register', {
+            url: '/register',
+            templateUrl: 'partials/register.html',
+            controller: 'registerController'
+        });
+
+
+    $stateProvider
+        .state('user', {
+            abstract: true,
+            templateUrl: 'partials/main.html'
+        })
+        .state('user.profile', {
+            url: '/profile',
+            templateUrl: 'partials/profile.html',
+            controller: 'profileController'
+        })
+        .state('user.logout', {
+            url: '/logout',
+            controller: 'logoutController'
+        })
+        .state('user.boards', {
+            url: '/boards',
+            templateUrl: 'partials/boards.html',
+            controller: 'boardsController'
+        });
+
+    $urlRouterProvider.when('/', '/login');
+    // $urlRouterProvider.otherwise('/profile');
+    $locationProvider.html5Mode(true).hashPrefix('!');
+}]);
+
+myApp.run(['$rootScope', '$state', 'AuthService', function ($rootScope, $state, AuthService) {
+
+    $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams) {
+            AuthService.getUserStatus()
+                .then(function (data) {
+                    if (data) {
+                        $state.go(toState.name);
+                    }
+                    else {
+                        if (toState.url === '/register') {
+                            $state.go('anon.register');
+                        }
+                        else {
+                            $state.go('anon.login');
+                        }
+                    }
+                    event.preventDefault();
+                })
+        }
+    );
+}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 angular.module('myApp').factory('AuthService',
     ['$customHttp', '$q', '$timeout', '$http',
         function ($customHttp, $q, $timeout, $http) {
