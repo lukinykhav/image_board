@@ -245,3 +245,15 @@ angular.module('myApp').factory('BoardService',
         }
     ]
 );
+
+angular.module('myApp').factory('dataHolder', function(){
+    var value = '';
+    return {
+        updateValue: function(newValue) {
+            value = newValue;
+        },
+        getValue: function() {
+            return value;
+        }
+    }
+});

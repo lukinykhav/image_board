@@ -10,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var user = require('./controllers/user');
 var board = require('./controllers/board');
+var post = require('./controllers/post');
 
 
 //delete after test function in user.js
@@ -63,6 +64,10 @@ mongoose.connect('mongodb://localhost/test');
 
 app.post('/create_board', board.createBoard);
 app.get('/list_board', board.listBoard);
+
+app.get('/get_post:name', post.getPost);
+app.post('/add_post', post.addPost);
+
 
 app.use('/', user);
 

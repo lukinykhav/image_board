@@ -40,7 +40,7 @@ router.post('/register', function(req, res) {
 
 router.post('/login', function(req, res, next) {
   var token = jwt.sign(req.body.username, Date.now() + '', {
-      expiresIn: 6840 // expires in 24 hours
+      expiresIn: 86400 // expires in 24 hours
   });
   passport.authenticate('local', function(err, user, info) {
     if (err) {

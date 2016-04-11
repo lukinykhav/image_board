@@ -131,10 +131,66 @@ angular.module('myApp').controller('boardsController',
 );
 
 angular.module('myApp').controller('boardController',
-    ['$scope', '$location', 'BoardService',
-        function ($scope, $location, BoardService) {
+    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http',
+        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http) {
             $scope.board_name = $location.path().split('/')[2];
+            dataHolder.updateValue($scope.board_name);
+            // $scope.value = '';
 
+            $http.get('/get_post/:' + $scope.board_name )
+                .success(function (data) {
+                    $scope.posts = data;
+                });
+
+            $scope.showAdd = function () {
+                $mdDialog.show({
+                    controller: 'postController',
+                    templateUrl: 'partials/add_post.html'
+                });
+            }
         }
     ]
 );
+
+angular.module('myApp').controller('postController',
+    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp',
+        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp) {
+
+            $scope.save = function () {
+                console.log($scope.fileName);
+                // var deferred = $q.defer();
+                $scope.board_name = dataHolder.getValue();
+
+                $customHttp.addToken();
+
+                $http.post('/add_post', {caption: $scope.caption, content: $scope.fileName, board_name: $scope.board_name})
+                    .success(function (data) {
+                        console.log(data);
+                    })
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+        }
+    ])
+    .directive('chooseFile', function() {
+        return {
+            link: function (scope, elem, attrs) {
+                var button = elem.find('button');
+                var input = angular.element(elem[0].querySelector('input#fileInput'));
+                button.bind('click', function() {
+                    input[0].click();
+                });
+                input.bind('change', function(e) {
+                    scope.$apply(function() {
+                        var files = e.target.files;
+                        if (files[0]) {
+                            scope.fileName = files[0].name;
+                        } else {
+                            scope.fileName = null;
+                        }
+                    });
+                });
+            }
+        };
+    });
