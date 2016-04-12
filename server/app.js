@@ -65,7 +65,7 @@ mongoose.connect('mongodb://localhost/test');
 app.post('/create_board', board.createBoard);
 app.get('/list_board', board.listBoard);
 
-app.get('/get_post:name', post.getPost);
+app.get('/get_post/:name', post.getPost);
 app.post('/add_post', post.addPost);
 
 

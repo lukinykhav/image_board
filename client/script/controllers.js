@@ -133,13 +133,15 @@ angular.module('myApp').controller('boardsController',
 angular.module('myApp').controller('boardController',
     ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http',
         function ($scope, $location, BoardService, $mdDialog, dataHolder, $http) {
+
             $scope.board_name = $location.path().split('/')[2];
             dataHolder.updateValue($scope.board_name);
             // $scope.value = '';
 
-            $http.get('/get_post/:' + $scope.board_name )
+            $http.get('/get_post/:' + $scope.board_name)
                 .success(function (data) {
                     $scope.posts = data;
+
                 });
 
             $scope.showAdd = function () {

@@ -6,6 +6,7 @@ var Post = new Schema({
     caption: String,
     board_name: String,
     user_id: String,
+    data_created: Date,
     post_id: String
 });
 

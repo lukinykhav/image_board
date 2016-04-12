@@ -5,7 +5,6 @@ var Post = require('../models/post.js');
 
 exports.addPost = function (req, res) {
     var token = req.headers.authorization.split(' ')[1];
-    console.log(req.headers);
 
     Account.findOne({token:token}, function (err, user) {
        if (err) {
@@ -17,6 +16,7 @@ exports.addPost = function (req, res) {
            post.caption = req.body.caption;
            post.board_name = req.body.board_name;
            post.user_id = user._id;
+           post.data_create = Date.now();
 
            post.save(function(err, post) {
                if(err) {
@@ -29,6 +29,14 @@ exports.addPost = function (req, res) {
 };
 
 exports.getPost = function (req, res) {
-    res.send(200);
+    var board_name = req.params.name.substring(1);
+    Post.find({board_name: board_name}, function (err, posts) {
+        if(err) {
+            res.send('err')
+        }
+        else {
+            res.send(posts);
+        }
+    });
     // var token = req.headers.authorization.split(' ')[1];
 };
