@@ -20,16 +20,29 @@ var post = require('./controllers/post');
 //     cb(null, './uploads/')
 //   },
 //   filename: function (req, file, cb) {
+//       console.log(file);
 //     cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
 //   }
 // });
 // var upload = multer({ storage: storage });
+
+var multer  = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
+    }
+});
+var upload = multer({ storage: storage });
 
 
 var app = express();
 
 // view engine setup
 app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../uploads')));
 
 app.use(express.static(path.join(__dirname, '../node_modules')));
 
@@ -62,11 +75,13 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
+app.post('/add_post', upload.single('file'), post.addPost);
+
 app.post('/create_board', board.createBoard);
 app.get('/list_board', board.listBoard);
 
 app.get('/get_post/:name', post.getPost);
-app.post('/add_post', post.addPost);
+// app.post('/add_post',  upload.single('content'), post.addPost);
 
 
 app.use('/', user);

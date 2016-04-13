@@ -4,26 +4,27 @@
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>Caption</label>
-                    <input ng-model="caption" placeholder="Caption">
+                    <input ng-model="customer.caption" placeholder="Caption">
                 </md-input-container>
+                {{ customer.caption }}
             </div>
-            <choose-file layout="row">
-                <input id="fileInput" type="file" class="ng-hide">
+            <div layout="row">
+
                 <md-input-container flex>
-                    <input type="text" ng-model="fileName" disabled>
-                    <div class="hint">Select your file</div>
+                    <!--<label>Select your file</label>-->
+                    <input type="file" file-model="customer.file">
                 </md-input-container>
                 <div>
-                    <md-button id="uploadButton" class="md-fab md-mini">
+                    <md-button class="md-fab md-mini">
                         <md-icon class="material-icons">attach_file</md-icon>
                     </md-button>
                 </div>
-            </choose-file>
+            </div>
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
         <md-button ng-click="cancel()"> Cancel</md-button>
-        <md-button ng-click="save()" class="md-primary"> Save</md-button>
+        <md-button ng-click="uploadFile()" class="md-primary"> Save</md-button>
     </div>
 </md-dialog>

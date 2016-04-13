@@ -6,7 +6,7 @@ var multer  = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/')
+    cb(null, './uploads/avatar')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
@@ -89,7 +89,7 @@ router.get('/profile', function(req, res){
   });
 });
 
-router.post('/profile', upload.single('image'), function(req, res){
+router.post('/profile', function(req, res){
   var token = req.headers.authorization.split(' ')[1];
   Account.findOneAndUpdate({ token: token },
       {
@@ -99,6 +99,16 @@ router.post('/profile', upload.single('image'), function(req, res){
       }, function(err, user) {
         res.json(user);
       });
+});
+
+router.post('/load_avatar', function(req, res) {
+    var token = req.headers.authorization.split(' ')[1];
+    Account.findOneAndUpdate({ token: token },
+        {
+            image: req.file.filename
+        }, function (err, user) {
+            res.json(user)
+        });
 });
 
 router.get('/status', function(req, res) {

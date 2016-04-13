@@ -13,7 +13,8 @@ angular.module('myApp').factory('AuthService',
                 logout: logout,
                 register: register,
                 profile: profile,
-                editProfile: editProfile
+                editProfile: editProfile,
+                loadAvatar: loadAvatar
             });
 
             function isLoggedIn() {
@@ -148,6 +149,31 @@ angular.module('myApp').factory('AuthService',
                 // send a post request to the server
                 $http.post('/profile',
                     {name: name, email: email, description: description})
+                    // handle success
+                    .success(function (data, status) {
+                        if (status === 200 && data.status) {
+                            deferred.resolve(data);
+                        } else {
+                            deferred.reject();
+                        }
+                    })
+                    // handle error
+                    .error(function (data) {
+                        deferred.reject();
+                    });
+
+                // return promise object
+                return deferred.promise;
+            }
+
+            function loadAvatar(fd) {
+                var deferred = $q.defer();
+
+                    $customHttp.addToken();
+                    $http.post('/load_avatar', fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    })
                     // handle success
                     .success(function (data, status) {
                         if (status === 200 && data.status) {

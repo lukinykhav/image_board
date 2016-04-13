@@ -12,7 +12,7 @@ exports.addPost = function (req, res) {
        }
        else {
            var post = new Post();
-           post.content = req.body.content;
+           post.file = req.file.filename;
            post.caption = req.body.caption;
            post.board_name = req.body.board_name;
            post.user_id = user._id;

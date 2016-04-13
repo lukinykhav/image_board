@@ -1,7 +1,9 @@
 <div class="profile" ng-controller="profileController">
         <div class="avatar">
 		    <img src="../image/default-avatar.png">
-		    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"><img src="../image/pencil_image.png"></button>
+		    <button ng-click="loadAvatar()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+				<!--<input type="file" file-model="customer.image" style="display: none">-->
+				<img src="../image/pencil_image.png"></button>
 		    <!-- <a href=""></a> -->
         </div>
         <div class="info">

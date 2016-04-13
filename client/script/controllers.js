@@ -48,8 +48,8 @@ angular.module('myApp').controller('logoutController',
 );
 
 angular.module('myApp').controller('profileController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
+    ['$scope', '$location', 'AuthService', '$customHttp',
+        function ($scope, $location, AuthService, $customHttp) {
 
             $scope.showForm = function () {
                 $scope.formProfile = !$scope.formProfile;
@@ -70,6 +70,15 @@ angular.module('myApp').controller('profileController',
                     .then(function (data) {
                         console.log(data);
                     })
+            };
+
+            $scope.loadAvatar = function () {
+                console.log(123);
+                var fd = new FormData();
+                for (var key in $scope.customer) {
+                    fd.append(key, $scope.customer[key]);
+                }
+                AuthService.loadAvatar(fd);
             };
 
         }
@@ -158,41 +167,37 @@ angular.module('myApp').controller('postController',
     ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp',
         function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp) {
 
-            $scope.save = function () {
-                console.log($scope.fileName);
-                // var deferred = $q.defer();
-                $scope.board_name = dataHolder.getValue();
-
-                $customHttp.addToken();
-
-                $http.post('/add_post', {caption: $scope.caption, content: $scope.fileName, board_name: $scope.board_name})
-                    .success(function (data) {
-                        console.log(data);
-                    })
-            };
             $scope.cancel = function() {
                 $mdDialog.cancel();
             };
+
+            $scope.uploadFile = function () {
+                var fd = new FormData();
+                $scope.customer.board_name = dataHolder.getValue();
+                for (var key in $scope.customer) {
+                    fd.append(key, $scope.customer[key]);
+                }
+                $customHttp.addToken();
+                $http.post('/add_post', fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+            }
+
         }
     ])
-    .directive('chooseFile', function() {
+    .directive('fileModel', ['$parse', function ($parse) {
         return {
-            link: function (scope, elem, attrs) {
-                var button = elem.find('button');
-                var input = angular.element(elem[0].querySelector('input#fileInput'));
-                button.bind('click', function() {
-                    input[0].click();
-                });
-                input.bind('change', function(e) {
-                    scope.$apply(function() {
-                        var files = e.target.files;
-                        if (files[0]) {
-                            scope.fileName = files[0].name;
-                        } else {
-                            scope.fileName = null;
-                        }
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+
+                element.bind('change', function(){
+                    scope.$apply(function(){
+                        modelSetter(scope, element[0].files[0]);
                     });
                 });
             }
         };
-    });
+    }]);
