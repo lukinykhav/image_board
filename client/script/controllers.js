@@ -48,8 +48,8 @@ angular.module('myApp').controller('logoutController',
 );
 
 angular.module('myApp').controller('profileController',
-    ['$scope', '$location', 'AuthService', '$customHttp',
-        function ($scope, $location, AuthService, $customHttp) {
+    ['$scope', '$location', 'AuthService', 'FileUploader',
+        function ($scope, $location, AuthService, FileUploader) {
 
             $scope.showForm = function () {
                 $scope.formProfile = !$scope.formProfile;
@@ -61,6 +61,7 @@ angular.module('myApp').controller('profileController',
                     .then(function (data) {
                         $scope.name = data.name;
                         $scope.email = data.email;
+                        $scope.image = data.image;
                         $scope.description = data.description;
                     })
             };
@@ -72,22 +73,16 @@ angular.module('myApp').controller('profileController',
                     })
             };
 
-            $scope.loadAvatar = function () {
-                console.log(123);
-                var fd = new FormData();
-                for (var key in $scope.customer) {
-                    fd.append(key, $scope.customer[key]);
-                }
-                AuthService.loadAvatar(fd);
-            };
-
+            $scope.uploader = new FileUploader({
+                url: '/load_avatar'
+            });
         }
     ]
 );
 
 angular.module('myApp').controller('registerController',
     ['$scope', '$location', 'AuthService', '$state',
-        function ($scope, $location, AuthService, $state) {
+        function ($scope, $location, AuthService) {
 
             $scope.register = function () {
 
@@ -178,6 +173,7 @@ angular.module('myApp').controller('postController',
                     fd.append(key, $scope.customer[key]);
                 }
                 $customHttp.addToken();
+                console.log(fd);
                 $http.post('/add_post', fd, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
@@ -185,19 +181,5 @@ angular.module('myApp').controller('postController',
             }
 
         }
-    ])
-    .directive('fileModel', ['$parse', function ($parse) {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                var model = $parse(attrs.fileModel);
-                var modelSetter = model.assign;
-
-                element.bind('change', function(){
-                    scope.$apply(function(){
-                        modelSetter(scope, element[0].files[0]);
-                    });
-                });
-            }
-        };
-    }]);
+    ]
+);

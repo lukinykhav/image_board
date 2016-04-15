@@ -32,6 +32,7 @@ var storage = multer.diskStorage({
         cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
+        console.log(req, file);
         cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
     }
 });

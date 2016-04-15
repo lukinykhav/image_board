@@ -14,7 +14,6 @@ angular.module('myApp').factory('AuthService',
                 register: register,
                 profile: profile,
                 editProfile: editProfile,
-                loadAvatar: loadAvatar
             });
 
             function isLoggedIn() {
@@ -165,32 +164,6 @@ angular.module('myApp').factory('AuthService',
                 // return promise object
                 return deferred.promise;
             }
-
-            function loadAvatar(fd) {
-                var deferred = $q.defer();
-
-                    $customHttp.addToken();
-                    $http.post('/load_avatar', fd, {
-                        transformRequest: angular.identity,
-                        headers: {'Content-Type': undefined}
-                    })
-                    // handle success
-                    .success(function (data, status) {
-                        if (status === 200 && data.status) {
-                            deferred.resolve(data);
-                        } else {
-                            deferred.reject();
-                        }
-                    })
-                    // handle error
-                    .error(function (data) {
-                        deferred.reject();
-                    });
-
-                // return promise object
-                return deferred.promise;
-            }
-
         }
     ]
 );
@@ -203,23 +176,6 @@ angular.module('myApp').service('$customHttp', ['$http', function ($http) {
         }
         else {
             $http.defaults.headers.common['Authorization'] = 'Basic ';
-        }
-
-    }
-}]);
-
-
-angular.module('myApp').directive('pwCheck', [function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, elem, attrs, ctrl) {
-            var firstPassword = '#' + attrs.pwCheck;
-            elem.add(firstPassword).on('keyup', function () {
-                scope.$apply(function () {
-                    // console.info(elem.val() === $(firstPassword).val());
-                    ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
-                });
-            });
         }
 
     }

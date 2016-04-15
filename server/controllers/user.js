@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var jwt    = require('jsonwebtoken');
-var multer  = require('multer');
 
+var multer  = require('multer');
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads/avatar')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
-  }
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
+    }
 });
 var upload = multer({ storage: storage });
 
@@ -89,21 +89,22 @@ router.get('/profile', function(req, res){
   });
 });
 
-router.post('/profile', function(req, res){
-  var token = req.headers.authorization.split(' ')[1];
-  Account.findOneAndUpdate({ token: token },
-      {
-        name: req.body.name,
-        email: req.body.email,
-        description: req.body.description
-      }, function(err, user) {
-        res.json(user);
-      });
+router.post('/profile', function (req, res) {
+    var token = req.headers.authorization.split(' ')[1];
+    Account.findOneAndUpdate({token: token},
+        {
+            name: req.body.name,
+            email: req.body.email,
+            description: req.body.description
+        }, function (err, user) {
+            res.json(user);
+        });
 });
 
-router.post('/load_avatar', function(req, res) {
-    var token = req.headers.authorization.split(' ')[1];
-    Account.findOneAndUpdate({ token: token },
+router.post('/load_avatar', upload.single('file'), function(req, res) {
+    console.log(req.user.token);
+    // var token = req.headers.authorization.split(' ')[1];
+    Account.findOneAndUpdate({ token: req.user.token },
         {
             image: req.file.filename
         }, function (err, user) {
