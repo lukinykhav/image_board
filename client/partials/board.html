@@ -5,16 +5,16 @@
     <div class="post" ng-repeat="post in posts">
         <div class="content parent">
             <img src="{{post.file}}">
-
         </div>
         <div class="description">
             <span>
                {{post.caption}}
             </span>
+            <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPost()">
+                <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+            </md-button>
         </div>
-        <md-button class="md-fab" arial-label="Add" ng-click="addPost()">
-            <i class="material-icons">chat_bubble</i>
-        </md-button>
+
         <div class="evalution"></div>
     </div>
     <md-button class="md-fab" arial-label="Add" ng-click="showAdd()">

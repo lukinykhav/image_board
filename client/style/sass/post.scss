@@ -5,12 +5,29 @@
   margin: 50px auto;
 
   .content {
+    background-color: #F0F8FF;
 
+    img {
+      max-height: 274px;
+      max-width: 747px;
+      height: auto;
+      width: auto;
+      margin: 0 30%;
+    }
   }
 
   .description {
-    margin: 10px;
-
+    margin: 10px 0;
+    padding: 5px;
+    height: 50px;
+    border: 1px solid black;
+  }
+  
+  .add-comment {
+    float: right;
+    margin: -18px;
+    height: 71px;
+    width: 71px;
   }
 }
 

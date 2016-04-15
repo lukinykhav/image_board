@@ -6,7 +6,7 @@
 
 .navbar{width:960px}
 
-.post{width:760px;height:auto;background-color:#F0F8FF;margin:50px auto}.post .description{margin:10px}
+.post{width:760px;height:auto;background-color:#F0F8FF;margin:50px auto}.post .content{background-color:#F0F8FF}.post .content img{max-height:274px;max-width:747px;height:auto;width:auto;margin:0 30%}.post .description{margin:10px 0;padding:5px;height:50px;border:1px solid black}.post .add-comment{float:right;margin:-18px;height:71px;width:71px}
 
 .mdl-layout__container{width:980px}.profile{height:400px;width:960px;background-color:#F0F8FF}.avatar{height:207px;width:280px;float:left;margin-top:100px;margin-left:150px;border:2px solid #333;position:relative}.avatar img{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);height:205px;width:278px}.avatar input[type='file']{opacity:0}.avatar .upload{height:71px;width:69px;position:absolute;top:-35px;left:242px;background-image:url("../image/pencil_image.png");background-size:50%;background-repeat:no-repeat;background-position:center}.avatar .upload input{height:71px;width:69px;top:-35px;left:242px}.info{float:left;margin:125px -40px 0px 70px}.info form{width:350px}.info span{font-size:18px;width:300px;margin-left:50px}.info label{width:35px}.info .form-group{margin-top:10px}.edit_profile img{height:24px;margin-top:95px}canvas{border:1px solid #c3c3c3;height:128px;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
 

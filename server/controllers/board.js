@@ -71,7 +71,13 @@ exports.listBoard = function(req, res) {
 
 exports.getBoard = function (req, res) {
 	Board.findOne({_id: req.params._id.substring(1)}, function (err, board) {
+		if(err) {
+			res.send(err);
+		}
 		Post.find({board_id: board._id}, function (err, posts) {
+			if (err) {
+				res.send(board);
+			}
 			res.status(200).json({
 				board: board,
 				posts: posts
