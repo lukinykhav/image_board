@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var Post = new Schema({
     file: String,
     caption: String,
-    board_name: String,
+    board_id: String,
     user_id: String,
     data_created: Date,
     post_id: String

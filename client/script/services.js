@@ -204,7 +204,7 @@ angular.module('myApp').factory('BoardService',
                     })
                     // handle error
                     .error(function (data) {
-                        deferred.reject();
+                        deferred.reject(data);
                     });
 
                 // return promise object

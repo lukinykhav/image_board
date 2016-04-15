@@ -138,14 +138,16 @@ angular.module('myApp').controller('boardController',
     ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http',
         function ($scope, $location, BoardService, $mdDialog, dataHolder, $http) {
 
-            $scope.board_name = $location.path().split('/')[2];
-            dataHolder.updateValue($scope.board_name);
-            // $scope.value = '';
-
-            $http.get('/get_post/:' + $scope.board_name)
+            var id = $location.path().split('/')[2];
+            
+            $http.get('/get_board/:' + id)
                 .success(function (data) {
-                    $scope.posts = data;
-
+                    $scope.board_name = data.board.name;
+                    $scope.posts = data.posts;
+                    dataHolder.updateValue(data.board._id);
+                })
+                .error(function (data) {
+                   console.log(data);
                 });
 
             $scope.showAdd = function () {
@@ -168,7 +170,7 @@ angular.module('myApp').controller('postController',
 
             $scope.uploadFile = function () {
                 var fd = new FormData();
-                $scope.customer.board_name = dataHolder.getValue();
+                $scope.customer.board_id = dataHolder.getValue();
                 for (var key in $scope.customer) {
                     fd.append(key, $scope.customer[key]);
                 }

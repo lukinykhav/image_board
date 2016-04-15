@@ -14,7 +14,7 @@ exports.addPost = function (req, res) {
            var post = new Post();
            post.file = req.file.filename;
            post.caption = req.body.caption;
-           post.board_name = req.body.board_name;
+           post.board_id = req.body.board_id;
            post.user_id = user._id;
            post.data_create = Date.now();
 

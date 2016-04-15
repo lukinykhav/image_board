@@ -3,6 +3,7 @@ var express = require('express');
 
 var Board = require('../models/board.js');
 var Account = require('../models/account.js');
+var Post = require('../models/post.js');
 
 // router.post('/create_board', function(req, res) {
 
@@ -60,9 +61,21 @@ exports.listBoard = function(req, res) {
 		else {
 
 			Board.find({user_id: user._id}, function(err, boards) {
+				console.log(boards);
 				res.send(boards);
 			});
 		}
 	});
 
+};
+
+exports.getBoard = function (req, res) {
+	Board.findOne({_id: req.params._id.substring(1)}, function (err, board) {
+		Post.find({board_id: board._id}, function (err, posts) {
+			res.status(200).json({
+				board: board,
+				posts: posts
+			})
+		})
+	})
 };

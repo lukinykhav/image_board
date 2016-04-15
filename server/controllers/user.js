@@ -102,7 +102,6 @@ router.post('/profile', function (req, res) {
 });
 
 router.post('/load_avatar', upload.single('file'), function(req, res) {
-    console.log(req.user.token);
     // var token = req.headers.authorization.split(' ')[1];
     Account.findOneAndUpdate({ token: req.user.token },
         {

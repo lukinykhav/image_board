@@ -38,7 +38,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
             controller: 'boardsController'
         })
         .state('user.board', {
-            url: '/board/:name',
+            url: '/board/:id',
             templateUrl: 'partials/board.html',
             controller: 'boardController'
         });

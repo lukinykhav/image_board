@@ -5,7 +5,7 @@
 	<div ng-hide="addBoardForm" class="list">
 		<div ng-init="listBoard()">
 			<div ng-repeat="board in boards track by $index" class="board">
-				<a ui-sref="user.board({name: board.name})">
+				<a ui-sref="user.board({id: board._id})">
 					<div class="board_content parent">
 						<h4 class="child both">{{ board.name }}</h4>
 						<span class="child bottom">{{ board.description }}</span>
