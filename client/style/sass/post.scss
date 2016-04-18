@@ -1,8 +1,12 @@
 .post {
   width: 760px;
   height: auto;
-  background-color: #F0F8FF;
   margin: 50px auto;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 
   .content {
     background-color: #F0F8FF;
@@ -29,5 +33,14 @@
     height: 71px;
     width: 71px;
   }
+
+  .comment {
+    margin-left: 100px;
+  }
 }
 
+.delete-post {
+  position: absolute;
+  top: 127px;
+  z-index: 20;
+}

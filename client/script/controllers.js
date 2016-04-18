@@ -135,25 +135,29 @@ angular.module('myApp').controller('boardsController',
 );
 
 angular.module('myApp').controller('boardController',
-    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http',
-        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http) {
-
+    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter',
+        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter) {
+            var filtred = [];
             var id = $location.path().split('/')[2];
             
             $http.get('/get_board/:' + id)
                 .success(function (data) {
+                    filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
-                    $scope.posts = data.posts;
+                    $scope.posts = filtred.posts;
+                    $scope.comments = filtred.comments;
                     dataHolder.updateValue(data.board._id);
+
                 })
                 .error(function (data) {
                    console.log(data);
                 });
 
-            $scope.showAdd = function () {
+            $scope.showAdd = function (post_id) {
                 $mdDialog.show({
-                    controller: 'postController',
-                    templateUrl: 'partials/add_post.html'
+                    controller: 'addPostController',
+                    templateUrl: 'partials/add_post.html',
+                    locals: {post_id: post_id}
                 });
             }
         }
@@ -161,21 +165,40 @@ angular.module('myApp').controller('boardController',
 );
 
 angular.module('myApp').controller('postController',
-    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp',
-        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp) {
+    ['$scope', '$location', '$mdDialog', '$http', 'filter',
+        function ($scope, $location, $mdDialog, $http, filter) {
+            var id = $location.path().split('/')[2];
+            var filtred = [];
+
+            $http.get('/get_post/:' + id)
+                .success(function (data) {
+                    filtred = filter.filterPosts(data);
+                    $scope.comments = filtred.comments;
+                    $scope.posts = filtred.posts;
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        }
+    ]
+);
+
+angular.module('myApp').controller('addPostController',
+    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id',
+        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, post_id) {
 
             $scope.cancel = function() {
                 $mdDialog.cancel();
             };
-
+            
             $scope.uploadFile = function () {
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
+                $scope.customer.post_id = post_id;
                 for (var key in $scope.customer) {
                     fd.append(key, $scope.customer[key]);
                 }
                 $customHttp.addToken();
-                console.log(fd);
                 $http.post('/add_post', fd, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
@@ -185,3 +208,16 @@ angular.module('myApp').controller('postController',
         }
     ]
 );
+
+angular.module('myApp').controller('deletePostController',
+    ['$scope', '$http', function ($scope, $http) {
+        $scope.deletePost = function (id) {
+            $http.get('/delete_post/:' + id)
+                .success(function (data) {
+                    console.log(data);
+                })
+                .error(function (err) {
+                    console.log(err);
+                })
+        };
+    }]);

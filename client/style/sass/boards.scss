@@ -28,6 +28,11 @@
 	.list {
 		width: 930px;
 		margin-left: 20px;
+
+		a {
+			text-decoration: none;
+			color: rgb(103, 58, 183);
+		}
 	}
 
 	.add-board {

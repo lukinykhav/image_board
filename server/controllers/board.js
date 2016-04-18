@@ -53,7 +53,7 @@ exports.createBoard = function(req, res) {
 exports.listBoard = function(req, res) {
 	var token = req.headers.authorization.split(' ')[1];
 	
-	Account.findOne({token: token}, function(err, user) {
+	Account.findOne({token: req.user.token}, function(err, user) {
 		console.log(user);
 		if(err) {
 		    res.send('err');

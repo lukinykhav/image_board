@@ -17,6 +17,7 @@ exports.addPost = function (req, res) {
            post.board_id = req.body.board_id;
            post.user_id = user._id;
            post.data_create = Date.now();
+           post.post_id = req.body.post_id;
 
            post.save(function(err, post) {
                if(err) {
@@ -29,8 +30,8 @@ exports.addPost = function (req, res) {
 };
 
 exports.getPost = function (req, res) {
-    var board_name = req.params.name.substring(1);
-    Post.find({board_name: board_name}, function (err, posts) {
+    var post_id = req.params.id.substring(1);
+    Post.find({$or:[{post_id: post_id}, {_id: post_id}]}, function (err, posts) {
         if(err) {
             res.send('err')
         }
@@ -38,5 +39,16 @@ exports.getPost = function (req, res) {
             res.send(posts);
         }
     });
-    // var token = req.headers.authorization.split(' ')[1];
+};
+
+exports.deletePost = function (req, res) {
+    Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
+        if (err) {
+            res.send('err');
+        }
+        else {
+            post.remove();
+            res.json({ message: 'Successfully deleted' });
+        }
+    })
 };

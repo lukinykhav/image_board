@@ -1,0 +1,38 @@
+<div class="board">
+    <div class="post" ng-repeat="post in posts">
+        <!--<div>-->
+        <div class="content parent">
+            <div ng-controller="deletePostController">
+                <md-button ng-click="deletePost(post._id)">
+                    <md-icon class="material-icons">clear</md-icon>
+                </md-button>
+            </div>
+            <img src="{{post.file}}">
+        </div>
+        <div class="description">
+                <span>
+                   {{post.caption}}
+                </span>
+            <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(post._id)">
+                <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+            </md-button>
+        </div>
+        <div class="evalution"></div>
+        <!--</div>-->
+        <div class="comment"  ng-repeat="comment in comments | filter: post._id ">
+            <div class="content parent">
+                <div ng-controller="deletePostController">
+                    <md-button ng-click="deletePost(comment._id)">
+                        <md-icon class="material-icons">clear</md-icon>
+                    </md-button>
+                </div>
+                <img src="{{comment.file}}">
+            </div>
+            <div class="description">
+            <span>
+               {{comment.caption}}
+            </span>
+            </div>
+        </div>
+    </div>
+</div>

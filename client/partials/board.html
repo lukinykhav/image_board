@@ -3,21 +3,39 @@
         <h4>{{board_name}}</h4>
     </div>
     <div class="post" ng-repeat="post in posts">
-        <div class="content parent">
-            <img src="{{post.file}}">
-        </div>
-        <div class="description">
-            <span>
-               {{post.caption}}
-            </span>
-            <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPost()">
-                <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+        <!--<div>-->
+        <div class="delete-post" ng-controller="deletePostController">
+            <md-button ng-click="deletePost(post._id)">
+                <md-icon class="material-icons">clear</md-icon>
             </md-button>
         </div>
-
-        <div class="evalution"></div>
+        <a ui-sref="user.post({id: post._id})">
+            <div class="content parent">
+                <img src="{{post.file}}">
+            </div>
+            <div class="description">
+                <span>
+                   {{post.caption}}
+                </span>
+                <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(post._id)">
+                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+                </md-button>
+            </div>
+            <div class="evalution"></div>
+        <!--</div>-->
+        <!--<div class="comment"  ng-repeat="comment in comments | filter: post._id ">-->
+            <!--<div class="content parent">-->
+                <!--<img src="{{comment.file}}">-->
+            <!--</div>-->
+            <!--<div class="description">-->
+                    <!--<span>-->
+                       <!--{{comment.caption}}-->
+                    <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        </a>
     </div>
-    <md-button class="md-fab" arial-label="Add" ng-click="showAdd()">
+    <md-button class="md-fab" arial-label="Add" ng-click="showAdd(null)">
         <md-icon class="material-icons plus">add</md-icon>
     </md-button>
 </div>

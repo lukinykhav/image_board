@@ -41,6 +41,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
             url: '/board/:id',
             templateUrl: 'partials/board.html',
             controller: 'boardController'
+        })
+        .state('user.post', {
+            url: '/post/:id',
+            templateUrl: 'partials/post.html',
+            controller: 'postController'
         });
 
     $urlRouterProvider.when('/', '/login');

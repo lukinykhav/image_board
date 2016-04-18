@@ -239,3 +239,22 @@ angular.module('myApp').factory('dataHolder', function(){
         }
     }
 });
+
+angular.module('myApp').factory('filter', function () {
+    return ({
+        filterPosts: filterPosts
+    });
+
+    function filterPosts (posts) {
+        var filtred_posts = [], filtred_comments = [];
+        for (var i = 0; i < posts.length; i++) {
+            if (posts[i].post_id === "null") {
+                filtred_posts.push(posts[i]);
+            }
+            else {
+                filtred_comments.push((posts[i]));
+            }
+        }
+        return {posts: filtred_posts, comments: filtred_comments};
+    }
+});
