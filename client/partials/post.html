@@ -1,13 +1,25 @@
 <div class="board">
     <div class="post" ng-repeat="post in posts">
         <!--<div>-->
-        <div class="content parent">
+        <div class="content parent" ng-switch="post.type_file.split('/')[0]">
             <div ng-controller="deletePostController">
                 <md-button ng-click="deletePost(post._id)">
                     <md-icon class="material-icons">clear</md-icon>
                 </md-button>
             </div>
-            <img src="{{post.file}}">
+            <img ng-switch-when="image" src="{{post.file}}">
+            <div ng-switch-when="video">
+                <video width="320" height="240"  controls>
+                    <source src="{{post.file}}" type="{{post.type_file}}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div ng-switch-when="audio">
+                <audio controls>
+                    <source src="{{post.file}}" type="{{post.type_file}}">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
         <div class="description">
                 <span>
@@ -20,13 +32,25 @@
         <div class="evalution"></div>
         <!--</div>-->
         <div class="comment"  ng-repeat="comment in comments | filter: post._id ">
-            <div class="content parent">
+            <div class="content parent" ng-switch="comment.type_file.split('/')[0]">
                 <div ng-controller="deletePostController">
                     <md-button ng-click="deletePost(comment._id)">
                         <md-icon class="material-icons">clear</md-icon>
                     </md-button>
                 </div>
-                <img src="{{comment.file}}">
+                <img ng-switch-when="image" src="{{comment.file}}">
+                <div ng-switch-when="video">
+                    <video width="320" height="240"  controls>
+                        <source src="{{comment.file}}" type="{{comment.type_file}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div ng-switch-when="audio">
+                    <audio controls>
+                        <source src="{{comment.file}}" type="{{comment.type_file}}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
             </div>
             <div class="description">
             <span>
