@@ -10,8 +10,21 @@
             </md-button>
         </div>
         <a ui-sref="user.post({id: post._id})">
-            <div class="content parent">
-                <img src="{{post.file}}">
+            <div class="content parent" ng-switch="post.type_file.split('/')[0]">
+                <img ng-switch-when="image" src="{{post.file}}">
+                <div ng-switch-when="video">
+                    <video width="320" height="240"  controls>
+                        <source src="{{post.file}}" type="{{post.type_file}}">
+                        <source src="{{post.file}}" type="{{post.type_file}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div ng-switch-when="audio">
+                    <audio controls>
+                        <source src="{{post.file}}" type="{{post.type_file}}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
             </div>
             <div class="description">
                 <span>

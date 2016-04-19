@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var Post = new Schema({
     file: String,
+    type_file: String,
     caption: String,
     board_id: String,
     user_id: String,
