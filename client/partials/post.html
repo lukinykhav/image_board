@@ -1,5 +1,8 @@
-<div class="board">
+<div class="board" ng-init="posts()">
     <div class="post" ng-repeat="post in posts">
+        <md-button class="edit-post" ng-click="editPost(post._id)">
+            <md-icon class="material-icons">mode_edit</md-icon>
+        </md-button>
         <!--<div>-->
         <div class="content parent" ng-switch="post.type_file.split('/')[0]">
             <div ng-controller="deletePostController">
@@ -22,16 +25,19 @@
             </div>
         </div>
         <div class="description">
-                <span>
-                   {{post.caption}}
-                </span>
+            <span>
+               {{post.caption}}
+            </span>
             <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(post._id)">
                 <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
             </md-button>
         </div>
         <div class="evalution"></div>
         <!--</div>-->
-        <div class="comment"  ng-repeat="comment in comments | filter: post._id ">
+        <div class="comment"  ng-repeat="comment in comments | filter: post._id track by $index">
+            <md-button class="edit-post" ng-click="editPost(comment._id)">
+                <md-icon class="material-icons">mode_edit</md-icon>
+            </md-button>
             <div class="content parent" ng-switch="comment.type_file.split('/')[0]">
                 <div ng-controller="deletePostController">
                     <md-button ng-click="deletePost(comment._id)">
@@ -53,10 +59,18 @@
                 </div>
             </div>
             <div class="description">
-            <span>
-               {{comment.caption}}
-            </span>
+                <span>
+                   {{comment.caption}}
+                </span>
+                <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(comment._id)">
+                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+                </md-button>
             </div>
+            <md-button ng-click="getComments(comment._id)">click</md-button>
+                <div ng-repeat="c_comment in c_comments">
+                    {{c_comment}}
+                </div>
         </div>
+        {{c_comments}}
     </div>
 </div>

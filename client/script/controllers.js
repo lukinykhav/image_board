@@ -74,7 +74,8 @@ angular.module('myApp').controller('profileController',
             };
 
             $scope.uploader = new FileUploader({
-                url: '/load_avatar'
+                url: '/load_avatar',
+                autoUpload: true
             });
         }
     ]
@@ -159,26 +160,65 @@ angular.module('myApp').controller('boardController',
                     templateUrl: 'partials/add_post.html',
                     locals: {post_id: post_id}
                 });
+            };
+
+            $scope.editPost = function (post_id) {
+                $mdDialog.show({
+                    controller: 'editPostController',
+                    templateUrl: 'partials/add_post.html',
+                    locals: {post_id: post_id}
+                });
             }
         }
     ]
 );
 
 angular.module('myApp').controller('postController',
-    ['$scope', '$location', '$mdDialog', '$http', 'filter',
-        function ($scope, $location, $mdDialog, $http, filter) {
+    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter',
+        function ($scope, $location, PostService, $mdDialog, $http, filter) {
             var id = $location.path().split('/')[2];
+
             var filtred = [];
 
-            $http.get('/get_post/:' + id)
-                .success(function (data) {
+            PostService.getPost(id)
+                .then(function (data) {
                     filtred = filter.filterPosts(data);
                     $scope.comments = filtred.comments;
                     $scope.posts = filtred.posts;
-                })
-                .error(function (data) {
-                    console.log(data);
                 });
+
+            // $http.get('/get_post/:' + id)
+            //     .suc
+            //     })
+            //     .error(function (data) {
+            //         console.log(data);
+            //     });
+
+            $scope.getComments = function (post_id) {
+                PostService.getPost(post_id)
+                    .then(function (data) {
+                        filtred = filter.filterPosts(data);
+                        console.log(filtred.comments);
+                        return filtred.comments;
+                    });
+
+            };
+
+            $scope.editPost = function (post_id) {
+                $mdDialog.show({
+                    controller: 'editPostController',
+                    templateUrl: 'partials/add_post.html',
+                    locals: {post_id: post_id}
+                });
+            };
+
+            $scope.showAdd = function (post_id) {
+                $mdDialog.show({
+                    controller: 'addPostController',
+                    templateUrl: 'partials/add_post.html',
+                    locals: {post_id: post_id}
+                });
+            };
         }
     ]
 );
@@ -220,4 +260,25 @@ angular.module('myApp').controller('deletePostController',
                     console.log(err);
                 })
         };
+    }]);
+
+angular.module('myApp').controller('editPostController',
+    ['$scope', '$http', 'post_id', '$mdDialog', function ($scope, $http, post_id, $mdDialog) {
+
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+
+        $scope.uploadFile = function () {
+            var fd = new FormData();
+            for (var key in $scope.customer) {
+                fd.append(key, $scope.customer[key]);
+            }
+            // $customHttp.addToken();
+            $http.post('/edit_post/:' + post_id, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+        }
+
     }]);

@@ -13,7 +13,7 @@ angular.module('myApp').factory('AuthService',
                 logout: logout,
                 register: register,
                 profile: profile,
-                editProfile: editProfile,
+                editProfile: editProfile
             });
 
             function isLoggedIn() {
@@ -258,3 +258,23 @@ angular.module('myApp').factory('filter', function () {
         return {posts: filtred_posts, comments: filtred_comments};
     }
 });
+
+angular.module('myApp').service('PostService', ['$http', '$q', function ($http, $q) {
+    return ({
+        getPost: getPost
+    });
+
+    function getPost (id) {
+        var deferred = $q.defer();
+
+        $http.get('/get_post/:' + id)
+            .success(function (data) {
+                deferred.resolve(data);
+            })
+            .error(function (data) {
+                deferred.reject(data);
+            });
+        
+        return deferred.promise;
+    }
+}]);

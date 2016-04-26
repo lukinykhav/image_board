@@ -82,4 +82,9 @@ angular.module('myApp')
             }
 
         }
+    }])
+    .directive('comments', [function () {
+        return {
+
+        }
     }]);

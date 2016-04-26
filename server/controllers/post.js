@@ -12,8 +12,10 @@ exports.addPost = function (req, res) {
        }
        else {
            var post = new Post();
-           post.file = req.file.filename;
-           post.type_file = req.file.mimetype;
+           if(req.file) {
+               post.file = req.file.filename;
+               post.type_file = req.file.mimetype;
+           }
            post.caption = req.body.caption;
            post.board_id = req.body.board_id;
            post.user_id = user._id;
@@ -51,5 +53,19 @@ exports.deletePost = function (req, res) {
             post.remove();
             res.json({ message: 'Successfully deleted' });
         }
+    })
+};
+
+exports.editPost = function (req, res) {
+    Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
+        if (req.file) {
+            post.file = req.file.filename;
+            post.type_file = req.file.mimetype;
+        }
+        if(req.body.caption) {
+            post.caption = req.body.caption;
+        }
+        post.save();
+        res.json(post);
     })
 };
