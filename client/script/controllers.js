@@ -199,6 +199,7 @@ angular.module('myApp').controller('postController',
                     .then(function (data) {
                         filtred = filter.filterPosts(data);
                         console.log(filtred.comments);
+                        $scope.c_coments = filtred.comments;
                         return filtred.comments;
                     });
 
