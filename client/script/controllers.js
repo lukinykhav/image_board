@@ -194,16 +194,16 @@ angular.module('myApp').controller('postController',
             //         console.log(data);
             //     });
 
-            $scope.getComments = function (post_id) {
-                PostService.getPost(post_id)
-                    .then(function (data) {
-                        filtred = filter.filterPosts(data);
-                        console.log(filtred.comments);
-                        $scope.c_coments = filtred.comments;
-                        return filtred.comments;
-                    });
+            // $scope.getComments = function (post_id) {
+            //     PostService.getPost(post_id)
+            //         .then(function (data) {
+            //             filtred = filter.filterPosts(data);
+            //             console.log(filtred.comments);
+            //             $scope.c_comments = filtred.comments;
+            //             // return filtred.comments;
+            //         });
 
-            };
+            // };
 
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
@@ -220,6 +220,23 @@ angular.module('myApp').controller('postController',
                     locals: {post_id: post_id}
                 });
             };
+        }
+    ]
+);
+
+
+angular.module('myApp').controller('commentController',
+    ['$scope', '$location', 'PostService', 'filter',
+        function ($scope, $location, PostService, filter) {
+            $scope.getComments = function (post_id) {
+                PostService.getPost(post_id)
+                    .then(function (data) {
+                        filtred = filter.filterPosts(data);
+                        console.log(filtred.comments);
+                        $scope.c_comments = filtred.comments;
+                        // return filtred.comments;
+                    });
+            };        
         }
     ]
 );
