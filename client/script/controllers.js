@@ -285,3 +285,22 @@ angular.module('myApp').controller('editPostController',
         }
 
     }]);
+
+angular.module('myApp').controller('likeController',
+    ['$scope', '$http', 'PostService', function ($scope, $http, PostService) {
+        $scope.like = function (post_id) {
+            console.log('like');
+            PostService.liking(post_id, 1)
+                .then(function(data) {
+                    console.log(data);
+                })
+        };
+
+        $scope.dislike = function (post_id) {
+            console.log('dislike');
+            PostService.liking(post_id, 0)
+                .then(function(data) {
+                    console.log(data);
+                })
+        }
+    }]);

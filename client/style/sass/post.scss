@@ -46,6 +46,22 @@
     margin-top: 10px;
     margin-left: 100px;
   }
+
+  .likes {
+    margin-top: 10px;
+
+    button {
+      margin: 0 4px;
+      padding: 0;
+    }
+
+    .count-likes {
+      width: 198px;
+      height: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+    }
+  }
 }
 
   .c-comment {

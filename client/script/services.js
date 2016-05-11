@@ -261,7 +261,8 @@ angular.module('myApp').factory('filter', function () {
 
 angular.module('myApp').service('PostService', ['$http', '$q', function ($http, $q) {
     return ({
-        getPost: getPost
+        getPost: getPost,
+        liking: liking
     });
 
     function getPost (id) {
@@ -275,6 +276,18 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
                 deferred.reject(data);
             });
         
+        return deferred.promise;
+    }
+
+    function liking (post_id, liking) {
+        var deferred = $q.defer();
+        $http.post('/like/:' + post_id, {liking: liking})
+            .success(function(data) {
+                 deferred.resolve(data);
+            })
+            .error(function(err) {
+                deferred.reject(data);
+            });
         return deferred.promise;
     }
 }]);

@@ -40,6 +40,18 @@
             </div>
             <div class="evalution"></div>
         </a>
+        <div class="likes" ng-controller="likeController">
+            <div class="count-likes"></div>
+            <div>
+                <md-button ng-click="like(post._id)">
+                    <md-icon class="material-icons">thumb_up</md-icon>
+                </md-button>
+                  <md-button ng-click="dislike(post._id)">
+                    <md-icon class="material-icons">thumb_down</md-icon>
+                </md-button>
+                
+            </div>
+        </div>
     </div>
     <md-button class="md-fab" arial-label="Add" ng-click="showAdd(null)">
         <md-icon class="material-icons plus">add</md-icon>

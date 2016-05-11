@@ -8,7 +8,9 @@ var Post = new Schema({
     board_id: String,
     user_id: String,
     data_created: Date,
-    post_id: String
+    post_id: String,
+    user_like: Array,
+    user_dislike: Array
 });
 
 module.exports = mongoose.model('Post', Post);

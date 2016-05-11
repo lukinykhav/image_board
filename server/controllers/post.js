@@ -69,3 +69,39 @@ exports.editPost = function (req, res) {
         res.json(post);
     })
 };
+
+exports.liking = function (req, res) {
+  var token = req.headers.authorization.split(' ')[1];
+
+    Account.findOne({token:token}, function (err, user) {
+      if (err) {
+           res.send('err');
+      }
+      else {
+        Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
+          var search_user_id, post_liking_true, post_liking_false;
+          if (req.body.liking) {
+            search_user_id = post.user_like.indexOf(user._id);
+            post_liking_true = post.user_like;
+            post_liking_false = post.user_dislike;
+          }
+          else {
+            search_user_id = post.user_dislike.indexOf(user._id);
+            post_liking_true = post.user_dislike;
+            post_liking_false = post.user_like;
+          }
+          if (search_user_id >= 0) { 
+            post_liking_true.splice(search_user_id, 1);
+            // post_liking_false.push(user._id);
+       
+          }
+          else {
+            post_liking_true.push(user._id);
+            post_liking_false.splice(search_user_id, 1);
+          }
+          post.save();
+          res.send(post);
+        })
+      }
+    });  
+};
