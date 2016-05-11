@@ -75,45 +75,9 @@ angular.module('myApp')
                 var firstPassword = '#' + attrs.pwCheck;
                 elem.add(firstPassword).on('keyup', function () {
                     scope.$apply(function () {
-                        // console.info(elem.val() === $(firstPassword).val());
                         ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
                     });
                 });
             }
-
         }
-    }])
-    .directive('comments', [function ($compile) {
-        return {
-            restrict: 'E',
-            scope: {
-                post: '@'
-            },
-            // template: '<p ng-click="add()">{{text}}</p>',
-            link: function (scope, element, attrs) {
-                element.bind("click", function(){
-                console.log(scope);
-                scope.count++;
-                angular.element(document.getElementById('space-for-buttons')).append("<div><button class='btn btn-default' data-alert="+scope.count+">Show alert #"+scope.count+"</button></div>");
-            });
-                // $scope.getComments = function (post_id) {
-                //     PostService.getPost(post_id)
-                //         .then(function (data) {
-                //             filtred = filter.filterPosts(data);
-                //             console.log(filtred.comments);
-                //             $scope.c_coments = filtred.comments;
-                //             // return filtred.comments;
-                //         });
-                // };
-            }
-    };
-
-
-        //     return function(scope, element, attrs){
-        //     element.bind("click", function(){
-        //         console.log(element);
-        //         scope.count++;
-        //         angular.element(document.getElementById('space-for-buttons')).append("<div><button class='btn btn-default' data-alert="+scope.count+">Show alert #"+scope.count+"</button></div>");
-        //     });
-        // };
     }]);

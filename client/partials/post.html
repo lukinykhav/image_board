@@ -32,7 +32,7 @@
             </md-button>
         </div>
         <div class="evalution"></div>
-        
+
         <div ng-controller="commentController" class="comment"  ng-repeat="comment in comments | filter: post._id track by $index">
             <md-button class="edit-post" ng-click="editPost(comment._id)">
                 <md-icon class="material-icons">mode_edit</md-icon>
@@ -65,7 +65,9 @@
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
-            <button ng-click="getComments(comment._id)">click</button>
+            <md-button class="md-fab md-mini" ng-click="getComments(comment._id)">
+                <md-icon class="material-icons">keyboard_arrow_down</md-icon>
+            </md-button>
            
 
             <div class="c-comment" ng-repeat="c_comment in c_comments">
