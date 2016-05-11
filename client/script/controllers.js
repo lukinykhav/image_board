@@ -187,24 +187,6 @@ angular.module('myApp').controller('postController',
                     $scope.posts = filtred.posts;
                 });
 
-            // $http.get('/get_post/:' + id)
-            //     .suc
-            //     })
-            //     .error(function (data) {
-            //         console.log(data);
-            //     });
-
-            // $scope.getComments = function (post_id) {
-            //     PostService.getPost(post_id)
-            //         .then(function (data) {
-            //             filtred = filter.filterPosts(data);
-            //             console.log(filtred.comments);
-            //             $scope.c_comments = filtred.comments;
-            //             // return filtred.comments;
-            //         });
-
-            // };
-
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
                     controller: 'editPostController',
@@ -232,9 +214,12 @@ angular.module('myApp').controller('commentController',
                 PostService.getPost(post_id)
                     .then(function (data) {
                         filtred = filter.filterPosts(data);
-                        console.log(filtred.comments);
+                        for(var i = 0; i < filtred.comments.length; i++) {
+                            if(filtred.comments[i]['_id'] === post_id) {
+                                filtred.comments.splice(i, 1);
+                            }
+                        }
                         $scope.c_comments = filtred.comments;
-                        // return filtred.comments;
                     });
             };        
         }

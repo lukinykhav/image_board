@@ -3,7 +3,6 @@
         <md-button class="edit-post" ng-click="editPost(post._id)">
             <md-icon class="material-icons">mode_edit</md-icon>
         </md-button>
-        <!--<div>-->
         <div class="content parent" ng-switch="post.type_file.split('/')[0]">
             <div ng-controller="deletePostController">
                 <md-button ng-click="deletePost(post._id)">
@@ -33,8 +32,8 @@
             </md-button>
         </div>
         <div class="evalution"></div>
-        <!--</div>-->
-        <div class="comment"  ng-repeat="comment in comments | filter: post._id track by $index">
+        
+        <div ng-controller="commentController" class="comment"  ng-repeat="comment in comments | filter: post._id track by $index">
             <md-button class="edit-post" ng-click="editPost(comment._id)">
                 <md-icon class="material-icons">mode_edit</md-icon>
             </md-button>
@@ -66,18 +65,31 @@
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
-            <div ng-controller="commentController">
-                <button ng-click="getComments(comment._id)">click</button>
-            </div>
+            <button ng-click="getComments(comment._id)">click</button>
            
-            <!-- <div ng-repeat="c_comment in c_comments">{{c_comment}}
 
-                <span ng-if="commet._id === c_comment.post_id">{{c_comment}}<span>
-            </div>   -->         
-            <!-- <div id="space-for-buttons"></div> -->
-                <!-- <div ng-show="showme" ng-repeat="c_comment in c_comments">
-                    {{c_comments}}
-                </div> -->
+            <div class="c-comment" ng-repeat="c_comment in c_comments">
+                <div class="content parent" ng-switch="c_comment.type_file.split('/')[0]">
+                    <img ng-switch-when="image" src="{{c_comment.file}}">
+                    <div ng-switch-when="video">
+                        <video width="320" height="240"  controls>
+                            <source src="{{c_comment.file}}" type="{{c_comment.type_file}}">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div ng-switch-when="audio">
+                        <audio controls>
+                            <source src="{{c_comment.file}}" type="{{c_comment.type_file}}">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <div class="description">
+                    <span>
+                       {{c_comment.caption}}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
