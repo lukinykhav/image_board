@@ -189,7 +189,8 @@ angular.module('myApp').factory('BoardService',
             // return available functions for use in the controllers
             return ({
                 listBoard: listBoard,
-                addBoard: addBoard
+                addBoard: addBoard,
+                allBoard: allBoard
             });
 
             function listBoard() {
@@ -222,6 +223,19 @@ angular.module('myApp').factory('BoardService',
                         deferred.reject(data);
                     });
 
+                return deferred.promise;
+            }
+
+            function allBoard() {
+                var deferred = $q.defer();
+
+                $http.get('/all_boards')
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function (err) {
+                        deferred.reject(err);
+                    })
                 return deferred.promise;
             }
         }

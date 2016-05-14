@@ -69,6 +69,12 @@ exports.listBoard = function(req, res) {
 
 };
 
+exports.allBoards = function(req, res) {
+	Board.find({}, function(err, boards) {
+		res.send(boards);
+	})
+};
+
 exports.getBoard = function (req, res) {
 	Board.findOne({_id: req.params._id.substring(1)}, function (err, board) {
 		if(err) {

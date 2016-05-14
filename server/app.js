@@ -80,6 +80,7 @@ app.post('/add_post', upload.single('file'), post.addPost);
 
 app.post('/create_board', board.createBoard);
 app.get('/list_board', board.listBoard);
+app.get('/all_boards', board.allBoards);
 app.get('/get_board/:_id', board.getBoard);
 
 app.get('/get_post/:id', post.getPost);

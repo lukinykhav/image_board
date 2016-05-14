@@ -131,6 +131,13 @@ angular.module('myApp').controller('boardsController',
                        $scope.errorMessage = "Error";
                     });
             };
+
+            $scope.showAll = function () {
+                BoardService.allBoard()
+                    .then(function (data) {
+                        $scope.boards = data;
+                    })
+            }
         }
     ]
 );
