@@ -55,11 +55,19 @@
       padding: 0;
     }
 
-    .count-likes {
+    progress {
       width: 198px;
       height: 10px;
       border: 1px solid black;
       border-radius: 5px;
+    }
+
+    progress::-webkit-progress-value {
+      background-color: rgb(255,64,129);
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #fff;
     }
   }
 }

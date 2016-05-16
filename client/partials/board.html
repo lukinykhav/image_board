@@ -41,13 +41,8 @@
             <div class="evalution"></div>
         </a>
         <div class="likes" ng-controller="likeController">
-        <div class="progress count-likes">
-          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuenow="50" aria-valuemax="100" style="width: 100 / {{post.user_like.length + post.user_dislike.length}} * {{post.user_like.length}} %;">
-            <span class="sr-only">60% Complete</span>
-          </div>
-        </div>
-            <!-- <div class="count-likes"></div> -->
-
+        <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+           <!-- <div class="count-likes"></div> -->
             <div>
                 <md-button ng-click="like(post._id)">
                     <md-icon class="material-icons">thumb_up</md-icon>

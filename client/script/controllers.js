@@ -176,6 +176,8 @@ angular.module('myApp').controller('boardController',
                     locals: {post_id: post_id}
                 });
             }
+
+            $scope.Math=Math;
         }
     ]
 );
@@ -252,7 +254,10 @@ angular.module('myApp').controller('addPostController',
                 $http.post('/add_post', fd, {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
-                })
+                    })
+                    .success(function(data) {
+                        console.log(data);
+                    }) 
             }
 
         }
