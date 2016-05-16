@@ -41,8 +41,7 @@
             <div class="evalution"></div>
         </a>
         <div class="likes" ng-controller="likeController">
-        <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
-           <!-- <div class="count-likes"></div> -->
+            <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
             <div>
                 <md-button ng-click="like(post._id)">
                     <md-icon class="material-icons">thumb_up</md-icon>

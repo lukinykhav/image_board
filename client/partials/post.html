@@ -32,6 +32,20 @@
             </md-button>
         </div>
         <div class="evalution"></div>
+        <div class="likes" ng-controller="likeController">
+            <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+            <div>
+                <md-button ng-click="like(post._id)">
+                    <md-icon class="material-icons">thumb_up</md-icon>
+                    <span>{{ post.user_like.length }}</span>
+                </md-button>
+                  <md-button ng-click="dislike(post._id)">
+                    <md-icon class="material-icons">thumb_down</md-icon>
+                    <span>{{ post.user_dislike.length }}</span>
+                </md-button>
+                
+            </div>
+        </div>
 
         <div ng-controller="commentController" class="comment"  ng-repeat="comment in comments | filter: post._id track by $index">
             <md-button class="edit-post" ng-click="editPost(comment._id)">
@@ -65,9 +79,25 @@
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
-            <md-button class="md-fab md-mini" ng-click="getComments(comment._id)">
-                <md-icon class="material-icons">keyboard_arrow_down</md-icon>
-            </md-button>
+            <div>
+                <md-button class="md-fab md-mini" ng-click="getComments(comment._id)">
+                    <md-icon class="material-icons">keyboard_arrow_down</md-icon>
+                </md-button>
+                <div class="likes" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(comment.user_like.length + comment.user_dislike.length) * comment.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(comment._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ comment.user_like.length }}</span>
+                        </md-button>
+                          <md-button ng-click="dislike(comment._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ comment.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            
            
 
             <div class="c-comment" ng-repeat="c_comment in c_comments">
@@ -90,6 +120,19 @@
                     <span>
                        {{c_comment.caption}}
                     </span>
+                </div>
+                <div class="likes" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(c_comment.user_like.length + c_comment.user_dislike.length) * c_comment.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(c_comment._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ c_comment.user_like.length }}</span>
+                        </md-button>
+                          <md-button ng-click="dislike(c_comment._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ c_comment.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
                 </div>
             </div>
         </div>

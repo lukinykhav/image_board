@@ -1,3 +1,5 @@
+
+
 angular.module('myApp').controller('loginController',
     ['$scope', '$location', 'AuthService',
         function ($scope, $location, AuthService) {
@@ -176,8 +178,6 @@ angular.module('myApp').controller('boardController',
                     locals: {post_id: post_id}
                 });
             }
-
-            $scope.Math=Math;
         }
     ]
 );
@@ -315,4 +315,6 @@ angular.module('myApp').controller('likeController',
                     console.log(data);
                 })
         }
+
+        $scope.Math=Math;
     }]);
