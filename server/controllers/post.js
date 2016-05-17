@@ -57,6 +57,8 @@ exports.deletePost = function (req, res) {
 };
 
 exports.editPost = function (req, res) {
+    var id = Account.getUserId('eyJhbGciOiJIUzI1NiJ9.aXZhbg.zcfaOaPzY_3OkcaK4S6mFTCpmFkQUFFlV8-g7TRewqE');
+    console.log(id);
     Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
         if (req.file) {
             post.file = req.file.filename;

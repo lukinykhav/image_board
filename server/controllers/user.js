@@ -120,7 +120,16 @@ router.get('/status', function(req, res) {
 
 module.exports = router;
 
-
+module.exports.getUserId = function (token) {
+    Account.findOne({token: token}, function(err, user) {
+        if(err) {
+            return false;
+        }
+        else {
+            return user._id;
+        }
+    })
+};
 // exports.getUserId = function (req, res) {
 // // exports.getUserId = function (req, res) {
 //   console.log(888888888);
