@@ -1,4 +1,8 @@
-
+angular.module('myApp').controller('mainController',
+    ['$scope', '$location',
+        function ($scope, $location) {
+            $scope.Math = Math;
+        }]);
 
 angular.module('myApp').controller('loginController',
     ['$scope', '$location', 'AuthService',
@@ -211,14 +215,7 @@ angular.module('myApp').controller('postController',
                     locals: {post_id: post_id}
                 });
             };
-        }
-    ]
-);
 
-
-angular.module('myApp').controller('commentController',
-    ['$scope', '$location', 'PostService', 'filter',
-        function ($scope, $location, PostService, filter) {
             $scope.getComments = function (post_id) {
                 PostService.getPost(post_id)
                     .then(function (data) {
@@ -227,13 +224,39 @@ angular.module('myApp').controller('commentController',
                             if(filtred.comments[i]['_id'] === post_id) {
                                 filtred.comments.splice(i, 1);
                             }
+                            if (filtred.comments[i]) {
+                                filtred.comments[i]['class'] = 'comment';
+                                $scope.posts.push(filtred.comments[i]);
+                            }
                         }
-                        $scope.c_comments = filtred.comments;
+                        // var post = $('.board').children().first();
+                        // console.log(post);
+                        // $('.post').addClass('comment');
                     });
-            };        
+            };
         }
     ]
 );
+
+
+// angular.module('myApp').controller('commentController',
+//     ['$scope', '$location', 'PostService', 'filter',
+//         function ($scope, $location, PostService, filter) {
+//             $scope.getComments = function (post_id) {
+//                 PostService.getPost(post_id)
+//                     .then(function (data) {
+//                         filtred = filter.filterPosts(data);
+//                         for(var i = 0; i < filtred.comments.length; i++) {
+//                             if(filtred.comments[i]['_id'] === post_id) {
+//                                 filtred.comments.splice(i, 1);
+//                             }
+//                         }
+//                         $scope.c_comments = filtred.comments;
+//                     });
+//             };        
+//         }
+//     ]
+// );
 
 angular.module('myApp').controller('addPostController',
     ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id',
@@ -316,5 +339,5 @@ angular.module('myApp').controller('likeController',
                 })
         }
 
-        $scope.Math=Math;
+        // $scope.Math=Math;
     }]);

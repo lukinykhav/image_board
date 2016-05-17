@@ -42,13 +42,10 @@
     width: 71px;
   }
 
-  .comment {
-    margin-top: 10px;
-    margin-left: 100px;
-  }
-
   .likes {
     margin-top: 10px;
+    display: inline-block;
+    float: left;
 
     button {
       margin: 0 4px;
@@ -72,8 +69,8 @@
   }
 }
 
-  .c-comment {
-    margin-left: 50px;
+.comment {
+    width: 70% - 10%;
   }
 
 .delete-post {

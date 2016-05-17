@@ -6,7 +6,6 @@
         <md-button class="edit-post" ng-click="editPost(post._id)">
             <md-icon class="material-icons">mode_edit</md-icon>
         </md-button>
-
         <a ui-sref="user.post({id: post._id})">
             <div class="content parent" ng-switch="post.type_file.split('/')[0]">
                 <div ng-controller="deletePostController">
@@ -55,6 +54,7 @@
             </div>
         </div>
     </div>
+    <br>
     <md-button class="md-fab" arial-label="Add" ng-click="showAdd(null)">
         <md-icon class="material-icons plus">add</md-icon>
     </md-button>
