@@ -118,18 +118,31 @@ router.get('/status', function(req, res) {
   return res.status(200).json(true);
 });
 
+router.getUserInfo = function (token, params, callback) {
+   Account.findOne({token: token}, function(err, user) {
+      var arr = [];
+      if(!err) {
+          for (var i = 0; i < params.length; i++) {
+            arr.push(user[params[i]]);
+          }
+      }
+      callback(arr);
+    })
+
+};
+
 module.exports = router;
 
-module.exports.getUserId = function (token) {
-    Account.findOne({token: token}, function(err, user) {
-        if(err) {
-            return false;
-        }
-        else {
-            return user._id;
-        }
-    })
-};
+// module.exports.getUserId = function (token) {
+//     Account.findOne({token: token}, function(err, user) {
+//         if(err) {
+//             return false;
+//         }
+//         else {
+//             return user._id;
+//         }
+//     })
+// };
 // exports.getUserId = function (req, res) {
 // // exports.getUserId = function (req, res) {
 //   console.log(888888888);
