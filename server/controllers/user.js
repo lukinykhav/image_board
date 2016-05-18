@@ -128,65 +128,10 @@ router.getUserInfo = function (token, params, callback) {
       }
       callback(arr);
     })
-
 };
 
 module.exports = router;
 
-// module.exports.getUserId = function (token) {
-//     Account.findOne({token: token}, function(err, user) {
-//         if(err) {
-//             return false;
-//         }
-//         else {
-//             return user._id;
-//         }
-//     })
-// };
-// exports.getUserId = function (req, res) {
-// // exports.getUserId = function (req, res) {
-//   console.log(888888888);
-//   // var token = req.headers.authorization.split(' ')[1];
-//   // Account.findOne({token: token}, function(err, user) {
-//   //  if(err) {
-//   //       return false;
-//   //     }
-//   //     else {
-//   //      return user._id;
-//   //     }
-//   // });
-//   res.send('898989');
-// };
-
-
-//this comment to refactoring code
-// exports.profile = function(req, res) {
-//     Account.findOne({token: req.headers.authorization}, function(err, docs) {
-//         res.send(docs);
-//     });
-// };
-//
-// exports.editProfile = function(req, res){
-//   Account.findOneAndUpdate({ token: req.headers.authorization },
-//       {
-//         username: req.body.username,
-//         email: req.body.email,
-//         name: req.body.name,
-//         image: req.file.path,
-//         description: req.body.description
-//       }, function(err, user) {
-//         res.json(user);
-//       });
-// };
-//
-// exports.getAllUsers = function(req, res) {
-//     Account.findOne({token: req.headers.authorization}, function(err, docs) {
-//         Account.find({}, function(err, users) {
-//             res.json(users);
-//         });
-//     });
-// };
-//
 // exports.assignRole = function(req, res) {
 //     Account.findOne({username: req.body.username}, function(err, user) {
 //         if(user.role == 'user') {

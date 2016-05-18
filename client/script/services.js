@@ -276,6 +276,7 @@ angular.module('myApp').factory('filter', function () {
 angular.module('myApp').service('PostService', ['$http', '$q', function ($http, $q) {
     return ({
         getPost: getPost,
+        editPost: editPost,
         liking: liking
     });
 
@@ -290,6 +291,22 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
                 deferred.reject(data);
             });
         
+        return deferred.promise;
+    }
+
+    function editPost (post_id, fd) {
+        var deferred = $q.defer();
+
+        $http.post('/edit_post/:' + post_id, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(data) {
+                 deferred.resolve(data);
+            })
+            .error(function (err) {
+                deferred.reject(err);
+            });
         return deferred.promise;
     }
 

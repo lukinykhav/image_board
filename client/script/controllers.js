@@ -190,15 +190,12 @@ angular.module('myApp').controller('postController',
     ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter',
         function ($scope, $location, PostService, $mdDialog, $http, filter) {
             var id = $location.path().split('/')[2];
-
             var filtred = [];
-
             var arr_id = [];
 
             PostService.getPost(id)
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
-                    $scope.comments = filtred.comments;
                     $scope.posts = filtred.posts;
                 });
 
@@ -239,26 +236,6 @@ angular.module('myApp').controller('postController',
         }
     ]
 );
-
-
-// angular.module('myApp').controller('commentController',
-//     ['$scope', '$location', 'PostService', 'filter',
-//         function ($scope, $location, PostService, filter) {
-//             $scope.getComments = function (post_id) {
-//                 PostService.getPost(post_id)
-//                     .then(function (data) {
-//                         filtred = filter.filterPosts(data);
-//                         for(var i = 0; i < filtred.comments.length; i++) {
-//                             if(filtred.comments[i]['_id'] === post_id) {
-//                                 filtred.comments.splice(i, 1);
-//                             }
-//                         }
-//                         $scope.c_comments = filtred.comments;
-//                     });
-//             };        
-//         }
-//     ]
-// );
 
 angular.module('myApp').controller('addPostController',
     ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id',
@@ -303,7 +280,7 @@ angular.module('myApp').controller('deletePostController',
     }]);
 
 angular.module('myApp').controller('editPostController',
-    ['$scope', '$http', 'post_id', '$mdDialog', function ($scope, $http, post_id, $mdDialog) {
+    ['$scope', '$http', 'post_id', '$mdDialog', 'PostService', function ($scope, $http, post_id, $mdDialog, PostService) {
 
         $scope.cancel = function() {
             $mdDialog.cancel();
@@ -314,11 +291,15 @@ angular.module('myApp').controller('editPostController',
             for (var key in $scope.customer) {
                 fd.append(key, $scope.customer[key]);
             }
-            // $customHttp.addToken();
-            $http.post('/edit_post/:' + post_id, fd, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            })
+
+            PostService.editPost(post_id, fd)
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function() {
+                    $scope.error = true;
+                    $scope.errorMessage = "Permission denied!";
+                })
         }
 
     }]);

@@ -22,6 +22,7 @@
             </div>
         </form>
     </md-dialog-content>
+    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
     <div class="md-actions" layout="row">
         <span flex></span>
         <md-button ng-click="cancel()"> Cancel</md-button>

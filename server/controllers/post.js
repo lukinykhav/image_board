@@ -46,21 +46,25 @@ exports.getPost = function (req, res) {
 };
 
 exports.deletePost = function (req, res) {
+  User.getUserInfo(req.user.token, ['_id', 'role'], function(user_info) {
     Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
-        if (err) {
-            res.send('err');
-        }
-        else {
+        if (!err) {
+          if (user_info[0] == post.user_id || user_info[1] == 'admin') {
             post.remove();
             res.json({ message: 'Successfully deleted' });
+          }
+          else {
+            res.send(403);
+          }
         }
     })
+  })
 };
 
 exports.editPost = function (req, res) {
     User.getUserInfo(req.user.token, ['_id', 'role'], function(user_info) {
       Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
-        if(user_info[0] === post.user_id || user_info[1] === 'admin') {
+        if(user_info[0] == post.user_id || user_info[1] == 'admin') {
            if (req.file) {
               post.file = req.file.filename;
               post.type_file = req.file.mimetype;
@@ -72,7 +76,7 @@ exports.editPost = function (req, res) {
           res.json(post);
         }
         else {
-          res.send(403);
+          res.sendStatus(403);
         }
       })
   });
