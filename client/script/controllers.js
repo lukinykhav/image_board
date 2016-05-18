@@ -1,7 +1,12 @@
 angular.module('myApp').controller('mainController',
-    ['$scope', '$location',
-        function ($scope, $location) {
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
+            //it's not work yet
+            // var token = localStorage.getItem(token);
+            // console.log(token);
             $scope.Math = Math;
+            // $scope.userRole = AuthService.getUserRole(token);
+            // console.log($scope.userRole);
         }]);
 
 angular.module('myApp').controller('loginController',
@@ -193,7 +198,9 @@ angular.module('myApp').controller('postController',
             var filtred = [];
             var arr_id = [];
 
-            PostService.getPost(id)
+            var token = localStorage.getItem('token');
+
+            PostService.getPost(id, token)
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
                     $scope.posts = filtred.posts;

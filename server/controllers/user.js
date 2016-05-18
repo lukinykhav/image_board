@@ -118,6 +118,13 @@ router.get('/status', function(req, res) {
   return res.status(200).json(true);
 });
 
+//could test
+router.post('/user_role', function(req, res) {
+  Account.findOne({token: token}, function(err, user) {
+    res.send(user.role);
+  })
+});
+
 router.getUserInfo = function (token, params, callback) {
    Account.findOne({token: token}, function(err, user) {
       var arr = [];

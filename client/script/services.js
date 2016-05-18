@@ -13,7 +13,8 @@ angular.module('myApp').factory('AuthService',
                 logout: logout,
                 register: register,
                 profile: profile,
-                editProfile: editProfile
+                editProfile: editProfile,
+                getUserRole: getUserRole
             });
 
             function isLoggedIn() {
@@ -164,6 +165,27 @@ angular.module('myApp').factory('AuthService',
                 // return promise object
                 return deferred.promise;
             }
+
+            //could test
+            function getUserRole (token) {
+                var deferred = $q.defer();
+
+                // send a post request to the server
+                $http.post('/user_role',
+                    {token: token})
+                    // handle success
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    })
+                    // handle error
+                    .error(function (data) {
+                        deferred.reject();
+                    });
+
+                // return promise object
+                return deferred.promise;
+            }
+
         }
     ]
 );
