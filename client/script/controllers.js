@@ -154,23 +154,24 @@ angular.module('myApp').controller('boardsController',
 );
 
 angular.module('myApp').controller('boardController',
-    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter',
-        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter) {
+    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter', 'BoardService', 'PostService',
+        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter, BoardService, PostService) {
             var filtred = [];
             var id = $location.path().split('/')[2];
+            var token = localStorage.getItem('token');
             
-            $http.get('/get_board/:' + id)
-                .success(function (data) {
+            BoardService.getBoard(id)
+                .then(function(data) {
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
                     $scope.posts = filtred.posts;
                     $scope.comments = filtred.comments;
                     dataHolder.updateValue(data.board._id);
-
+                    PostService.getUserPost(id, token)
+                        .then(function (data) {
+                            $scope.changePost = data;
+                        })
                 })
-                .error(function (data) {
-                   console.log(data);
-                });
 
             $scope.showAdd = function (post_id) {
                 $mdDialog.show({
@@ -197,13 +198,16 @@ angular.module('myApp').controller('postController',
             var id = $location.path().split('/')[2];
             var filtred = [];
             var arr_id = [];
-
             var token = localStorage.getItem('token');
 
-            PostService.getPost(id, token)
+            PostService.getPost(id)
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
                     $scope.posts = filtred.posts;
+                    PostService.getUserPost(id, token)
+                        .then(function (data) {
+                            $scope.changePost = data;
+                        })
                 });
 
             $scope.editPost = function (post_id) {

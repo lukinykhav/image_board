@@ -210,10 +210,24 @@ angular.module('myApp').factory('BoardService',
 
             // return available functions for use in the controllers
             return ({
+                getBoard: getBoard,
                 listBoard: listBoard,
                 addBoard: addBoard,
                 allBoard: allBoard
             });
+
+            function getBoard(id) {
+                var deferred = $q.defer();
+
+                $http.get('/get_board/:' + id)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function (data) {
+                       deferred.reject(data);
+                    });
+                return deferred.promise;
+            }
 
             function listBoard() {
                 var deferred = $q.defer();
@@ -298,6 +312,7 @@ angular.module('myApp').factory('filter', function () {
 angular.module('myApp').service('PostService', ['$http', '$q', function ($http, $q) {
     return ({
         getPost: getPost,
+        getUserPost: getUserPost,
         editPost: editPost,
         liking: liking
     });
@@ -308,6 +323,24 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
         $http.get('/get_post/:' + id)
             .success(function (data) {
                 deferred.resolve(data);
+            })
+            .error(function (data) {
+                deferred.reject(data);
+            });
+        
+        return deferred.promise;
+    }
+
+    function getUserPost (id, token) {
+        var post_user_id = [];
+        var deferred = $q.defer();
+
+        $http.post('/get_user_post/:' + id, {token: token})
+            .success(function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    post_user_id.push(data[i]._id);
+                }
+                deferred.resolve(post_user_id);
             })
             .error(function (data) {
                 deferred.reject(data);

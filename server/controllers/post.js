@@ -34,16 +34,24 @@ exports.addPost = function (req, res) {
 };
 
 exports.getPost = function (req, res) {
-    var post_id = req.params.id.substring(1);
-    Post.find({$or:[{post_id: post_id}, {_id: post_id}]}, function (err, posts) {
-        if(err) {
-            res.send('err')
-        }
-        else {
-            res.send(posts);
-        }
-    });
+  var post_id = req.params.id.substring(1);
+  Post.find({$or:[{post_id: post_id}, {_id: post_id}]}, function (err, posts) {
+      if(err) {
+          res.send('err')
+      }
+      else {
+          res.send(posts);
+      }
+  });
 };
+
+exports.getUserPost = function (req, res) {
+  Account.findOne({token: req.body.token}, function(err, user) {
+    Post.find({user_id: user._id}, function(err, posts) {
+      res.send(posts);
+    })
+  })
+}
 
 exports.deletePost = function (req, res) {
   User.getUserInfo(req.user.token, ['_id', 'role'], function(user_info) {
