@@ -48,7 +48,9 @@ exports.getPost = function (req, res) {
 exports.getUserPost = function (req, res) {
   Account.findOne({token: req.body.token}, function(err, user) {
     Post.find({user_id: user._id}, function(err, posts) {
-      res.send(posts);
+      res.json({  posts: posts,
+                  user: user
+                });
     })
   })
 }

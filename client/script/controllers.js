@@ -169,7 +169,8 @@ angular.module('myApp').controller('boardController',
                     dataHolder.updateValue(data.board._id);
                     PostService.getUserPost(id, token)
                         .then(function (data) {
-                            $scope.changePost = data;
+                            $scope.userRole = data[1];
+                            $scope.changePost = data[0];
                         })
                 })
 
@@ -206,7 +207,8 @@ angular.module('myApp').controller('postController',
                     $scope.posts = filtred.posts;
                     PostService.getUserPost(id, token)
                         .then(function (data) {
-                            $scope.changePost = data;
+                            $scope.userRole = data[1];
+                            $scope.changePost = data[0];
                         })
                 });
 

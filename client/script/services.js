@@ -337,10 +337,10 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
 
         $http.post('/get_user_post/:' + id, {token: token})
             .success(function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    post_user_id.push(data[i]._id);
+                for (var i = 0; i < data.posts.length; i++) {
+                    post_user_id.push(data.posts[i]._id);
                 }
-                deferred.resolve(post_user_id);
+                deferred.resolve([post_user_id, data.user.role]);
             })
             .error(function (data) {
                 deferred.reject(data);

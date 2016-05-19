@@ -3,12 +3,12 @@
         <h4>{{board_name}}</h4>
     </div>
     <div class="post" ng-repeat="post in posts">
-        <md-button ng-if="changePost.indexOf(post._id) > -1" class="edit-post" ng-click="editPost(post._id)">
+        <md-button ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" class="edit-post" ng-click="editPost(post._id)">
             <md-icon class="material-icons">mode_edit</md-icon>
         </md-button>
         <a ui-sref="user.post({id: post._id})">
             <div class="content parent" ng-switch="post.type_file.split('/')[0]">
-                <div ng-if="changePost.indexOf(post._id) > -1" ng-controller="deletePostController">
+                <div ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
                     <md-button ng-click="deletePost(post._id)">
                         <md-icon class="material-icons">clear</md-icon>
                     </md-button>
