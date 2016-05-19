@@ -3,17 +3,16 @@
         <h4>{{board_name}}</h4>
     </div>
     <div dir-paginate="post in posts  | itemsPerPage: 3" class="post">
-        <md-button ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" class="edit-post" ng-click="editPost(post._id)">
-            <md-icon class="material-icons">mode_edit</md-icon>
-        </md-button>
+        <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+             <md-button class="edit-post" ng-click="editPost(post._id)">
+                <md-icon class="material-icons">mode_edit</md-icon>
+            </md-button>
+            <md-button ng-click="deletePost(post._id)">
+                <md-icon class="material-icons">clear</md-icon>
+            </md-button>
+        </div>
         <a ui-sref="user.post({id: post._id})">
             <div class="content parent" ng-switch="post.type_file.split('/')[0]">
-                <div ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
-                    <md-button ng-click="deletePost(post._id)">
-                        <md-icon class="material-icons">clear</md-icon>
-                    </md-button>
-                </div>
-
                 <img ng-switch-when="image" src="{{post.file}}">
                 <div ng-switch-when="video">
                     <video width="320" height="240"  controls>
