@@ -1,14 +1,3 @@
-angular.module('myApp').controller('mainController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
-            //it's not work yet
-            // var token = localStorage.getItem(token);
-            // console.log(token);
-            $scope.Math = Math;
-            // $scope.userRole = AuthService.getUserRole(token);
-            // console.log($scope.userRole);
-        }]);
-
 angular.module('myApp').controller('loginController',
     ['$scope', '$location', 'AuthService',
         function ($scope, $location, AuthService) {
@@ -271,7 +260,6 @@ angular.module('myApp').controller('addPostController',
                     headers: {'Content-Type': undefined}
                     })
                     .success(function(data) {
-                        console.log(data);
                     }) 
             }
 
@@ -320,20 +308,16 @@ angular.module('myApp').controller('editPostController',
 angular.module('myApp').controller('likeController',
     ['$scope', '$http', 'PostService', function ($scope, $http, PostService) {
         $scope.like = function (post_id) {
-            console.log('like');
             PostService.liking(post_id, 1)
                 .then(function(data) {
-                    console.log(data);
                 })
         };
 
         $scope.dislike = function (post_id) {
-            console.log('dislike');
             PostService.liking(post_id, 0)
                 .then(function(data) {
-                    console.log(data);
                 })
         }
 
-        // $scope.Math=Math;
+        $scope.Math = Math;
     }]);

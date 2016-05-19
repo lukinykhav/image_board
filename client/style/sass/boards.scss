@@ -56,3 +56,11 @@
 		text-align: center;
 	}
 }
+
+.paginate {
+	float:right;
+	margin-right: 100px;
+	.pagination>.active>a {
+		background-color: rgb(255,64,129);
+	}
+}

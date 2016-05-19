@@ -2,7 +2,7 @@
     <div class="logo">
         <h4>{{board_name}}</h4>
     </div>
-    <div class="post" ng-repeat="post in posts">
+    <div dir-paginate="post in posts  | itemsPerPage: 3" class="post">
         <md-button ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" class="edit-post" ng-click="editPost(post._id)">
             <md-icon class="material-icons">mode_edit</md-icon>
         </md-button>
@@ -58,4 +58,9 @@
     <md-button class="md-fab" arial-label="Add" ng-click="showAdd(null)">
         <md-icon class="material-icons plus">add</md-icon>
     </md-button>
+    <div class="paginate">
+        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+    </div>
 </div>
+
+
