@@ -1,4 +1,6 @@
 var express = require('express');
+var fs = require('fs');
+var path = require('path');
 var Account = require('../models/account.js');
 var Board = require('../models/board.js');
 var Post = require('../models/post.js');
@@ -60,6 +62,10 @@ exports.deletePost = function (req, res) {
     Post.findOne({_id: req.params.id.substring(1)}, function (err, post) {
         if (!err) {
           if (user_info[0] == post.user_id || user_info[1] == 'admin') {
+            // var curPath = path.join(__dirname, '../uploads', file);
+            if (fs.existsSync('./uploads/' + post.file)) {
+              fs.unlink('./uploads/' + post.file);
+            }
             post.remove();
             res.json({ message: 'Successfully deleted' });
           }
