@@ -174,7 +174,7 @@ angular.module('myApp').controller('boardController',
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
                     controller: 'editPostController',
-                    templateUrl: 'partials/add_post.html',
+                    templateUrl: 'partials/edit_post.html',
                     locals: {post_id: post_id}
                 });
             }
@@ -204,7 +204,7 @@ angular.module('myApp').controller('postController',
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
                     controller: 'editPostController',
-                    templateUrl: 'partials/add_post.html',
+                    templateUrl: 'partials/edit_post.html',
                     locals: {post_id: post_id}
                 });
             };
@@ -295,7 +295,6 @@ angular.module('myApp').controller('editPostController',
 
             PostService.editPost(post_id, fd)
                 .then(function(data) {
-                    console.log(data);
                 })
                 .catch(function() {
                     $scope.error = true;

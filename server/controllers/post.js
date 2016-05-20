@@ -10,28 +10,28 @@ exports.addPost = function (req, res) {
     var token = req.headers.authorization.split(' ')[1];
 
     Account.findOne({token:token}, function (err, user) {
-       if (err) {
-           res.send('err');
-       }
-       else {
-           var post = new Post();
-           if(req.file) {
-               post.file = req.file.filename;
-               post.type_file = req.file.mimetype;
-           }
-           post.caption = req.body.caption;
-           post.board_id = req.body.board_id;
-           post.user_id = user._id;
-           post.data_create = Date.now();
-           post.post_id = req.body.post_id;
+      if (!err) {
+        var post = new Post();
+        if(req.file) {
+           post.file = req.file.filename;
+           post.type_file = req.file.mimetype;
+        }
+        post.caption = req.body.caption;
+        post.board_id = req.body.board_id;
+        post.user_id = user._id;
+        post.data_create = Date.now();
+        post.post_id = req.body.post_id;
 
-           post.save(function(err, post) {
-               if(err) {
-                   res.send(err);
-               }
-               res.json({ message: 'Post added!', data: post});
-           });
-       }
+        post.save(function(err, post) {
+           if(err) {
+               res.send(err);
+           }
+           res.json({ message: 'Post added!', data: post});
+        });
+      }
+      else {
+        res.json({errorMessage: 'Caption is required!'});
+      } 
     });
 };
 
