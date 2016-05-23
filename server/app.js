@@ -12,7 +12,6 @@ var user = require('./controllers/user');
 var board = require('./controllers/board');
 var post = require('./controllers/post');
 
-
 //delete after test function in user.js
 // var multer  = require('multer');
 // var storage = multer.diskStorage({
@@ -76,6 +75,16 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
+var http = require('http').createServer(app);
+
+// now socket.io
+var io = require('socket.io').listen(http);
+
+// and then we can start the server
+http.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + app.get('port'));
+});
+
 app.post('/add_post', upload.single('file'), post.addPost);
 
 app.post('/create_board', board.createBoard);
@@ -99,7 +108,12 @@ app.use('/', function (req, res) {
 
 // app.use('/', board);
 
-
+io.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
 
 // app.post('/create_board', function(req, res) {
 //   console.log(req.body);
