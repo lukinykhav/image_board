@@ -40,6 +40,24 @@ var upload = multer({ storage: storage });
 
 var app = express();
 
+app.io = require('socket.io')();
+
+app.io.on('connection', function(socket){  
+  console.log('a user connected');
+  socket.on('my other event', function (data) {
+    console.log(data);
+    socket.emit('news', {data: data});
+ });
+});
+
+// app.io.on('connection', function(socket){  
+//   console.log('a user connected');
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+
 // view engine setup
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.static(path.join(__dirname, '../uploads')));
@@ -75,16 +93,6 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
-var http = require('http').createServer(app);
-
-// now socket.io
-var io = require('socket.io').listen(http);
-
-// and then we can start the server
-http.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
-});
-
 app.post('/add_post', upload.single('file'), post.addPost);
 
 app.post('/create_board', board.createBoard);
@@ -107,13 +115,6 @@ app.use('/', function (req, res) {
 });
 
 // app.use('/', board);
-
-io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
-});
 
 // app.post('/create_board', function(req, res) {
 //   console.log(req.body);

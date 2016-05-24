@@ -1,6 +1,11 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
+    ['$scope', '$location', 'AuthService', 'socket',
+        function ($scope, $location, AuthService, socket) {
+
+            socket.on('news', function (data) {
+                console.log(data);
+                socket.emit('my other event', { my: 'data' });
+            });
 
             $scope.login = function () {
 
@@ -108,8 +113,12 @@ angular.module('myApp').controller('registerController',
 );
 
 angular.module('myApp').controller('boardsController',
-    ['$scope', '$location', 'BoardService',
-        function ($scope, $location, BoardService) {
+    ['$scope', '$location', 'BoardService', 'socket',
+        function ($scope, $location, BoardService, socket) {
+            socket.on('news', function (data) {
+              console.log(data);
+              socket.emit('my other event', {name: $scope.name, description: $scope.description});
+            });
 
             $scope.showAddBoardForm = function () {
                 $scope.addBoardForm = !$scope.addBoardForm;
@@ -124,8 +133,15 @@ angular.module('myApp').controller('boardsController',
             };
 
             $scope.addBoard = function () {
+                // socket.emit('send:board', {name: $scope.name, description: $scope.description});
                 BoardService.addBoard($scope.name, $scope.description)
                     .then(function (data) {
+
+                            // socket.on('send:board', function (data) {
+                            //     console.log(data);
+                            //     $scope.boards.push(data);
+                            // });
+                            $scope.addBoardForm = !$scope.addBoardForm;
                     })
                     .catch(function () {
                        $scope.errorMessage = "Error";

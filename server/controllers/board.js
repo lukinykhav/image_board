@@ -5,6 +5,7 @@ var Board = require('../models/board.js');
 var Account = require('../models/account.js');
 var Post = require('../models/post.js');
 
+// var io = require('../app.js').io;
 // router.post('/create_board', function(req, res) {
 
 //   console.log(req.body);
@@ -15,6 +16,11 @@ var Post = require('../models/post.js');
 
 
 exports.createBoard = function(req, res) {
+	// io.sockets.emit('news', { hello: 'world' });
+	//   io.sockets.on('my other event', function (data) {
+	//     console.log(data);
+	//  });
+
 	var token = req.headers.authorization.split(' ')[1];
 
 	Account.findOne({ token: token }, function(err, user) {

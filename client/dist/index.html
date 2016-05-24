@@ -27,19 +27,35 @@
   <script src="/angular-messages/angular-messages.min.js"></script>
   <script src="/angular-file-upload/dist/angular-file-upload.min.js"></script>
   <script src="/angular-utils-pagination/dirPagination.js"></script>
+
+  <script src="/socket.io/socket.io.js"></script> 
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script> -->
+
   <script src="../script/main.js"></script>
   <script src="../script/services.js"></script>
   <script src="../script/controllers.js"></script>
   <script src="../script/directives.js"></script>
   <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
   <script type="text/javascript" src="angular-recaptcha/release/angular-recaptcha.js"></script>
-  <script src="http://localhost/socket.io/socket.io.js"></script>
+
+  <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
+<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+
   <script>
     var socket = io.connect();
     socket.on('news', function (data) {
       console.log(data);
       socket.emit('my other event', { my: 'data' });
     });
+  </script> -->
+
+  <script>
+    var socket = io();
+    // socket.on('news', function (data) {
+    //   console.log(data);
+    //   socket.emit('my other event', { my: 'data' });
+    // });
+    
   </script>
 
  </body>
