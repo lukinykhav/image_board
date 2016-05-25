@@ -108,8 +108,8 @@ angular.module('myApp').controller('registerController',
 );
 
 angular.module('myApp').controller('boardsController',
-    ['$scope', '$location', 'BoardService',
-        function ($scope, $location, BoardService) {
+    ['$scope', '$location', 'BoardService', 'socket',
+        function ($scope, $location, BoardService, socket) {
 
             $scope.showAddBoardForm = function () {
                 $scope.addBoardForm = !$scope.addBoardForm;
@@ -124,8 +124,16 @@ angular.module('myApp').controller('boardsController',
             };
 
             $scope.addBoard = function () {
+                // socket.emit('news', { name: $scope.name, description: $scope.description });
+                socket.on('news', function (data) {
+                    console.log(data);
+                    $scope.boards.push(data.data);
+                    
+                });
                 BoardService.addBoard($scope.name, $scope.description)
                     .then(function (data) {
+                        socket.emit('news', data);
+                        $scope.addBoardForm = !$scope.addBoardForm;
                     })
                     .catch(function () {
                        $scope.errorMessage = "Error";

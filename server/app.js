@@ -12,6 +12,11 @@ var user = require('./controllers/user');
 var board = require('./controllers/board');
 var post = require('./controllers/post');
 
+var app = require('express')();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
+server.listen(3000);
 
 //delete after test function in user.js
 // var multer  = require('multer');
@@ -39,7 +44,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 
-var app = express();
+// var app = express();
 
 // view engine setup
 app.use(express.static(path.join(__dirname, '../client')));
@@ -95,6 +100,14 @@ app.use('/', user);
 
 app.use('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
+
+io.on('connection', function (socket) {
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('news', data);
+  });
 });
 
 // app.use('/', board);
