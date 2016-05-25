@@ -16,8 +16,6 @@ var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
-server.listen(3000);
-
 //delete after test function in user.js
 // var multer  = require('multer');
 // var storage = multer.diskStorage({
@@ -34,15 +32,13 @@ server.listen(3000);
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, '../uploads/')
     },
     filename: function (req, file, cb) {
-        console.log(req, file);
         cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
     }
 });
 var upload = multer({ storage: storage });
-
 
 // var app = express();
 
@@ -77,6 +73,8 @@ var Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
+server.listen(3000);
 
 // mongoose
 mongoose.connect('mongodb://localhost/test');
