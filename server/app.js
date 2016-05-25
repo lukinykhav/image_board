@@ -1,3 +1,7 @@
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
@@ -37,17 +41,20 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
+server.listen(3000);
+// var app = express();
 
-var app = express();
+// app.io = require('socket.io')();
 
-app.io = require('socket.io')();
-
-app.io.on('connection', function(socket){  
+io.on('connection', function(socket){  
   console.log('a user connected');
-  socket.on('my other event', function (data) {
-    console.log(data);
-    socket.emit('news', {data: data});
- });
+  socket.on('message', function (data) {
+    socket.emit('message', data);
+  })
+  
+  // socket.on('my other event', function (data) {
+  //   console.log(data);
+  // });
 });
 
 // app.io.on('connection', function(socket){  
@@ -113,6 +120,7 @@ app.use('/', user);
 app.use('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
+
 
 // app.use('/', board);
 
