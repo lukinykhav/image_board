@@ -151,14 +151,18 @@ angular.module('myApp').controller('boardsController',
 );
 
 angular.module('myApp').controller('boardController',
-    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter', 'BoardService', 'PostService',
-        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter, BoardService, PostService) {
+    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter', 'BoardService', 'PostService', 'socket',
+        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter, BoardService, PostService, socket) {
             var filtred = [];
             var id = $location.path().split('/')[2];
             var token = localStorage.getItem('token');
-            
+
             BoardService.getBoard(id)
-                .then(function(data) {
+                .then(function(data) { 
+                    socket.on('news1', function (post) {
+                        console.log(data, post);
+                        $scope.posts.push(post.data);
+                    })
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
                     $scope.posts = filtred.posts;
@@ -248,8 +252,8 @@ angular.module('myApp').controller('postController',
 );
 
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id',
-        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, post_id) {
+    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id', 'socket',
+        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, post_id, socket) {
 
             $scope.cancel = function() {
                 $mdDialog.cancel();
@@ -268,6 +272,7 @@ angular.module('myApp').controller('addPostController',
                     headers: {'Content-Type': undefined}
                     })
                     .success(function(data) {
+                        socket.emit('news1', data);
                     }) 
             }
 

@@ -105,6 +105,13 @@ io.on('connection', function (socket) {
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('news', data);
+    socket.broadcast.emit('news', data);
+  });
+
+  socket.on('news1', function (data) {
+    console.log(data);
+    socket.emit('news1', data);
+    socket.broadcast.emit('news1', data);
   });
 });
 
