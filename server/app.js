@@ -120,6 +120,7 @@ io.on('connection', function (socket) {
   })
 
   socket.on('like', function (data) {
+    console.log(data);
     socket.emit('like', data);
     socket.broadcast.emit('like', data);
   })

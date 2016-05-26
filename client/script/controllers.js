@@ -124,11 +124,9 @@ angular.module('myApp').controller('boardsController',
             };
 
             $scope.addBoard = function () {
-                // socket.emit('news', { name: $scope.name, description: $scope.description });
                 socket.on('board', function (data) {
                     console.log(data);
                     $scope.boards.push(data.data);
-                    
                 });
                 BoardService.addBoard($scope.name, $scope.description)
                     .then(function (data) {
@@ -174,9 +172,14 @@ angular.module('myApp').controller('boardController',
                                     $scope.posts.splice(i, 1);
                                 }
                             }
+                        }                       
+                    })
+                    socket.on('like', function (data) {                         
+                        for(var i = 0; i < $scope.posts.length; i++) {
+                            if($scope.posts[i]['_id'] === data._id) {
+                                $scope.posts[i] = data;
+                            }
                         }
-                   
-                       
                     })
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
@@ -221,6 +224,13 @@ angular.module('myApp').controller('postController',
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
                     $scope.posts = filtred.posts;
+                    socket.on('like', function (data) {                         
+                        for(var i = 0; i < $scope.posts.length; i++) {
+                            if($scope.posts[i]['_id'] === id) {
+                                $scope.posts[i] = data;
+                            }
+                        }
+                    })
                     PostService.getUserPost(id, token)
                         .then(function (data) {
                             $scope.userRole = data[1];
@@ -303,7 +313,6 @@ angular.module('myApp').controller('addPostController',
                         else {
                             socket.emit('comment', data);
                         }
-                        
                         $mdDialog.cancel();
                     }) 
             }
