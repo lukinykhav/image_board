@@ -226,7 +226,10 @@ angular.module('myApp').controller('postController',
                     $scope.posts = filtred.posts;
                     socket.on('like', function (data) {                         
                         for(var i = 0; i < $scope.posts.length; i++) {
-                            if($scope.posts[i]['_id'] === id) {
+                            if($scope.posts[i]['_id'] === data._id) {
+                                if($scope.posts[i]['class'] === 'comment') {
+                                    data['class'] = 'comment';
+                                }
                                 $scope.posts[i] = data;
                             }
                         }
