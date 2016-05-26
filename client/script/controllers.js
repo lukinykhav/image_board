@@ -160,12 +160,23 @@ angular.module('myApp').controller('boardController',
             BoardService.getBoard(id)
                 .then(function(data) { 
                     socket.on('post', function (post) {
-                        PostService.getUserPost(id, token)
-                        .then(function (data) {
-                            $scope.userRole = data[1];
-                            $scope.changePost = data[0];
-                            $scope.posts.push(post.data);
-                        })
+                        if (typeof(post) === 'object') {
+                            PostService.getUserPost(id, token)
+                            .then(function (data) {
+                                $scope.userRole = data[1];
+                                $scope.changePost = data[0];
+                                $scope.posts.push(post.data);
+                            })
+                        }
+                        else {
+                            for (var i = 0; i < $scope.posts.length; i++) {
+                                if ($scope.posts[i]['_id'] === post) {
+                                    $scope.posts.splice(i, 1);
+                                }
+                            }
+                        }
+                   
+                       
                     })
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
@@ -286,7 +297,6 @@ angular.module('myApp').controller('addPostController',
                     headers: {'Content-Type': undefined}
                     })
                     .success(function(data) {
-                        console.log(data);
                         if(data.data.post_id === 'null') {
                             socket.emit('post', data);
                         }
@@ -303,8 +313,9 @@ angular.module('myApp').controller('addPostController',
 );
 
 angular.module('myApp').controller('deletePostController',
-    ['$scope', '$http', function ($scope, $http) {
+    ['$scope', '$http', 'socket', function ($scope, $http, socket) {
         $scope.deletePost = function (id) {
+            socket.emit('post', id);
             $http.get('/delete_post/:' + id)
                 .success(function (data) {
                     console.log(data);
