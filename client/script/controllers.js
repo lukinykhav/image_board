@@ -125,14 +125,14 @@ angular.module('myApp').controller('boardsController',
 
             $scope.addBoard = function () {
                 // socket.emit('news', { name: $scope.name, description: $scope.description });
-                socket.on('news', function (data) {
+                socket.on('board', function (data) {
                     console.log(data);
                     $scope.boards.push(data.data);
                     
                 });
                 BoardService.addBoard($scope.name, $scope.description)
                     .then(function (data) {
-                        socket.emit('news', data);
+                        socket.emit('board', data);
                         $scope.addBoardForm = !$scope.addBoardForm;
                     })
                     .catch(function () {
@@ -159,9 +159,13 @@ angular.module('myApp').controller('boardController',
 
             BoardService.getBoard(id)
                 .then(function(data) { 
-                    socket.on('news1', function (post) {
-                        console.log(data, post);
-                        $scope.posts.push(post.data);
+                    socket.on('post', function (post) {
+                        PostService.getUserPost(id, token)
+                        .then(function (data) {
+                            $scope.userRole = data[1];
+                            $scope.changePost = data[0];
+                            $scope.posts.push(post.data);
+                        })
                     })
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
@@ -195,8 +199,8 @@ angular.module('myApp').controller('boardController',
 );
 
 angular.module('myApp').controller('postController',
-    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter',
-        function ($scope, $location, PostService, $mdDialog, $http, filter) {
+    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter', 'socket',
+        function ($scope, $location, PostService, $mdDialog, $http, filter, socket) {
             var id = $location.path().split('/')[2];
             var filtred = [];
             var arr_id = [];
@@ -212,6 +216,16 @@ angular.module('myApp').controller('postController',
                             $scope.changePost = data[0];
                         })
                 });
+
+            socket.on('comment', function (post) {
+                post.data['class'] = 'comment';
+                PostService.getUserPost(id, token)
+                        .then(function (data) {
+                            $scope.userRole = data[1];
+                            $scope.changePost = data[0];
+                            $scope.posts.push(post.data);
+                        })
+            })
 
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
@@ -272,7 +286,15 @@ angular.module('myApp').controller('addPostController',
                     headers: {'Content-Type': undefined}
                     })
                     .success(function(data) {
-                        socket.emit('news1', data);
+                        console.log(data);
+                        if(data.data.post_id === 'null') {
+                            socket.emit('post', data);
+                        }
+                        else {
+                            socket.emit('comment', data);
+                        }
+                        
+                        $mdDialog.cancel();
                     }) 
             }
 
@@ -318,16 +340,18 @@ angular.module('myApp').controller('editPostController',
     }]);
 
 angular.module('myApp').controller('likeController',
-    ['$scope', '$http', 'PostService', function ($scope, $http, PostService) {
+    ['$scope', '$http', 'PostService', 'socket', function ($scope, $http, PostService, socket) {
         $scope.like = function (post_id) {
             PostService.liking(post_id, 1)
                 .then(function(data) {
+                    socket.emit('like', data);
                 })
         };
 
         $scope.dislike = function (post_id) {
             PostService.liking(post_id, 0)
                 .then(function(data) {
+                    socket.emit('like', data);
                 })
         }
 

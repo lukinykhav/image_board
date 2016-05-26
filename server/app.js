@@ -102,17 +102,27 @@ app.use('/', function (req, res) {
 
 
 io.on('connection', function (socket) {
-  socket.on('news', function (data) {
+  socket.on('board', function (data) {
     console.log(data);
-    socket.emit('news', data);
-    socket.broadcast.emit('news', data);
+    socket.emit('board', data);
+    socket.broadcast.emit('board', data);
   });
 
-  socket.on('news1', function (data) {
+  socket.on('post', function (data) {
     console.log(data);
-    socket.emit('news1', data);
-    socket.broadcast.emit('news1', data);
+    socket.emit('post', data);
+    socket.broadcast.emit('post', data);
   });
+
+  socket.on('comment', function (data) {
+    socket.emit('comment', data);
+    socket.broadcast.emit('comment', data);
+  })
+
+  socket.on('like', function (data) {
+    socket.emit('like', data);
+    socket.broadcast.emit('like', data);
+  })
 });
 
 // app.use('/', board);
