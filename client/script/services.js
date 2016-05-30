@@ -314,7 +314,8 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
         getPost: getPost,
         getUserPost: getUserPost,
         editPost: editPost,
-        liking: liking
+        liking: liking,
+        changePost: changePost
     });
 
     function getPost (id) {
@@ -375,5 +376,17 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
                 deferred.reject(data);
             });
         return deferred.promise;
+    }
+
+   function changePost (posts, data) {
+        for (var i = 0; i < posts.length; i++) {
+            if (posts[i]['_id'] === data._id) {
+                if(posts[i]['class'] === 'comment') {
+                    data['class'] = 'comment';
+                }
+                posts[i] = data;
+            }
+        }
+        return posts;
     }
 }]);

@@ -168,9 +168,9 @@ angular.module('myApp').controller('boardController',
                     controller: 'addPostController',
                     templateUrl: 'partials/add_post.html',
                     locals: {
-                                post_id: post_id,
-                                posts: $scope.posts
-                            }
+                        post_id: post_id,
+                        posts: $scope.posts
+                    }
                 });
             };
 
@@ -178,7 +178,10 @@ angular.module('myApp').controller('boardController',
                 $mdDialog.show({
                     controller: 'editPostController',
                     templateUrl: 'partials/edit_post.html',
-                    locals: {post_id: post_id}
+                    locals: {
+                        post_id: post_id,
+                        posts: $scope.posts
+                    }
                 });
             }
         }
@@ -208,7 +211,10 @@ angular.module('myApp').controller('postController',
                 $mdDialog.show({
                     controller: 'editPostController',
                     templateUrl: 'partials/edit_post.html',
-                    locals: {post_id: post_id}
+                    locals: {
+                        post_id: post_id,
+                        posts: $scope.posts
+                    }
                 });
             };
 
@@ -217,10 +223,10 @@ angular.module('myApp').controller('postController',
                     controller: 'addPostController',
                     templateUrl: 'partials/add_post.html',
                     locals: {
-                                post_id: post_id,
-                                posts: $scope.posts
-                            }
-                    });
+                        post_id: post_id,
+                        posts: $scope.posts
+                    }
+                });
             };
 
             $scope.getComments = function (post_id) {
@@ -287,7 +293,11 @@ angular.module('myApp').controller('deletePostController',
         $scope.deletePost = function (id) {
             $http.get('/delete_post/:' + id)
                 .success(function (data) {
-                    console.log(data);
+                    for (var i = 0; i < $scope.posts.length; i++) {
+                        if ($scope.posts[i]['_id'] === id) {
+                            $scope.posts.splice(i, 1);
+                        }
+                    }
                 })
                 .error(function (err) {
                     console.log(err);
@@ -296,7 +306,7 @@ angular.module('myApp').controller('deletePostController',
     }]);
 
 angular.module('myApp').controller('editPostController',
-    ['$scope', '$http', 'post_id', '$mdDialog', 'PostService', function ($scope, $http, post_id, $mdDialog, PostService) {
+    ['$scope', '$http', 'locals', '$mdDialog', 'PostService', function ($scope, $http, locals, $mdDialog, PostService) {
 
         $scope.cancel = function() {
             $mdDialog.cancel();
@@ -308,8 +318,9 @@ angular.module('myApp').controller('editPostController',
                 fd.append(key, $scope.customer[key]);
             }
 
-            PostService.editPost(post_id, fd)
+            PostService.editPost(locals.post_id, fd)
                 .then(function(data) {
+                    $scope.posts = PostService.changePost(locals.posts, data);
                 })
                 .catch(function() {
                     $scope.error = true;
@@ -324,12 +335,14 @@ angular.module('myApp').controller('likeController',
         $scope.like = function (post_id) {
             PostService.liking(post_id, 1)
                 .then(function(data) {
+                    $scope.posts = PostService.changePost($scope.posts, data);
                 })
         };
 
         $scope.dislike = function (post_id) {
             PostService.liking(post_id, 0)
                 .then(function(data) {
+                    $scope.posts = PostService.changePost($scope.posts, data);
                 })
         }
 
