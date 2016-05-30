@@ -167,7 +167,10 @@ angular.module('myApp').controller('boardController',
                 $mdDialog.show({
                     controller: 'addPostController',
                     templateUrl: 'partials/add_post.html',
-                    locals: {post_id: post_id}
+                    locals: {
+                                post_id: post_id,
+                                posts: $scope.posts
+                            }
                 });
             };
 
@@ -213,8 +216,11 @@ angular.module('myApp').controller('postController',
                 $mdDialog.show({
                     controller: 'addPostController',
                     templateUrl: 'partials/add_post.html',
-                    locals: {post_id: post_id}
-                });
+                    locals: {
+                                post_id: post_id,
+                                posts: $scope.posts
+                            }
+                    });
             };
 
             $scope.getComments = function (post_id) {
@@ -240,8 +246,8 @@ angular.module('myApp').controller('postController',
 );
 
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'post_id',
-        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, post_id) {
+    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'locals',
+        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, locals) {
 
             $scope.cancel = function() {
                 $mdDialog.cancel();
@@ -250,7 +256,7 @@ angular.module('myApp').controller('addPostController',
             $scope.uploadFile = function () {
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
-                $scope.customer.post_id = post_id;
+                $scope.customer.post_id = locals.post_id;
                 for (var key in $scope.customer) {
                     fd.append(key, $scope.customer[key]);
                 }
@@ -259,7 +265,16 @@ angular.module('myApp').controller('addPostController',
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
                     })
-                    .success(function(data) {
+                    .success(function(post) {
+                        if(post.data.post_id === null) {
+                            locals.posts.push(post.data);
+                        }
+                        else {
+                            post.data['class'] = 'comment';
+                            locals.posts.push(post.data);
+                        }
+                        $mdDialog.cancel();
+                        
                     }) 
             }
 
