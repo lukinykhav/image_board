@@ -161,18 +161,18 @@ angular.module('myApp').controller('boardController',
                             $scope.userRole = data[1];
                             $scope.changePost = data[0];
                         })
-                })
-
-            $scope.showAdd = function (post_id) {
-                $mdDialog.show({
-                    controller: 'addPostController',
-                    templateUrl: 'partials/add_post.html',
-                    locals: {
-                        post_id: post_id,
-                        posts: $scope.posts
-                    }
                 });
-            };
+
+            // $scope.showAdd = function (post_id) {
+            //     $mdDialog.show({
+            //         controller: 'addPostController',
+            //         templateUrl: 'partials/add_post.html',
+            //         locals: {
+            //             post_id: post_id,
+            //             posts: $scope.posts
+            //         }
+            //     });
+            // };
 
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
@@ -252,17 +252,19 @@ angular.module('myApp').controller('postController',
 );
 
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$mdDialog', '$http', 'dataHolder', '$customHttp', 'locals',
-        function ($scope, $location, $mdDialog, $http, dataHolder, $customHttp, locals) {
-
-            $scope.cancel = function() {
-                $mdDialog.cancel();
+    ['$scope', '$location', '$http', 'dataHolder', '$customHttp',
+        function ($scope, $location, $http, dataHolder, $customHttp) {
+            var defaultForm = {
+                caption: "",
+                fiel: "",
+                board_id: "",
+                post_id: ""
             };
-            
-            $scope.uploadFile = function () {
+
+            $scope.uploadFile = function (post_id, posts) {
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
-                $scope.customer.post_id = locals.post_id;
+                $scope.customer.post_id = post_id;
                 for (var key in $scope.customer) {
                     fd.append(key, $scope.customer[key]);
                 }
@@ -273,15 +275,16 @@ angular.module('myApp').controller('addPostController',
                     })
                     .success(function(post) {
                         if(post.data.post_id === null) {
-                            locals.posts.push(post.data);
+                            posts.push(post.data);
                         }
                         else {
                             post.data['class'] = 'comment';
-                            locals.posts.push(post.data);
+                            posts.push(post.data);
                         }
-                        $mdDialog.cancel();
-                        
-                    }) 
+                        $scope.add_post.$setPristine();
+                        $scope.add_post.$setUntouched();
+                        $scope.customer = angular.copy(defaultForm);
+                    });
             }
 
         }
@@ -344,7 +347,7 @@ angular.module('myApp').controller('likeController',
                 .then(function(data) {
                     $scope.posts = PostService.changePost($scope.posts, data);
                 })
-        }
+        };
 
         $scope.Math = Math;
     }]);

@@ -54,11 +54,28 @@
         </div>
     </div>
     <br>
-    <md-button class="md-fab" arial-label="Add" ng-click="showAdd(null)">
-        <md-icon class="material-icons plus">add</md-icon>
-    </md-button>
     <div class="paginate">
         <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+    </div>
+
+    <div ng-controller="addPostController" class="add-post">
+        <form name="add_post" novalidate>
+            <div layout layout-sm="column" class="wrap-textarea">
+                <md-input-container flex>
+                    <label>Caption</label>
+                    <textarea md-maxlength="150" rows="3" md-select-on-focus="" ng-model="customer.caption" name="caption" placeholder="Caption (required)" required></textarea>
+                </md-input-container>
+            </div>
+            <div class="file_input">
+                <label class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                    <i class="material-icons">file_upload</i>
+                    <md-input-container class="none">
+                        <input id="file_input_file"  type="file" file-model="customer.file"/>
+                    </md-input-container>
+                </label>
+            </div>
+        </form>
+            <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
     </div>
 </div>
 
