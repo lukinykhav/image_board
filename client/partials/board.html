@@ -67,13 +67,14 @@
                 </md-input-container>
             </div>
             <div class="file_input">
-                <label class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                <label spinner-start-active="true" ng-click="startSpin()" class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
                     <i class="material-icons">file_upload</i>
                     <md-input-container class="none">
                         <input id="file_input_file"  type="file" file-model="customer.file"/>
                     </md-input-container>
                 </label>
             </div>
+            <span us-spinner spinner-key="spinner" class="spinner"></span>
         </form>
             <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
     </div>

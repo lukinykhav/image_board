@@ -39,7 +39,9 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "serve-favicon": "~2.3.0",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "angular-spinner": "~0.8.1",
+    "spin": "0.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

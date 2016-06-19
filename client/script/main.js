@@ -1,4 +1,9 @@
-var myApp = angular.module('myApp', ['ngMaterial', 'ngMessages', 'ui.router', 'vcRecaptcha', 'angularFileUpload', 'angularUtils.directives.dirPagination']);
+var myApp = angular.module('myApp',
+    [
+        'ngMaterial', 'ngMessages', 'ui.router', 'vcRecaptcha',
+        'angularFileUpload', 'angularUtils.directives.dirPagination',
+        'angularSpinner'
+    ]);
 
 myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider

@@ -1,31 +1,25 @@
 <md-dialog>
     <md-dialog-content class="md-padding">
-        <form>
+        <form name="add_post" novalidate>
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>Caption</label>
-                    <input ng-model="customer.caption" placeholder="Caption">
+                    <input ng-model="customer.caption" name="caption" placeholder="Caption (required)" required>
                 </md-input-container>
-                {{ customer.caption }}
-            </div>
-            <div layout="row">
-
-                <md-input-container flex>
-                    <!--<label>Select your file</label>-->
-                    <input type="file" file-model="customer.file">
-                </md-input-container>
-                <div>
-                    <md-button class="md-fab md-mini">
-                        <md-icon class="material-icons">attach_file</md-icon>
-                    </md-button>
+                <div class="file_input">
+                    <label class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">file_upload</i>
+                        <md-input-container class="none">
+                            <input id="file_input_file"  type="file" file-model="customer.file"/>
+                        </md-input-container>
+                    </label>
                 </div>
             </div>
         </form>
     </md-dialog-content>
-    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-    <div class="md-actions" layout="row">
+    <div class="md-actions no-border" layout="row">
         <span flex></span>
         <md-button ng-click="cancel()"> Cancel</md-button>
-        <md-button ng-click="uploadFile()" class="md-primary"> Save</md-button>
+        <md-button ng-click="uploadFile()" class="md-primary" ng-disabled="add_post.$invalid">Save</md-button>
     </div>
 </md-dialog>

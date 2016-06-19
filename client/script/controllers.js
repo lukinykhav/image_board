@@ -143,8 +143,13 @@ angular.module('myApp').controller('boardsController',
 );
 
 angular.module('myApp').controller('boardController',
-    ['$scope', '$location', 'BoardService', '$mdDialog', 'dataHolder', '$http', 'filter', 'BoardService', 'PostService',
-        function ($scope, $location, BoardService, $mdDialog, dataHolder, $http, filter, BoardService, PostService) {
+    [
+        '$scope', '$location', 'BoardService', '$mdDialog',
+        'dataHolder', '$http', 'filter','PostService',
+        function (
+            $scope, $location, BoardService, $mdDialog,
+            dataHolder, $http, filter, PostService
+        ) {
             var filtred = [];
             var id = $location.path().split('/')[2];
             var token = localStorage.getItem('token');
@@ -162,17 +167,6 @@ angular.module('myApp').controller('boardController',
                             $scope.changePost = data[0];
                         })
                 });
-
-            // $scope.showAdd = function (post_id) {
-            //     $mdDialog.show({
-            //         controller: 'addPostController',
-            //         templateUrl: 'partials/add_post.html',
-            //         locals: {
-            //             post_id: post_id,
-            //             posts: $scope.posts
-            //         }
-            //     });
-            // };
 
             $scope.editPost = function (post_id) {
                 $mdDialog.show({
@@ -252,13 +246,22 @@ angular.module('myApp').controller('postController',
 );
 
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$http', 'dataHolder', '$customHttp',
-        function ($scope, $location, $http, dataHolder, $customHttp) {
+    ['$scope', '$location', '$http', 'dataHolder', '$customHttp', 'usSpinnerService',
+        function ($scope, $location, $http, dataHolder, $customHttp, usSpinnerService) {
             var defaultForm = {
                 caption: "",
                 fiel: "",
                 board_id: "",
                 post_id: ""
+            };
+
+            $scope.startSpin = function(){
+                usSpinnerService.spin('spinner');
+                setTimeout(function(){
+                    if(document.getElementById('file_input_file').value) {
+                        usSpinnerService.stop('spinner');
+                    }
+                }, 3000);
             };
 
             $scope.uploadFile = function (post_id, posts) {

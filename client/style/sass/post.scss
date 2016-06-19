@@ -131,3 +131,10 @@
 .no-border {
   border: none!important;
 }
+
+.spinner {
+  position: relative;
+  left: 40%;
+  top: 25px;
+  z-index: 10;
+}
