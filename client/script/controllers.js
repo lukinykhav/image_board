@@ -255,11 +255,16 @@ angular.module('myApp').controller('addPostController',
                 post_id: ""
             };
 
+            var textarea =  document.getElementsByClassName('wrap-textarea')[0];
+
             $scope.startSpin = function(){
                 usSpinnerService.spin('spinner');
+                textarea.className = 'hide';
                 setTimeout(function(){
                     if(document.getElementById('file_input_file').value) {
                         usSpinnerService.stop('spinner');
+                        console.log(textarea);
+                        textarea.className = 'wrap-textarea';
                     }
                 }, 3000);
             };
