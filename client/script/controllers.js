@@ -212,16 +212,9 @@ angular.module('myApp').controller('postController',
                 });
             };
 
-            $scope.showAdd = function (post_id) {
-                $mdDialog.show({
-                    controller: 'addPostController',
-                    templateUrl: 'partials/add_post.html',
-                    locals: {
-                        post_id: post_id,
-                        posts: $scope.posts
-                    }
-                });
-            };
+            // $scope.showAdd = function () {
+            //     $scope.addPostForm = !$scope.addPostForm;
+            // };
 
             $scope.getComments = function (post_id) {
                 if(arr_id.indexOf(post_id) === -1) {
@@ -293,7 +286,11 @@ angular.module('myApp').controller('addPostController',
                         $scope.add_post.$setUntouched();
                         $scope.customer = angular.copy(defaultForm);
                     });
-            }
+            };
+
+            // $scope.cancel = function () {
+            //     $scope.addPostForm = !$scope.addPostForm;
+            // }
 
         }
     ]

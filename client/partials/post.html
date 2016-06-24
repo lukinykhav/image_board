@@ -28,7 +28,7 @@
                 <span>
                    {{post.caption}}
                 </span>
-                <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(post._id)">
+                <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
@@ -48,6 +48,27 @@
                     </md-button>
                 </div>
             </div>
+        </div>
+        <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
+            <form name="add_post" novalidate>
+                <div layout layout-sm="column" class="wrap-textarea">
+                    <md-input-container flex>
+                        <label>Caption</label>
+                        <textarea md-maxlength="150" rows="3" md-select-on-focus="" ng-model="customer.caption" name="caption" placeholder="Caption (required)" required></textarea>
+                    </md-input-container>
+                </div>
+                <div class="file_input">
+                    <label spinner-start-active="true" ng-click="startSpin()" class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">file_upload</i>
+                        <md-input-container class="none">
+                            <input id="file_input_file"  type="file" file-model="customer.file"/>
+                        </md-input-container>
+                    </label>
+                </div>
+                <span us-spinner spinner-key="spinner" class="spinner"></span>
+            </form>
+            <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
+            <md-button ng-click="addPostForm =! addPostForm" class="md-accent md-raised">Cancel</md-button>
         </div>
     </div>
 </div>
