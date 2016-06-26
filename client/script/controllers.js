@@ -212,10 +212,6 @@ angular.module('myApp').controller('postController',
                 });
             };
 
-            // $scope.showAdd = function () {
-            //     $scope.addPostForm = !$scope.addPostForm;
-            // };
-
             $scope.getComments = function (post_id) {
                 if(arr_id.indexOf(post_id) === -1) {
                     arr_id.push(post_id);
@@ -287,11 +283,6 @@ angular.module('myApp').controller('addPostController',
                         $scope.customer = angular.copy(defaultForm);
                     });
             };
-
-            // $scope.cancel = function () {
-            //     $scope.addPostForm = !$scope.addPostForm;
-            // }
-
         }
     ]
 );

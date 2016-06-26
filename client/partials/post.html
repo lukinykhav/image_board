@@ -67,8 +67,7 @@
                 </div>
                 <span us-spinner spinner-key="spinner" class="spinner"></span>
             </form>
-            <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
-            <md-button ng-click="addPostForm =! addPostForm" class="md-accent md-raised">Cancel</md-button>
+            <md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
         </div>
     </div>
 </div>
