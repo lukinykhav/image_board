@@ -194,6 +194,9 @@ angular.module('myApp').controller('postController',
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
                     $scope.posts = filtred.posts;
+                    if(filtred.comments.length > 0) {
+                        $scope.comments = true;
+                    }
                     PostService.getUserPost(id, token)
                         .then(function (data) {
                             $scope.userRole = data[1];

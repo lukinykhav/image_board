@@ -32,7 +32,7 @@
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
-            <md-button class="md-fab md-mini" ng-click="getComments(post._id)">
+            <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">
                 <md-icon class="material-icons">keyboard_arrow_down</md-icon>
             </md-button>
             <div class="likes" ng-controller="likeController">

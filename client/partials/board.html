@@ -32,11 +32,7 @@
                 <span>
                    {{post.caption}}
                 </span>
-                <md-button class="md-fab add-comment" arial-label="Add" ng-click="showAdd(post._id)">
-                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
-                </md-button>
             </div>
-            <div class="evalution"></div>
         </a>
         <div class="likes" ng-controller="likeController">
             <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
