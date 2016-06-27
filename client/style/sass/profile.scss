@@ -45,6 +45,7 @@
 		background-size: 50%;
 		background-repeat: no-repeat;
 		background-position: center;
+		z-index: 5;
 
 		input {
 			height: 71px;
@@ -66,8 +67,6 @@
     span {
     	font-size:18px;
 	  	width:300px;
-	  	// float: left;
-	  	// margin-top: 10px;
 	  	margin-left: 50px;
     }
 
@@ -90,7 +89,8 @@
 
 canvas {
 	border: 1px solid #c3c3c3;
-	height: 128px;
+	height: 205px;
+	width: 278px;
 	@include centerer;
 
 }

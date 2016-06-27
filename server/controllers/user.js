@@ -2,10 +2,13 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var jwt    = require('jsonwebtoken');
+var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        mkdirp.sync('./uploads/');
         cb(null, './uploads/')
     },
     filename: function (req, file, cb) {

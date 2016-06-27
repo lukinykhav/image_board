@@ -11,24 +11,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var user = require('./controllers/user');
 var board = require('./controllers/board');
 var post = require('./controllers/post');
-
-
-//delete after test function in user.js
-// var multer  = require('multer');
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, './uploads/')
-//   },
-//   filename: function (req, file, cb) {
-//       console.log(file);
-//     cb(null, Date.now() + '.' + file.mimetype.split('/')[1])
-//   }
-// });
-// var upload = multer({ storage: storage });
+var fs = require('fs');
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
+        mkdirp.sync('./uploads/');
         cb(null, './uploads/')
     },
     filename: function (req, file, cb) {
