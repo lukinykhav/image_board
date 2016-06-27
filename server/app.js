@@ -12,6 +12,7 @@ var user = require('./controllers/user');
 var board = require('./controllers/board');
 var post = require('./controllers/post');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
