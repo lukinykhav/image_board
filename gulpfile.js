@@ -5,14 +5,13 @@ var gulp = require('gulp'),
     ngmin = require('gulp-ngmin'),
     concat = require('gulp-concat'),
     stylesPath = './client/style/sass/*.scss',
-    scriptsPath = './client/script/*.js',
-    distPath = './client';
+    scriptsPath = './client/script/controllers/*.js'
 
 gulp.task('scripts', function () {
     return gulp.src(scriptsPath)
-        .pipe(concat('all.js'))
+        .pipe(concat('controllers.js'))
         .pipe(ngmin({dynamic: true}))
-        .pipe(gulp.dest(distPath));
+        .pipe(gulp.dest('./client/script/'));
 });
 
 gulp.task('sass', function () {
@@ -21,16 +20,9 @@ gulp.task('sass', function () {
             outputStyle: 'compressed',
             includePaths: bourbon.includePaths
         }).on('error', sass.logError))
-        .pipe(concat('style/main.css'))
-        .pipe(gulp.dest(distPath));
+        .pipe(concat('main.css'))
+        .pipe(gulp.dest('./client/style/'));
 });
-
-
-// gulp.task('sass', function () {
-//     return gulp.src('./client/style/sass/*.scss')
-//         .pipe(sass.sync().on('error', sass.logError))
-//         .pipe(gulp.dest('./client/style/css'));
-// });
 
 gulp.task('scripts:watch', function () {
     gulp.watch(scriptsPath, ['scripts']);
@@ -41,19 +33,3 @@ gulp.task('sass:watch', function () {
 });
 
 gulp.task('watch', ['sass:watch']);
-
-gulp.task('nodemon', function () {
-    nodemon({
-        script: 'app.js'
-        , ext: 'js html css sass scss coffee'
-        , env: {'NODE_ENV': 'development'}
-    });
-});
-// not work yet
-//var html2jade = require('gulp-html2jade');
-//var options = {nspaces:2};
-//gulp.task('jade', function(){
-//    gulp.src('index.html')
-//        .pipe(html2jade(options))
-//        .pipe(gulp.dest('dist'));
-//});
