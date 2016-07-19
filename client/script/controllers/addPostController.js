@@ -3,7 +3,7 @@ angular.module('myApp').controller('addPostController',
         function ($scope, $location, $http, dataHolder, $customHttp, usSpinnerService) {
             var defaultForm = {
                 caption: "",
-                fiel: "",
+                file: "",
                 board_id: "",
                 post_id: ""
             };
@@ -16,7 +16,6 @@ angular.module('myApp').controller('addPostController',
                 setTimeout(function(){
                     if(document.getElementById('file_input_file').value) {
                         usSpinnerService.stop('spinner');
-                        console.log(textarea);
                         textarea.className = 'wrap-textarea';
                     }
                 }, 3000);

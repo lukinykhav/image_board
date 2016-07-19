@@ -3,7 +3,7 @@ angular.module('myApp').controller('addPostController',
         function ($scope, $location, $http, dataHolder, $customHttp, usSpinnerService) {
             var defaultForm = {
                 caption: "",
-                fiel: "",
+                file: "",
                 board_id: "",
                 post_id: ""
             };
@@ -16,7 +16,6 @@ angular.module('myApp').controller('addPostController',
                 setTimeout(function(){
                     if(document.getElementById('file_input_file').value) {
                         usSpinnerService.stop('spinner');
-                        console.log(textarea);
                         textarea.className = 'wrap-textarea';
                     }
                 }, 3000);
@@ -188,7 +187,14 @@ angular.module('myApp').controller('loginController',
     ['$scope', '$location', 'AuthService',
         function ($scope, $location, AuthService) {
 
+            $scope.onChange = function(cbState) {
+                $scope.message = cbState;
+            };
+
             $scope.login = function () {
+                if ($scope.loginForm.remember) {
+                    console.log('Save data in session');
+                }
 
                 // initial values
                 $scope.error = false;

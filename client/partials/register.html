@@ -9,24 +9,25 @@
     <md-input-container class="md-block">
       <label>Username</label>
       <input name="username" ng-model="registerForm.username" required>
-      <div ng-messages="myForm.username.$error">
-        <div ng-hide="!myForm.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
+      <div ng-messages="myForm.username.$error" role="alert">
+        <div ng-message="required" class="form-error">Username is required.</div>
       </div>
     </md-input-container>
 
     <md-input-container class="md-block">
       <label>Email address</label>
       <input name="email" type="email" ng-model="registerForm.email" required>
-      <div ng-messages="myForm.email.$error">
-        <div ng-hide="!myForm.email.$error.required" ng-message="required">Email is required.</div>
+      <div ng-messages="myForm.email.$error" role="alert">
+        <div ng-message="required">Email is required.</div>
+        <div  ng-if="myForm.email.$dirty" ng-message="email">Your email address is invalid</div>
       </div>
     </md-input-container>
 
     <md-input-container class="md-block">
       <label>Password</label>
       <input id="password" name="password" type="password" ng-model="registerForm.password" required>
-      <div ng-messages="myForm.password.$error" >
-      <div ng-hide="!myForm.password.$error.required" ng-message="required">Password is required.</div>
+      <div ng-messages="myForm.password.$error" role="alert">
+      <div ng-message="required">Password is required.</div>
       </div>
     </md-input-container>
 
@@ -34,24 +35,16 @@
       <label>Confirm password</label>
       <input name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
       <div ng-messages="myForm.password_c.$error">
-        <div ng-hide="!myForm.password_c.$error.required" ng-message="required">Confirm password is required.</div>
-        <div ng-hide="!myForm.password_c.$error.pwmatch" ng-message="pwmatch">Passwords don't match.</div>
+        <div ng-message="required">Confirm password is required.</div>
+        <div ng-if="myForm.password_c.$dirty" ng-message="pwmatch">Passwords don't match.</div>
       </div>
     </md-input-container>
 
     <div layout="row" layout-align='left start'>
-      <md-checkbox ng-model="registerForm.agree" aria-label="Checkbox 1">I agree with terms and rules of this forum.</md-checkbox>
+      <md-checkbox name="agree" type="checkbox" ng-model="registerForm.agree" required>I agree with terms and rules of this forum.</md-checkbox>
        <div ng-messages="myForm.agree.$error">
-        <div ng-hide="!myForm.agree.$error.required" ng-message="required">Confirm password is required.</div>
+        <div ng-if="!myForm.agree.$error.required" ng-message="required">Check it please.</div>
       </div>
-    </div>
-
-    <div class="captcha parent">
-      <div class="child both"
-          vc-recaptcha
-          key="'6LeP4RsTAAAAAOf44AdOnQ4bB4BPwdWxNHRHEdL8'"
-      ></div>
-
     </div>
 
     <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" ng-disabled="myForm.$invalid" ng-click="register()">Sign up</md-button>
