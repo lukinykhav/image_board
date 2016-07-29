@@ -9,6 +9,7 @@
     "angular": "^1.5.2",
     "angular-animate": "^1.5.2",
     "angular-aria": "^1.5.2",
+    "angular-cookies": "^1.5.7",
     "angular-file-upload": "^2.2.0",
     "angular-local-storage": "^0.2.7",
     "angular-material": "^1.0.6",

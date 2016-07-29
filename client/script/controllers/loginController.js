@@ -1,15 +1,12 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
+    ['$scope', '$location', 'AuthService', '$cookieStore',
+        function ($scope, $location, AuthService, $cookieStore) {
 
             $scope.onChange = function(cbState) {
                 $scope.message = cbState;
             };
 
             $scope.login = function () {
-                if ($scope.loginForm.remember) {
-                    console.log('Save data in session');
-                }
 
                 // initial values
                 $scope.error = false;
@@ -18,7 +15,10 @@ angular.module('myApp').controller('loginController',
                 AuthService.login($scope.loginForm.username, $scope.loginForm.password)
                     // handle success
                     .then(function (token) {
-                        localStorage.setItem('token', token);
+                        if ($scope.loginForm.remember) {
+                            localStorage.setItem('token', token);
+                            // $cookieStore.put('token', token);
+                        }
                         $location.path('/profile');
                     })
                     // handle error
