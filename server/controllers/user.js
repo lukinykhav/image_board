@@ -81,20 +81,20 @@ router.get('/logout', function(req, res) {
 });
 
 router.get('/profile', function(req, res){
-  var token = req.headers.authorization.split(' ')[1];
-  Account.findOne({ token: token }, function(err, docs) {
+  //var token = req.headers.authorization.split(' ')[1];
+  Account.findOne({ token: req.user.token }, function(err, user) {
     if(err) {
       res.send('err');
     }
     else {
-      res.send(docs);
+      res.send(user);
     }
   });
 });
 
 router.post('/profile', function (req, res) {
-    var token = req.headers.authorization.split(' ')[1];
-    Account.findOneAndUpdate({token: token},
+    //var token = req.headers.authorization.split(' ')[1];
+    Account.findOneAndUpdate({token: req.user.token},
         {
             name: req.body.name,
             email: req.body.email,
@@ -106,6 +106,7 @@ router.post('/profile', function (req, res) {
 
 router.post('/load_avatar', upload.single('file'), function(req, res) {
     // var token = req.headers.authorization.split(' ')[1];
+    console.log(req.user.token);
     Account.findOneAndUpdate({ token: req.user.token },
         {
             image: req.file.filename

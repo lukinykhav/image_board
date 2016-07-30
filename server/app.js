@@ -82,7 +82,7 @@ app.post('/like/:id', post.liking);
 
 app.use('/', user);
 
-app.use('/', function (req, res) {
+app.use('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 });
 

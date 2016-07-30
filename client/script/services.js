@@ -7,7 +7,7 @@ angular.module('myApp').factory('AuthService',
 
             // return available functions for use in the controllers
             return ({
-                isLoggedIn: isLoggedIn,
+                //isLoggedIn: isLoggedIn,
                 getUserStatus: getUserStatus,
                 login: login,
                 logout: logout,
@@ -17,14 +17,14 @@ angular.module('myApp').factory('AuthService',
                 getUserRole: getUserRole
             });
 
-            function isLoggedIn() {
-                console.log(user);
-                if (user) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            //function isLoggedIn() {
+            //    console.log(user);
+            //    if (user) {
+            //        return true;
+            //    } else {
+            //        return false;
+            //    }
+            //}
 
             function getUserStatus() {
                 var deferred = $q.defer();
@@ -135,7 +135,7 @@ angular.module('myApp').factory('AuthService',
                         deferred.resolve(data);
                     })
                     // handle error
-                    .error(function (data) {
+                    .error(function () {
                         deferred.reject();
                     });
 

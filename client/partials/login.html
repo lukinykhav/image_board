@@ -6,12 +6,12 @@
   </div>
   <div>
     <form class="form" name="form_login" novalidate>
-    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+    <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
       <md-input-container class="md-block">
         <label>Username</label>
         <input name="username" ng-model="loginForm.username" required>
-        <div ng-messages="form_login.username.$error">
-          <div ng-hide="!form_login.username.$error.required" ng-message="required" class="form-error">Username is required.</div>
+        <div ng-messages="form_login.username.$error" role="alert">
+          <div ng-message="required" class="form-error">Username is required.</div>
         </div>
       </md-input-container>
 
@@ -19,7 +19,7 @@
         <label>Password</label>
         <input name="password" type="password" ng-model="loginForm.password" required>
         <div ng-messages="form_login.password.$error" >
-        <div ng-hide="!form_login.password.$error.required" ng-message="required">Password is required.</div>
+        <div ng-message="required">Password is required.</div>
         </div>
       </md-input-container>
 

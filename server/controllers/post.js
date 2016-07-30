@@ -7,9 +7,9 @@ var Post = require('../models/post.js');
 var User = require('../controllers/user.js');
 
 exports.addPost = function (req, res) {
-    var token = req.headers.authorization.split(' ')[1];
+    //var token = req.headers.authorization.split(' ')[1];
 
-    Account.findOne({token:token}, function (err, user) {
+    Account.findOne({token: req.user.token}, function (err, user) {
       if (!err) {
         var post = new Post();
         if(req.file) {
@@ -48,14 +48,14 @@ exports.getPost = function (req, res) {
 };
 
 exports.getUserPost = function (req, res) {
-  Account.findOne({token: req.body.token}, function(err, user) {
+  Account.findOne({token: req.user.token}, function(err, user) {
     Post.find({user_id: user._id}, function(err, posts) {
       res.json({  posts: posts,
                   user: user
                 });
     })
   })
-}
+};
 
 exports.deletePost = function (req, res) {
   User.getUserInfo(req.user.token, ['_id', 'role'], function(user_info) {
@@ -102,9 +102,9 @@ exports.editPost = function (req, res) {
 };
 
 exports.liking = function (req, res) {
-  var token = req.headers.authorization.split(' ')[1];
+  //var token = req.headers.authorization.split(' ')[1];
 
-    Account.findOne({token:token}, function (err, user) {
+    Account.findOne({token: req.user.token}, function (err, user) {
       if (err) {
            res.send('err');
       }

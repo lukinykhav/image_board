@@ -1,6 +1,6 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService', '$cookieStore',
-        function ($scope, $location, AuthService, $cookieStore) {
+    ['$scope', '$location', 'AuthService', '$cookieStore', '$rootScope',
+        function ($scope, $location, AuthService, $cookieStore, $rootScope) {
 
             $scope.onChange = function(cbState) {
                 $scope.message = cbState;
@@ -26,7 +26,6 @@ angular.module('myApp').controller('loginController',
                         $scope.error = true;
                         $scope.errorMessage = "Invalid username and/or password";
                     });
-                $scope.loginForm = {};
             };
 
             $scope.showRegister = function () {

@@ -184,8 +184,8 @@ angular.module('myApp').controller('likeController',
     }]);
 
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService', '$cookieStore',
-        function ($scope, $location, AuthService, $cookieStore) {
+    ['$scope', '$location', 'AuthService', '$cookieStore', '$rootScope',
+        function ($scope, $location, AuthService, $cookieStore, $rootScope) {
 
             $scope.onChange = function(cbState) {
                 $scope.message = cbState;
@@ -211,7 +211,6 @@ angular.module('myApp').controller('loginController',
                         $scope.error = true;
                         $scope.errorMessage = "Invalid username and/or password";
                     });
-                $scope.loginForm = {};
             };
 
             $scope.showRegister = function () {
@@ -338,6 +337,7 @@ angular.module('myApp').controller('registerController',
                 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
                     // handle success
                     .then(function () {
+                        $scope.myForm.$error = false;
                         $location.path('/login');
                     })
                     // handle error
@@ -345,7 +345,6 @@ angular.module('myApp').controller('registerController',
                         $scope.error = true;
                         $scope.errorMessage = "This name of user exists!";
                     });
-                $scope.registerForm = {};
             };
         }
     ]

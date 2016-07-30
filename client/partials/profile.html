@@ -1,7 +1,7 @@
-<div class="profile">
+<div class="profile" ng-init="profile()">
 	<div class="avatar">
 		    <!--<img src="../image/default-avatar.png">-->
-		<img ng-init="profile()" ng-src="{{image}}">
+		<img ng-src="{{image}}">
 			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored upload">
 				<input type="file" nv-file-select uploader="uploader">
 			</button>
@@ -37,7 +37,7 @@
 				</md-input-container>
 			</form>
 
-	        <form class="form-horizontal" ng-init="profile()" ng-hide="formProfile">
+	        <form class="form-horizontal" ng-hide="formProfile">
 	        	<div class="form-group row col-sm-12">
 		        	<label>Name </label>
 			    	<span>{{ name }}</span>

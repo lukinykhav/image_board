@@ -11,6 +11,7 @@ angular.module('myApp').controller('registerController',
                 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
                     // handle success
                     .then(function () {
+                        $scope.myForm.$error = false;
                         $location.path('/login');
                     })
                     // handle error
@@ -18,7 +19,6 @@ angular.module('myApp').controller('registerController',
                         $scope.error = true;
                         $scope.errorMessage = "This name of user exists!";
                     });
-                $scope.registerForm = {};
             };
         }
     ]
