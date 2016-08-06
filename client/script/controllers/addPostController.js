@@ -21,6 +21,10 @@ angular.module('myApp').controller('addPostController',
                 }, 3000);
             };
 
+            /*
+             *  Push to array use post_id
+             *  display comments use post_id
+            */
             $scope.uploadFile = function (post_id, posts) {
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
