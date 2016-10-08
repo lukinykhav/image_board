@@ -1,27 +1,28 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService', '$cookieStore', '$rootScope',
-        function ($scope, $location, AuthService, $cookieStore, $rootScope) {
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
 
-            $scope.onChange = function(cbState) {
-                $scope.message = cbState;
-            };
+            if (localStorage.getItem('username') && localStorage.getItem('password')) {
+                console.log(localStorage.getItem('username'));
+                $scope.username = localStorage.getItem('username');
+                $scope.password = localStorage.getItem('password');
+            }
 
             $scope.login = function () {
 
-                // initial values
                 $scope.error = false;
 
-                // call login from service
-                AuthService.login($scope.loginForm.username, $scope.loginForm.password)
-                    // handle success
-                    .then(function (token) {
-                        if ($scope.loginForm.remember) {
-                            localStorage.setItem('token', token);
-                            // $cookieStore.put('token', token);
+                AuthService.login($scope.username, $scope.password)
+                    .then(function () {
+                        if ($scope.remember) {
+                            localStorage.setItem('username', $scope.username);
+                            localStorage.setItem('password', $scope.password);
+                        }
+                        else {
+                            localStorage.clear();
                         }
                         $location.path('/profile');
                     })
-                    // handle error
                     .catch(function () {
                         $scope.error = true;
                         $scope.errorMessage = "Invalid username and/or password";

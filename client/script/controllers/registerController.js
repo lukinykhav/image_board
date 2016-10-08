@@ -4,17 +4,15 @@ angular.module('myApp').controller('registerController',
 
             $scope.register = function () {
 
-                // initial values
                 $scope.error = false;
 
-                // call register from service
                 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
-                    // handle success
                     .then(function () {
-                        $scope.myForm.$error = false;
-                        $location.path('/login');
+                        AuthService.login($scope.registerForm.username, $scope.registerForm.password)
+                            .then(function () {
+                                $location.path('/profile');
+                            });
                     })
-                    // handle error
                     .catch(function () {
                         $scope.error = true;
                         $scope.errorMessage = "This name of user exists!";

@@ -65,23 +65,41 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
 
 myApp.run(function ($rootScope, $state, AuthService) {
 
+    var status = AuthService.getUserStatus();
+    console.log(status);
+
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
-            AuthService.getUserStatus()
-                .then(function (data) {
-                    if (data) {
-                        $state.go(toState.name, toParams);
-                    }
-                    else {
-                        if (toState.url === '/register') {
-                            $state.go('anon.register');
-                        }
-                        else {
-                            $state.go('anon.login');
-                        }
-                    }
-                    event.preventDefault();
-                })
+
+            if (AuthService.getUserStatus()) {
+                $state.go(toState.name, toParams);
+            }
+            else {
+                if (toState.url === '/register') {
+                    $state.go('anon.register');
+                }
+                else {
+                    $state.go('anon.login');
+                }
+            }
+            event.preventDefault();
+
+            // AuthService.getUserStatus()
+            //     .then(function (data) {
+            //         console.log(data);
+            //         // if (data) {
+            //         //     $state.go(toState.name, toParams);
+            //         // }
+            //         // else {
+            //         //     if (toState.url === '/register') {
+            //         //         $state.go('anon.register');
+            //         //     }
+            //         //     else {
+            //         //         $state.go('anon.login');
+            //         //     }
+            //         // }
+            //         // event.preventDefault();
+            //     })
 
         }
     );

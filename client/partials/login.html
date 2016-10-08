@@ -9,7 +9,7 @@
     <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
       <md-input-container class="md-block">
         <label>Username</label>
-        <input name="username" ng-model="loginForm.username" required>
+        <input name="username" ng-model="username" required>
         <div ng-messages="form_login.username.$error" role="alert">
           <div ng-message="required" class="form-error">Username is required.</div>
         </div>
@@ -17,7 +17,7 @@
 
       <md-input-container class="md-block">
         <label>Password</label>
-        <input name="password" type="password" ng-model="loginForm.password" required>
+        <input name="password" type="password" ng-model="password" required>
         <div ng-messages="form_login.password.$error" >
         <div ng-message="required">Password is required.</div>
         </div>
@@ -25,7 +25,7 @@
 
       <md-input-container class="md-block">
           <label>Remember me:</label>
-          <md-switch name="remember" ng-model="loginForm.remember" class="remember" ng-change="onChange(loginForm.remember)"></md-switch>
+          <md-switch name="remember" ng-model="remember" class="remember"></md-switch>
         </md-input-container>
 
       <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-form" ng-disabled="form_login.$invalid" ng-click="login()">Sign in</md-button>

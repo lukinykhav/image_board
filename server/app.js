@@ -65,6 +65,16 @@ passport.deserializeUser(Account.deserializeUser());
 // mongoose
 mongoose.connect('mongodb://localhost/test');
 
+app.post('/register', user.signUp);
+app.post('/login',  passport.authenticate('local'), user.signIn);
+app.get('/logout', user.logout);
+app.get('/profile', user.profile);
+app.post('/profile', upload.single('image'), user.editProfile);
+app.post('/load_avatar',  upload.single('file'), user.loadAvatar);
+app.get('/status', user.getStatus);
+app.post('/user_role', user.userRole);
+app.post('/assign_role', user.assignRole);
+
 app.post('/add_post', upload.single('file'), post.addPost);
 
 app.post('/create_board', board.createBoard);
@@ -80,7 +90,7 @@ app.post('/like/:id', post.liking);
 // app.post('/add_post',  upload.single('content'), post.addPost);
 
 
-app.use('/', user);
+// app.use('/', user);
 
 app.use('*', function (req, res) {
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
@@ -98,7 +108,7 @@ app.use('*', function (req, res) {
 //this comment to see routes (refactoring), delete after test function in user.js
 // app.post('/register', user.signUp);
 // 
-// app.post('/login',  passport.authenticate('local'), user.signIn);
+
 //
 // app.get('/profile', user.profile);
 //
@@ -106,7 +116,6 @@ app.use('*', function (req, res) {
 //
 // app.get('/admin', user.getAllUsers);
 //
-// app.post('/assign_role', user.assignRole);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -52,17 +52,17 @@ angular.module('myApp').controller('addPostController',
 angular.module('myApp').controller('boardController',
     [
         '$scope', '$location', 'BoardService', '$mdDialog',
-        'dataHolder', '$http', 'filter','PostService',
+        'dataHolder', '$http', 'filter','PostService', '$state',
         function (
             $scope, $location, BoardService, $mdDialog,
-            dataHolder, $http, filter, PostService
+            dataHolder, $http, filter, PostService, $state
         ) {
             var filtred = [];
             var id = $location.path().split('/')[2];
             var token = localStorage.getItem('token');
 
             BoardService.getBoard(id)
-                .then(function(data) {
+                .then(function successCallback(data) {
                     filtred = filter.filterPosts(data.posts);
                     $scope.board_name = data.board.name;
                     $scope.posts = filtred.posts;
@@ -73,6 +73,9 @@ angular.module('myApp').controller('boardController',
                             $scope.userRole = data[1];
                             $scope.changePost = data[0];
                         })
+                },
+                function errorCallback(err) {
+                    console.log(err);
                 });
 
             $scope.editPost = function (post_id) {
@@ -184,29 +187,30 @@ angular.module('myApp').controller('likeController',
     }]);
 
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService', '$cookieStore', '$rootScope',
-        function ($scope, $location, AuthService, $cookieStore, $rootScope) {
+    ['$scope', '$location', 'AuthService',
+        function ($scope, $location, AuthService) {
 
-            $scope.onChange = function(cbState) {
-                $scope.message = cbState;
-            };
+            if (localStorage.getItem('username') && localStorage.getItem('password')) {
+                console.log(localStorage.getItem('username'));
+                $scope.username = localStorage.getItem('username');
+                $scope.password = localStorage.getItem('password');
+            }
 
             $scope.login = function () {
 
-                // initial values
                 $scope.error = false;
 
-                // call login from service
-                AuthService.login($scope.loginForm.username, $scope.loginForm.password)
-                    // handle success
-                    .then(function (token) {
-                        if ($scope.loginForm.remember) {
-                            localStorage.setItem('token', token);
-                            // $cookieStore.put('token', token);
+                AuthService.login($scope.username, $scope.password)
+                    .then(function () {
+                        if ($scope.remember) {
+                            localStorage.setItem('username', $scope.username);
+                            localStorage.setItem('password', $scope.password);
+                        }
+                        else {
+                            localStorage.clear();
                         }
                         $location.path('/profile');
                     })
-                    // handle error
                     .catch(function () {
                         $scope.error = true;
                         $scope.errorMessage = "Invalid username and/or password";
@@ -330,17 +334,15 @@ angular.module('myApp').controller('registerController',
 
             $scope.register = function () {
 
-                // initial values
                 $scope.error = false;
 
-                // call register from service
                 AuthService.register($scope.registerForm.username, $scope.registerForm.email, $scope.registerForm.password)
-                    // handle success
                     .then(function () {
-                        $scope.myForm.$error = false;
-                        $location.path('/login');
+                        AuthService.login($scope.registerForm.username, $scope.registerForm.password)
+                            .then(function () {
+                                $location.path('/profile');
+                            });
                     })
-                    // handle error
                     .catch(function () {
                         $scope.error = true;
                         $scope.errorMessage = "This name of user exists!";

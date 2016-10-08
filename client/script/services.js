@@ -27,24 +27,29 @@ angular.module('myApp').factory('AuthService',
             //}
 
             function getUserStatus() {
-                var deferred = $q.defer();
-
-                $http.get('/status')
-                    // handle success
-                    .success(function (data) {
-                        if (data) {
-                            user = true;
-                        } else {
-                            user = false;
-                        }
-                        deferred.resolve(user);
-                    })
-                    // handle error
-                    .error(function (data) {
-                        user = false;
-                    });
-
-                return deferred.promise;
+                if (user) {
+                   return true;
+                } else {
+                   return false;
+                }
+                // var deferred = $q.defer();
+                //
+                // $http.get('/status')
+                //     // handle success
+                //     .success(function (data) {
+                //         if (data) {
+                //             user = true;
+                //         } else {
+                //             user = false;
+                //         }
+                //         deferred.resolve(user);
+                //     })
+                //     // handle error
+                //     .error(function (data) {
+                //         user = false;
+                //     });
+                //
+                // return deferred.promise;
             }
 
             function login(username, password) {
@@ -57,9 +62,9 @@ angular.module('myApp').factory('AuthService',
                     {username: username, password: password})
                     // handle success
                     .success(function (data, status) {
-                        if (status === 200 && data.status) {
+                        if (status === 200) {
                             user = true;
-                            deferred.resolve(data.token);
+                            deferred.resolve(data);
                         } else {
                             user = false;
                             deferred.reject();
@@ -108,7 +113,7 @@ angular.module('myApp').factory('AuthService',
                     {username: username, email: email, password: password})
                     // handle success
                     .success(function (data, status) {
-                        if (status === 200 && data.status) {
+                        if (status === 200) {
                             deferred.resolve(data);
                         } else {
                             deferred.reject();
