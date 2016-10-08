@@ -193,20 +193,14 @@ angular.module('myApp').factory('AuthService',
 angular.module('myApp').service('$customHttp', ['$http', function ($http) {
     this.addToken = function () {
         var token = localStorage.getItem('token');
-        if (token) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
-        }
-        else {
-            $http.defaults.headers.common['Authorization'] = 'Basic ';
-        }
-
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + (token || '');
     }
 }]);
 
 
 angular.module('myApp').factory('BoardService',
-    ['$customHttp', '$q', '$timeout', '$http',
-        function ($customHttp, $q, $timeout, $http) {
+    ['$customHttp', '$q', '$timeout', '$http', '$state',
+        function ($customHttp, $q, $timeout, $http, $state) {
 
             // return available functions for use in the controllers
             return ({
@@ -223,8 +217,8 @@ angular.module('myApp').factory('BoardService',
                     .success(function (data) {
                         deferred.resolve(data);
                     })
-                    .error(function (data) {
-                       deferred.reject(data);
+                    .error(function (data, status) {
+                        deferred.reject(data);
                     });
                 return deferred.promise;
             }
@@ -240,8 +234,9 @@ angular.module('myApp').factory('BoardService',
                         deferred.resolve(data);
                     })
                     // handle error
-                    .error(function (data) {
-                        deferred.reject(data);
+                    .error(function (err) {
+                        console.log(err);
+                        deferred.reject(err);
                     });
 
                 // return promise object

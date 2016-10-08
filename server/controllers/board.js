@@ -75,19 +75,24 @@ exports.allBoards = function(req, res) {
 	})
 };
 
-exports.getBoard = function (req, res) {
+exports.getBoard = function (req, res, next) {
 	Board.findOne({_id: req.params._id.substring(1)}, function (err, board) {
-		if(err) {
-			res.send(err);
-		}
-		Post.find({board_id: board._id}, function (err, posts) {
-			if (err) {
-				res.send(board);
-			}
-			res.status(200).json({
-				board: board,
-				posts: posts
+		if (board) {
+			Post.find({board_id: board._id}, function (err, posts) {
+				if (err) {
+					res.send(err);
+				}
+				res.json({
+					board: board,
+					posts: posts
+				})
 			})
-		})
+		}
+		else {
+			res.status(404).json({
+				err: err
+			});
+			// res.sendStatus(404);
+		}
 	})
 };

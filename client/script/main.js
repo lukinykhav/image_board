@@ -51,10 +51,14 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
             url: '/post/:id',
             templateUrl: 'partials/post.html',
             controller: 'postController'
+        })
+        .state('404', {
+            url: '/404',
+            templateUrl: 'partials/404.html'
         });
 
     $urlRouterProvider.when('/', '/profile');
-    //$urlRouterProvider.otherwise('/profile');
+    $urlRouterProvider.otherwise('/404');
     $locationProvider.html5Mode(true).hashPrefix('!');
 
 }]);
@@ -81,6 +85,10 @@ myApp.run(function ($rootScope, $state, AuthService) {
 
         }
     );
+
+    // $rootScope.$on('$stateChangeError', function (event) {
+    //     console.log(event);
+    // })
 });
 
 

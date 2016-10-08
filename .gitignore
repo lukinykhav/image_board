@@ -2,3 +2,5 @@ node_modules/
 npm-debug.log
 .idea/
 uploads/
+.DS_Store
+client/.DS_Store
