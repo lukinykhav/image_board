@@ -64,10 +64,10 @@ exports.logout = function (req, res) {
 exports.profile = function (req, res) {
     Account.findOne({token: req.user.token}, function (err, user) {
         if (err) {
-            res.send('err');
+            res.send(err);
         }
         else {
-            res.send(user);
+            res.json(user);
         }
     });
 };

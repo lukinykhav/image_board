@@ -1,4 +1,4 @@
-<div class="board" ng-init="posts()">
+<div class="board" ng-controller="profileController">
     <div class="post {{post.class}}" ng-repeat="post in posts">
         <div>
             <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">

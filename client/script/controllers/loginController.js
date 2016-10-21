@@ -13,7 +13,8 @@ angular.module('myApp').controller('loginController',
                 $scope.error = false;
 
                 AuthService.login($scope.username, $scope.password)
-                    .then(function () {
+                    .then(function (token) {
+                        localStorage.setItem('token', token);
                         if ($scope.remember) {
                             localStorage.setItem('username', $scope.username);
                             localStorage.setItem('password', $scope.password);

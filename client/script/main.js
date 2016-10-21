@@ -36,77 +36,56 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
         .state('user.logout', {
             url: '/logout',
             controller: 'logoutController'
-        })
-        .state('user.boards', {
-            url: '/boards',
-            templateUrl: 'partials/boards.html',
-            controller: 'boardsController'
-        })
-        .state('user.board', {
-            url: '/board/:id',
-            templateUrl: 'partials/board.html',
-            controller: 'boardController'
-        })
-        .state('user.post', {
-            url: '/post/:id',
-            templateUrl: 'partials/post.html',
-            controller: 'postController'
-        })
-        .state('404', {
-            url: '/404',
-            templateUrl: 'partials/404.html'
         });
+        //.state('user.boards', {
+        //    url: '/boards',
+        //    templateUrl: 'partials/boards.html',
+        //    controller: 'boardsController'
+        //})
+        //.state('user.board', {
+        //    url: '/board/:id',
+        //    templateUrl: 'partials/board.html',
+        //    controller: 'boardController'
+        //})
+        //.state('user.post', {
+        //    url: '/post/:id',
+        //    templateUrl: 'partials/post.html',
+        //    controller: 'postController'
+        //})
+        //.state('404', {
+        //    url: '/404',
+        //    templateUrl: 'partials/404.html'
+        //});
 
-    $urlRouterProvider.when('/', '/profile');
-    $urlRouterProvider.otherwise('/404');
+    //$urlRouterProvider.when('/', '/profile');
+    //$urlRouterProvider.otherwise('/404');
     $locationProvider.html5Mode(true).hashPrefix('!');
 
 }]);
 
-myApp.run(function ($rootScope, $state, AuthService) {
-
-    var status = AuthService.getUserStatus();
-    console.log(status);
+myApp.run(function ($rootScope, $state, AuthService, $location) {
 
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
 
-            if (AuthService.getUserStatus()) {
-                $state.go(toState.name, toParams);
-            }
-            else {
-                if (toState.url === '/register') {
-                    $state.go('anon.register');
-                }
-                else {
-                    $state.go('anon.login');
-                }
-            }
-            event.preventDefault();
-
-            // AuthService.getUserStatus()
-            //     .then(function (data) {
-            //         console.log(data);
-            //         // if (data) {
-            //         //     $state.go(toState.name, toParams);
-            //         // }
-            //         // else {
-            //         //     if (toState.url === '/register') {
-            //         //         $state.go('anon.register');
-            //         //     }
-            //         //     else {
-            //         //         $state.go('anon.login');
-            //         //     }
-            //         // }
-            //         // event.preventDefault();
-            //     })
+             AuthService.getUserStatus()
+                 .then(function (data) {
+                      if (data) {
+                          $state.go(toState.name, toParams);
+                      }
+                      else {
+                          if (toState.url === '/register') {
+                              $state.go('anon.register');
+                          }
+                          else {
+                              $state.go('anon.login');
+                          }
+                      }
+                      event.preventDefault();
+                 })
 
         }
     );
-
-    // $rootScope.$on('$stateChangeError', function (event) {
-    //     console.log(event);
-    // })
 });
 
 
