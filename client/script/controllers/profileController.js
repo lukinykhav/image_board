@@ -6,7 +6,7 @@ angular.module('myApp').controller('profileController',
             //    $scope.formProfile = !$scope.formProfile;
             //    $scope.editProfile();
             //};
-            $route.reload();
+            // $route.reload();
 
             $http.get('/profile', {cache: false})
                 // handle success

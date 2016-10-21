@@ -1,6 +1,32 @@
+angular.module('myApp')
+    .service('SessionService', [
+        '$scope', '$sessionStorage',
+        function($scope, $sessionStorage) {
+
+            this.checkAccess = function(event, toState, toParams, fromState, fromParams) {
+
+                if (toState.data !== undefined) {
+                    if (toState.data.noLogin !== undefined && toState.data.noLogin) {
+                        // если нужно, выполняйте здесь какие-то действия
+                        // перед входом без авторизации
+                    }
+                } else {
+                    // вход с авторизацией
+                    if ($sessionStorage.user) {
+                        $scope.$root.user = $sessionStorage.user;
+                    } else {
+                        // если пользователь не авторизован - отправляем на страницу авторизации
+                        event.preventDefault();
+                        $scope.$state.go('anon.login');
+                    }
+                }
+            };
+        }
+    ]);
+
 angular.module('myApp').factory('AuthService',
-    ['$customHttp', '$q', '$timeout', '$http', '$rootScope',
-        function ($customHttp, $q, $timeout, $http, $rootScope) {
+    ['$customHttp', '$q', '$timeout', '$http',
+        function ($customHttp, $q, $timeout, $http) {
 
             // create user variable
             var user = null;
@@ -27,24 +53,24 @@ angular.module('myApp').factory('AuthService',
             //}
 
             function getUserStatus() {
-                 var deferred = $q.defer();
+                var deferred = $q.defer();
 
-                 $http.get('/status')
-                     // handle success
-                     .success(function (data) {
-                         if (data) {
-                             user = true;
-                         } else {
-                             user = false;
-                         }
-                         deferred.resolve(user);
-                     })
-                     // handle error
-                     .error(function (data) {
-                         user = false;
-                     });
+                $http.get('/status')
+                    // handle success
+                    .success(function (data) {
+                        if (data) {
+                            user = true;
+                        } else {
+                            user = false;
+                        }
+                        deferred.resolve(user);
+                    })
+                    // handle error
+                    .error(function (data) {
+                        user = false;
+                    });
 
-                 return deferred.promise;
+                return deferred.promise;
             }
 
             function login(username, password) {
@@ -59,7 +85,7 @@ angular.module('myApp').factory('AuthService',
                     .success(function (data, status) {
                         if (status === 200) {
                             user = true;
-                            deferred.resolve(data.token);
+                            deferred.resolve(data);
                         } else {
                             user = false;
                             deferred.reject();
@@ -128,16 +154,14 @@ angular.module('myApp').factory('AuthService',
                 var deferred = $q.defer();
 
                 $customHttp.addToken();
-                 //send a get request to the server
+                // send a get request to the server
                 $http.get('/profile')
                     // handle success
                     .success(function (data) {
-                        console.log(3);
                         deferred.resolve(data);
                     })
                     // handle error
-                    .error(function (data) {
-                        console.log(4);
+                    .error(function () {
                         deferred.reject();
                     });
 
@@ -195,13 +219,7 @@ angular.module('myApp').factory('AuthService',
 angular.module('myApp').service('$customHttp', ['$http', function ($http) {
     this.addToken = function () {
         var token = localStorage.getItem('token');
-        if (token) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + token;
-        }
-        else {
-            $http.defaults.headers.common['Authorization'] = 'Basic ';
-        }
-
+        $http.defaults.headers.common['Authorization'] = 'Basic ' + (token || '');
     }
 }]);
 

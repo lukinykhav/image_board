@@ -36,6 +36,7 @@
     "mongoose": "^4.4.3",
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
+    "ngstorage": "^0.3.11",
     "node-bourbon": "^4.2.3",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",

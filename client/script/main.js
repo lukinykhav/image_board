@@ -2,10 +2,10 @@ var myApp = angular.module('myApp',
     [
         'ngMaterial', 'ngMessages', 'ui.router', 'vcRecaptcha',
         'angularFileUpload', 'angularUtils.directives.dirPagination',
-        'angularSpinner', 'ngCookies'
+        'angularSpinner', 'ngCookies', 'ngStorage'
     ]);
 
-myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
+myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
         .state('anon', {
             abstract: true,
@@ -14,12 +14,18 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
         .state('anon.login', {
             url: '/login',
             templateUrl: 'partials/login.html',
-            controller: 'loginController'
+            controller: 'loginController',
+            data: {
+                'noLogin': true
+            }
         })
         .state('anon.register', {
             url: '/register',
             templateUrl: 'partials/register.html',
-            controller: 'registerController'
+            controller: 'registerController',
+            data: {
+                'noLogin': true
+            }
         });
 
 
@@ -36,26 +42,26 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
         .state('user.logout', {
             url: '/logout',
             controller: 'logoutController'
+        })
+        .state('user.boards', {
+           url: '/boards',
+           templateUrl: 'partials/boards.html',
+           controller: 'boardsController'
+        })
+        .state('user.board', {
+           url: '/board/:id',
+           templateUrl: 'partials/board.html',
+           controller: 'boardController'
+        })
+        .state('user.post', {
+           url: '/post/:id',
+           templateUrl: 'partials/post.html',
+           controller: 'postController'
+        })
+        .state('404', {
+           url: '/404',
+           templateUrl: 'partials/404.html'
         });
-        //.state('user.boards', {
-        //    url: '/boards',
-        //    templateUrl: 'partials/boards.html',
-        //    controller: 'boardsController'
-        //})
-        //.state('user.board', {
-        //    url: '/board/:id',
-        //    templateUrl: 'partials/board.html',
-        //    controller: 'boardController'
-        //})
-        //.state('user.post', {
-        //    url: '/post/:id',
-        //    templateUrl: 'partials/post.html',
-        //    controller: 'postController'
-        //})
-        //.state('404', {
-        //    url: '/404',
-        //    templateUrl: 'partials/404.html'
-        //});
 
     //$urlRouterProvider.when('/', '/profile');
     //$urlRouterProvider.otherwise('/404');
@@ -63,10 +69,23 @@ myApp.config(['$stateProvider', '$urlRouterProvider','$locationProvider', functi
 
 }]);
 
-myApp.run(function ($rootScope, $state, AuthService, $location) {
+myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
+
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+
+    $rootScope.user = null;
+
+    // Здесь мы будем проверять авторизацию
+    // $rootScope.$on('$stateChangeStart',
+    //     function (event, toState, toParams, fromState, fromParams) {
+    //         SessionService.checkAccess(event, toState, toParams, fromState, fromParams);
+    //     }
+    // );
 
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
+            console.log(localStorage.getItem('username'));
 
              AuthService.getUserStatus()
                  .then(function (data) {
