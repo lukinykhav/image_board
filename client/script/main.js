@@ -71,10 +71,6 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
 
 myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
 
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-
-    $rootScope.user = null;
 
     // Здесь мы будем проверять авторизацию
     // $rootScope.$on('$stateChangeStart',
@@ -86,6 +82,9 @@ myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
             console.log(localStorage.getItem('username'));
+
+            console.log(toState);
+
 
              AuthService.getUserStatus()
                  .then(function (data) {

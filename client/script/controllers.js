@@ -209,7 +209,8 @@ angular.module('myApp').controller('loginController',
                         else {
                             localStorage.clear();
                         }
-                        $location.path('/profile');
+                        $state.go('user,profile',{},{reload:true});
+                        // $location.path('/profile');
                     })
                     .catch(function () {
                         $scope.error = true;
@@ -296,34 +297,51 @@ angular.module('myApp').controller('postController',
     ]
 );
 angular.module('myApp').controller('profileController',
-    ['$scope', '$location', 'AuthService', 'FileUploader',
-        function ($scope, $location, AuthService, FileUploader) {
+    ['$scope', '$state', '$location', 'AuthService', 'FileUploader', '$http',
+        function ($scope, $state, $location, AuthService, FileUploader, $http) {
 
-            $scope.showForm = function () {
-                $scope.formProfile = !$scope.formProfile;
-                $scope.editProfile();
-            };
+            //$scope.showForm = function () {
+            //    $scope.formProfile = !$scope.formProfile;
+            //    $scope.editProfile();
+            //};
 
-            $scope.profile = function () {
-                AuthService.profile()
-                    .then(function (data) {
-                        $scope.name = data.name;
-                        $scope.email = data.email;
-                        $scope.image = data.image;
-                        $scope.description = data.description;
-                    })
-            };
+
+            $http.get('/profile', {cache: false})
+                // handle success
+                .success(function (data) {
+                    console.log(3);
+                    $scope.name = data.name;
+                    $scope.email = data.email;
+                    $scope.image = data.image;
+                    $scope.description = data.description;
+                })
+                // handle error
+                .error(function (data) {
+                    console.log(4);
+                });
+
+            // $scope.profile = function () {
+            //     console.log(1);
+            //    AuthService.profile()
+            //        .then(function (data) {
+            //            console.log(data);
+            //            $scope.name = data.name;
+            //            $scope.email = data.email;
+            //            $scope.image = data.image;
+            //            $scope.description = data.description;
+            //        });
+            // };
 
             $scope.editProfile = function () {
-                AuthService.editProfile($scope.name, $scope.email, $scope.description)
-                    .then(function (data) {
-                        console.log(data);
-                    })
+               AuthService.editProfile($scope.name, $scope.email, $scope.description)
+                   .then(function (data) {
+                       console.log(data);
+                   })
             };
 
             $scope.uploader = new FileUploader({
-                url: '/load_avatar',
-                autoUpload: true
+               url: '/load_avatar',
+               autoUpload: true
             });
         }
     ]

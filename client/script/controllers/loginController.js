@@ -21,7 +21,8 @@ angular.module('myApp').controller('loginController',
                         else {
                             localStorage.clear();
                         }
-                        $location.path('/profile');
+                        $state.go('user,profile',{},{reload:true});
+                        // $location.path('/profile');
                     })
                     .catch(function () {
                         $scope.error = true;
