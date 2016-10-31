@@ -187,11 +187,10 @@ angular.module('myApp').controller('likeController',
     }]);
 
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
+    ['$scope', 'AuthService', '$state',
+        function ($scope, AuthService, $state) {
 
             if (localStorage.getItem('username') && localStorage.getItem('password')) {
-                console.log(localStorage.getItem('username'));
                 $scope.username = localStorage.getItem('username');
                 $scope.password = localStorage.getItem('password');
             }
@@ -209,8 +208,7 @@ angular.module('myApp').controller('loginController',
                         else {
                             localStorage.clear();
                         }
-                        $state.go('user,profile',{},{reload:true});
-                        // $location.path('/profile');
+                        $state.go('user.profile',{},{reload:true});
                     })
                     .catch(function () {
                         $scope.error = true;
@@ -300,16 +298,15 @@ angular.module('myApp').controller('profileController',
     ['$scope', '$state', '$location', 'AuthService', 'FileUploader', '$http',
         function ($scope, $state, $location, AuthService, FileUploader, $http) {
 
-            //$scope.showForm = function () {
-            //    $scope.formProfile = !$scope.formProfile;
-            //    $scope.editProfile();
-            //};
+            $scope.showForm = function () {
+               $scope.formProfile = !$scope.formProfile;
+               $scope.editProfile();
+            };
 
 
             $http.get('/profile', {cache: false})
                 // handle success
                 .success(function (data) {
-                    console.log(3);
                     $scope.name = data.name;
                     $scope.email = data.email;
                     $scope.image = data.image;
@@ -317,20 +314,20 @@ angular.module('myApp').controller('profileController',
                 })
                 // handle error
                 .error(function (data) {
-                    console.log(4);
+                    console.log(data);
                 });
 
-            // $scope.profile = function () {
-            //     console.log(1);
-            //    AuthService.profile()
-            //        .then(function (data) {
-            //            console.log(data);
-            //            $scope.name = data.name;
-            //            $scope.email = data.email;
-            //            $scope.image = data.image;
-            //            $scope.description = data.description;
-            //        });
-            // };
+            $scope.profile = function () {
+                console.log(1);
+               AuthService.profile()
+                   .then(function (data) {
+                       console.log(data);
+                       $scope.name = data.name;
+                       $scope.email = data.email;
+                       $scope.image = data.image;
+                       $scope.description = data.description;
+                   });
+            };
 
             $scope.editProfile = function () {
                AuthService.editProfile($scope.name, $scope.email, $scope.description)

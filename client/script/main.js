@@ -35,7 +35,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
             templateUrl: 'partials/main.html'
         })
         .state('user.profile', {
-            url: '/profile',
+            url: '/user_profile',
             templateUrl: 'partials/profile.html',
             controller: 'profileController'
         })
@@ -71,20 +71,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
 
 myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
 
-
-    // Здесь мы будем проверять авторизацию
-    // $rootScope.$on('$stateChangeStart',
-    //     function (event, toState, toParams, fromState, fromParams) {
-    //         SessionService.checkAccess(event, toState, toParams, fromState, fromParams);
-    //     }
-    // );
-
     $rootScope.$on('$stateChangeStart',
         function (event, toState, toParams, fromState, fromParams) {
-            console.log(localStorage.getItem('username'));
-
-            console.log(toState);
-
 
              AuthService.getUserStatus()
                  .then(function (data) {

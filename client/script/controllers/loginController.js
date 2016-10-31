@@ -1,9 +1,8 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', '$location', 'AuthService',
-        function ($scope, $location, AuthService) {
+    ['$scope', 'AuthService', '$state',
+        function ($scope, AuthService, $state) {
 
             if (localStorage.getItem('username') && localStorage.getItem('password')) {
-                console.log(localStorage.getItem('username'));
                 $scope.username = localStorage.getItem('username');
                 $scope.password = localStorage.getItem('password');
             }
@@ -21,8 +20,7 @@ angular.module('myApp').controller('loginController',
                         else {
                             localStorage.clear();
                         }
-                        $state.go('user,profile',{},{reload:true});
-                        // $location.path('/profile');
+                        $state.go('user.profile',{},{reload:true});
                     })
                     .catch(function () {
                         $scope.error = true;
