@@ -29,7 +29,7 @@ angular.module('myApp').controller('loginController',
             };
 
             $scope.showRegister = function () {
-                $location.path('/register');
+                $state.go('anon.register');
             }
 
         }]);

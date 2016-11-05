@@ -74,6 +74,7 @@ app.post('/load_avatar',  upload.single('file'), user.loadAvatar);
 app.get('/status', user.getStatus);
 app.post('/user_role', user.userRole);
 app.post('/assign_role', user.assignRole);
+app.get('/users', user.getAllUsers);
 
 app.post('/add_post', upload.single('file'), post.addPost);
 

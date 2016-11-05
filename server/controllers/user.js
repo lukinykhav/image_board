@@ -142,3 +142,9 @@ exports.assignRole = function (req, res) {
 
     });
 };
+
+exports.getAllUsers = function (req, res) {
+    Account.find({}, function(err, boards) {
+        res.send(boards);
+    })
+};

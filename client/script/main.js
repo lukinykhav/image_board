@@ -58,6 +58,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
            templateUrl: 'partials/post.html',
            controller: 'postController'
         })
+        .state('user.list', {
+            url: '/users_list',
+            templateUrl: 'partials/users.html',
+            controller: 'usersController'
+        })
         .state('404', {
            url: '/404',
            templateUrl: 'partials/404.html'

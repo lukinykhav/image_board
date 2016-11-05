@@ -10,7 +10,7 @@ angular.module('myApp').controller('registerController',
                     .then(function () {
                         AuthService.login($scope.registerForm.username, $scope.registerForm.password)
                             .then(function () {
-                                $location.path('/profile');
+                                $location.path('/user_profile');
                             });
                     })
                     .catch(function () {
