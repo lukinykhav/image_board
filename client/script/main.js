@@ -63,8 +63,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
            templateUrl: 'partials/404.html'
         });
 
-    //$urlRouterProvider.when('/', '/profile');
-    //$urlRouterProvider.otherwise('/404');
+    $urlRouterProvider.when('/', '/user_profile');
+    $urlRouterProvider.otherwise('/404');
     $locationProvider.html5Mode(true).hashPrefix('!');
 
 }]);
@@ -77,10 +77,15 @@ myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
              AuthService.getUserStatus()
                  .then(function (data) {
                       if (data) {
-                          $state.go(toState.name, toParams);
+                          if(toState.name === 'anon.register' || toState.name === 'anon.login') {
+                              $state.go('user.profile');
+                          }
+                          else {
+                              $state.go(toState.name, toParams);
+                          }
                       }
                       else {
-                          if (toState.url === '/register') {
+                          if (toState.name === 'anon.register') {
                               $state.go('anon.register');
                           }
                           else {

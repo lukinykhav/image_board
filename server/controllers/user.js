@@ -62,14 +62,20 @@ exports.logout = function (req, res) {
 };
 
 exports.profile = function (req, res) {
-    Account.findOne({token: req.user.token}, function (err, user) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.json(user);
-        }
-    });
+    if(req.user.token) {
+        Account.findOne({token: req.user.token}, function (err, user) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                res.json(user);
+            }
+        });
+    }
+    else {
+        res.status(304).json('No token');
+    }
+
 };
 
 exports.editProfile = function (req, res) {
