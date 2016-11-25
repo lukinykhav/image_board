@@ -21,6 +21,7 @@ angular.module('myApp').controller('loginController',
                         else {
                             localStorage.clear();
                         }
+                        localStorage.setItem('role', data.role);
                         $state.go('user.profile',{},{reload:true});
                     })
                     .catch(function () {

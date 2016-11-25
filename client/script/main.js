@@ -81,7 +81,7 @@ myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
                               $state.go('user.profile');
                           }
                           else {
-                              if (toState.name === 'user.list' && $rootScope.userRole === ('user' || 'undefined')) {
+                              if (toState.name === 'user.list' && localStorage.getItem('role') === ('user' || 'undefined')) {
                                   $state.go('user.profile');
                               }
                               else {
