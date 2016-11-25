@@ -53,14 +53,19 @@ angular.module('myApp')
             }
         };
     }])
-    .directive('fileModel', ['$parse', function ($parse) {
+    .directive('fileModel', ['$parse', 'usSpinnerService', function ($parse, usSpinnerService) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
 
-                element.bind('change', function(){
+                element.bind('click', function(event) {
+                    console.log(event);
+                });
+               
+                element.bind('change', function() {
+                    usSpinnerService.stop('spinner');
                     scope.$apply(function(){
                         modelSetter(scope, element[0].files[0]);
                     });

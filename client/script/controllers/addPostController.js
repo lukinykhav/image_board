@@ -8,17 +8,8 @@ angular.module('myApp').controller('addPostController',
                 post_id: ""
             };
 
-            var textarea =  document.getElementsByClassName('wrap-textarea')[0];
-
-            $scope.startSpin = function(){
+            $scope.startSpin = function() {
                 usSpinnerService.spin('spinner');
-                textarea.className = 'hide';
-                setTimeout(function(){
-                    if(document.getElementById('file_input_file').value) {
-                        usSpinnerService.stop('spinner');
-                        textarea.className = 'wrap-textarea';
-                    }
-                }, 3000);
             };
 
             $scope.uploadFile = function (post_id, posts) {
@@ -44,7 +35,7 @@ angular.module('myApp').controller('addPostController',
                         $scope.add_post.$setPristine();
                         $scope.add_post.$setUntouched();
                         $scope.customer = angular.copy(defaultForm);
-                    });
+                    })
             };
         }
     ]
