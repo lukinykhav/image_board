@@ -9,6 +9,7 @@
       <nav class="mdl-navigation mdl-layout--large-screen-only">
         <a class="mdl-navigation__link" ui-sref="user.boards">Boards</a>
         <a class="mdl-navigation__link" ui-sref="user.profile">Profile</a>
+        <a class="mdl-navigation__link" ng-if="user_list" ui-sref="user.list">Users</a>
         <a ng-controller="logoutController" class="ng-scope" ng-click="logout()" class="mdl-navigation__link" href="">Logout</a>
       </nav>
     </div>

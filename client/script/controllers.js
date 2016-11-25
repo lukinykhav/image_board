@@ -241,6 +241,17 @@ angular.module('myApp').controller('logoutController',
         }
     ]
 );
+angular.module('myApp').controller('mainController',
+    ['$scope', '$rootScope',
+        function ($scope, $rootScope) {
+            $scope.user_list = false;
+            if($rootScope.userRole === 'admin') {
+                $scope.user_list = true;
+            }
+
+        }
+    ]
+);
 angular.module('myApp').controller('postController',
     ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter',
         function ($scope, $location, PostService, $mdDialog, $http, filter) {

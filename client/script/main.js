@@ -26,7 +26,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
     $stateProvider
         .state('user', {
             abstract: true,
-            templateUrl: 'partials/main.html'
+            templateUrl: 'partials/main.html',
+            controller: 'mainController'
         })
         .state('user.profile', {
             url: '/user_profile',
@@ -80,7 +81,7 @@ myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
                               $state.go('user.profile');
                           }
                           else {
-                              if (toState.name === 'user.list' && ($rootScope.userRole === 'user' || 'undefined')) {
+                              if (toState.name === 'user.list' && $rootScope.userRole === ('user' || 'undefined')) {
                                   $state.go('user.profile');
                               }
                               else {
