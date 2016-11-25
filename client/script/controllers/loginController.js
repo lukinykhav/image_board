@@ -1,6 +1,6 @@
 angular.module('myApp').controller('loginController',
-    ['$scope', 'AuthService', '$state',
-        function ($scope, AuthService, $state) {
+    ['$scope', 'AuthService', '$state', '$rootScope',
+        function ($scope, AuthService, $state, $rootScope) {
 
             if (localStorage.getItem('username') && localStorage.getItem('password')) {
                 $scope.username = localStorage.getItem('username');
@@ -12,7 +12,8 @@ angular.module('myApp').controller('loginController',
                 $scope.error = false;
 
                 AuthService.login($scope.username, $scope.password)
-                    .then(function () {
+                    .then(function (data) {
+                        $rootScope.userRole = data.role;
                         if ($scope.remember) {
                             localStorage.setItem('username', $scope.username);
                             localStorage.setItem('password', $scope.password);

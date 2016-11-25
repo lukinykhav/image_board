@@ -14,18 +14,12 @@ myApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', funct
         .state('anon.login', {
             url: '/login',
             templateUrl: 'partials/login.html',
-            controller: 'loginController',
-            data: {
-                'noLogin': true
-            }
+            controller: 'loginController'
         })
         .state('anon.register', {
             url: '/register',
             templateUrl: 'partials/register.html',
-            controller: 'registerController',
-            data: {
-                'noLogin': true
-            }
+            controller: 'registerController'
         });
 
 
@@ -86,7 +80,12 @@ myApp.run(function ($rootScope, $state, AuthService, $location, $stateParams) {
                               $state.go('user.profile');
                           }
                           else {
-                              $state.go(toState.name, toParams);
+                              if (toState.name === 'user.list' && ($rootScope.userRole === 'user' || 'undefined')) {
+                                  $state.go('user.profile');
+                              }
+                              else {
+                                  $state.go(toState.name, toParams);
+                              }
                           }
                       }
                       else {

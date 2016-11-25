@@ -47,7 +47,8 @@ exports.signIn = function (req, res, next) {
                     res.status(304).json({error: err});
                 }
                 res.status(200).json({
-                    token: token
+                    token: token,
+                    role: user.role
                 });
             });
         });
