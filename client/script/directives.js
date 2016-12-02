@@ -60,10 +60,6 @@ angular.module('myApp')
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
 
-                element.bind('click', function(event) {
-                    console.log(event);
-                });
-               
                 element.bind('change', function() {
                     usSpinnerService.stop('spinner');
                     scope.$apply(function(){

@@ -37,6 +37,10 @@ $ gulp watch
 $ npm start
 ```
 
+```sh
+$ DEBUG=imageBoard:* npm start
+```
+
 Contacts
 --------
 
