@@ -1,8 +1,58 @@
 <div class="board" ng-controller="profileController">
-    <div class="post {{post.class}}" ng-repeat="post in posts">
-        <div>
-            <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
-                 <md-button class="edit-post" ng-click="editPost(post._id)">
+    <!--<div class="post {{post.class}}" ng-repeat="post in posts">-->
+        <!--<div>-->
+            <!--<div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">-->
+                 <!--<md-button class="edit-post" ng-click="editPost(post._id)">-->
+                    <!--<md-icon class="material-icons">mode_edit</md-icon>-->
+                <!--</md-button>-->
+                <!--<md-button ng-click="deletePost(post._id)">-->
+                    <!--<md-icon class="material-icons">clear</md-icon>-->
+                <!--</md-button>-->
+            <!--</div>-->
+            <!--<div class="content parent" ng-switch="post.type_file.split('/')[0]">-->
+                <!--<img ng-switch-when="image" src="{{post.file}}">-->
+                <!--<div ng-switch-when="video">-->
+                    <!--<video width="320" height="240"  controls>-->
+                        <!--<source src="{{post.file}}" type="{{post.type_file}}">-->
+                        <!--Your browser does not support the video tag.-->
+                    <!--</video>-->
+                <!--</div>-->
+                <!--<div ng-switch-when="audio">-->
+                    <!--<audio controls>-->
+                        <!--<source src="{{post.file}}" type="{{post.type_file}}">-->
+                        <!--Your browser does not support the audio element.-->
+                    <!--</audio>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="description">-->
+                <!--<span>-->
+                   <!--{{post.caption}}-->
+                <!--</span>-->
+                <!--<md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">-->
+                    <!--<md-icon class="material-icons chat-bubble">chat_bubble</md-icon>-->
+                <!--</md-button>-->
+            <!--</div>-->
+            <!--<md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">-->
+                <!--<md-icon class="material-icons">keyboard_arrow_down</md-icon>-->
+            <!--</md-button>-->
+            <!--<div class="likes" ng-controller="likeController">-->
+                <!--<progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>-->
+                <!--<div>-->
+                    <!--<md-button ng-click="like(post._id)">-->
+                        <!--<md-icon class="material-icons">thumb_up</md-icon>-->
+                        <!--<span>{{ post.user_like.length }}</span>-->
+                    <!--</md-button>-->
+                      <!--<md-button ng-click="dislike(post._id)">-->
+                        <!--<md-icon class="material-icons">thumb_down</md-icon>-->
+                        <!--<span>{{ post.user_dislike.length }}</span>-->
+                    <!--</md-button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="post">
+             <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+                <md-button class="edit-post" ng-click="editPost(post._id)">
                     <md-icon class="material-icons">mode_edit</md-icon>
                 </md-button>
                 <md-button ng-click="deletePost(post._id)">
@@ -32,7 +82,7 @@
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
                 </md-button>
             </div>
-            <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">
+            <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comment">
                 <md-icon class="material-icons">keyboard_arrow_down</md-icon>
             </md-button>
             <div class="likes" ng-controller="likeController">
@@ -42,13 +92,64 @@
                         <md-icon class="material-icons">thumb_up</md-icon>
                         <span>{{ post.user_like.length }}</span>
                     </md-button>
-                      <md-button ng-click="dislike(post._id)">
+                    <md-button ng-click="dislike(post._id)">
                         <md-icon class="material-icons">thumb_down</md-icon>
                         <span>{{ post.user_dislike.length }}</span>
                     </md-button>
                 </div>
             </div>
+       </div>
+    <div class="post comment" ng-repeat="comment in comments">
+        <div class="panel-post" ng-if="changePost.indexOf(comment._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+            <md-button class="edit-post" ng-click="editPost(comment._id)">
+                <md-icon class="material-icons">mode_edit</md-icon>
+            </md-button>
+            <md-button ng-click="deletePost(comment._id)">
+                <md-icon class="material-icons">clear</md-icon>
+            </md-button>
         </div>
+        <div class="content parent" ng-switch="post.type_file.split('/')[0]">
+            <img ng-switch-when="image" src="{{comment.file}}">
+            <div ng-switch-when="video">
+                <video width="320" height="240"  controls>
+                    <source src="{{comment.file}}" type="{{comment.type_file}}">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div ng-switch-when="audio">
+                <audio controls>
+                    <source src="{{comment.file}}" type="{{comment.type_file}}">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="description">
+                <span>
+                   {{comment.caption}}
+                </span>
+            <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
+                <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+            </md-button>
+        </div>
+        <md-button class="md-fab md-mini" ng-click="getComments(comment._id)" ng-show="comment">
+            <md-icon class="material-icons">keyboard_arrow_down</md-icon>
+        </md-button>
+        <div class="likes" ng-controller="likeController">
+            <progress value="{{Math.round(100/(comment.user_like.length + comment.user_dislike.length) * comment.user_like.length)}}" max="100"></progress>
+            <div>
+                <md-button ng-click="like(comment._id)">
+                    <md-icon class="material-icons">thumb_up</md-icon>
+                    <span>{{ comment.user_like.length }}</span>
+                </md-button>
+                <md-button ng-click="dislike(comment._id)">
+                    <md-icon class="material-icons">thumb_down</md-icon>
+                    <span>{{ comment.user_dislike.length }}</span>
+                </md-button>
+            </div>
+        </div>
+    </div>
+
+
         <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
             <form name="add_post" novalidate>
                 <div layout layout-sm="column" class="wrap-textarea">
@@ -69,5 +170,5 @@
             </form>
             <md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
         </div>
-    </div>
+    <!--</div>-->
 </div>

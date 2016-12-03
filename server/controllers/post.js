@@ -5,6 +5,7 @@ var Account = require('../models/account.js');
 var Board = require('../models/board.js');
 var Post = require('../models/post.js');
 var User = require('../controllers/user.js');
+var PostCtrl = require('../controllers/post.js');
 
 exports.addPost = function (req, res) {
     //var token = req.headers.authorization.split(' ')[1];
@@ -37,14 +38,30 @@ exports.addPost = function (req, res) {
 
 exports.getPost = function (req, res) {
   var post_id = req.params.id.substring(1);
-  Post.find({$or:[{post_id: post_id}, {_id: post_id}]}, function (err, posts) {
+  Post.find({$or:[{post_id: post_id}, {_id: post_id}]}, function (err, posts, callback) {
       if(err) {
           res.send('err')
       }
       else {
+          for(var i = 0; i < posts.length; i++) {
+              console.log(posts[i]._id);
+              PostCtrl.getComments(posts[i]._id, function (data) {
+                  console.log(data)
+              });
+              // Post.find({post_id: posts[i]._id}, function(err, posts, callback) {
+              //    callback(posts);
+              // });
+              console.log();
+          }
           res.send(posts);
       }
   });
+};
+
+exports.getComments = function (post_id, callback) {
+    Post.find({post_id: post_id}, function (err, comments) {
+        callback(comments);
+    })
 };
 
 exports.getUserPost = function (req, res) {

@@ -22,6 +22,7 @@ angular.module('myApp').controller('loginController',
                             localStorage.clear();
                         }
                         localStorage.setItem('role', data.role);
+                        localStorage.setItem('user_id', data.user_id);
                         $state.go('user.profile',{},{reload:true});
                     })
                     .catch(function () {
