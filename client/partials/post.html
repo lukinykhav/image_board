@@ -50,6 +50,7 @@
             </div>
         </div>
         <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
+            <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
             <form name="add_post" novalidate>
                 <div layout layout-sm="column" class="wrap-textarea">
                     <md-input-container flex>
