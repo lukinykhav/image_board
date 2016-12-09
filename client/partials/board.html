@@ -55,6 +55,7 @@
     </div>
 
     <div ng-controller="addPostController" class="add-post">
+        <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
         <form name="add_post" novalidate>
             <div layout layout-sm="column" class="wrap-textarea">
                 <md-input-container flex>
@@ -72,7 +73,7 @@
             </div>
             <span us-spinner spinner-key="spinner" class="spinner"></span>
         </form>
-            <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
+            <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
     </div>
 </div>
 
