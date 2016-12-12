@@ -1,24 +1,17 @@
 $border: 1px solid #756575;
+$screen-sm-min: 768px;
 
 .login {
-	position:absolute;
-	width: 700px;
+  	margin-top: 30px;
 	height: auto;
 	border: $border;
 	border-radius: 10px;
-
-  	.login-error {
-	  width: 83%;
+  	@media screen and (min-width: $screen-sm-min) {
+	  margin-top: 50px;
 	}
 
 	form {
-		margin: 45px 80px;
-	    height: 100%;
-
-
-		input {
-			width: 500px;
-		}
+	  	margin-top: 70px;
 
 		.remember {
 			margin-left: 150px;
@@ -28,33 +21,35 @@ $border: 1px solid #756575;
 }
 
 .link_register {
-	position: absolute;
-	top: 85%;
-	left: 45%;
+  	margin: 10px;
+  	text-align: center;
+
+  	@media screen and (max-width: $screen-sm-min) {
+	  margin: 10px 0;
+	}
 }
 
 .form_header {
-		// background-color: #823D82;
 		height: 33px;
 		border-bottom: $border;
 		border-radius: 10px;
 
 		.logo {
-			height: 100px;
-			width: 100px;
 			border: $border;
 			border-radius: 50px;
 			background-color: #fff;
 
 			img {
-			height: 60px;
+				height: 60px;
+			  	margin: auto;
+			  	display: block;
 			}
 		}
 	}
 
 .btn-form {
-	width: 500px;
-	margin-top: 30px;
-	margin-bottom: 10px;
+	width: 100%;
+	margin: 10px auto;
+	display: block;
 }
 
