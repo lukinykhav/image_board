@@ -1,20 +1,22 @@
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header navbar">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">ImageBoard</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" ui-sref="user.boards">Boards</a>
-        <a class="mdl-navigation__link" ui-sref="user.profile">Profile</a>
-        <a class="mdl-navigation__link" ng-if="user_list" ui-sref="user.list">Users</a>
-        <a ng-controller="logoutController" class="ng-scope" ng-click="logout()" class="mdl-navigation__link" href="">Logout</a>
-      </nav>
+<div class="row">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header navbar">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer col-lg-3 col-md-3 col-xs-3"> <span class="mdl-layout-title">ImageBoard</span></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only row">
+          <a class="mdl-navigation__link col-lg-3 col-md-3" ui-sref="user.boards">Boards</a>
+          <a class="mdl-navigation__link col-lg-3 col-md-3" ui-sref="user.profile">Profile</a>
+          <a class="mdl-navigation__link col-lg-3 col-md-3" ng-if="user_list" ui-sref="user.list">Users</a>
+          <a ng-controller="logoutController" class="ng-scope" ng-click="logout()" class="mdl-navigation__link" href="">Logout</a>
+        </nav>
+      </div>
+    </header>
     </div>
-  </header>
+    <main class="mdl-layout">
+        <div class="page-content" ui-view></div>
+    </main>
 </div>
-<main class="mdl-layout__content">
-	<div class="page-content" ui-view></div>
-</main>

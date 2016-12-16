@@ -1,3 +1,5 @@
+$screen-sm-min: 768px;
+
 @mixin centerer {
   position: absolute;
   top: 50%;
@@ -7,28 +9,31 @@
 
 
 .mdl-layout__container {
-	width: 980px;
+	//width: 980px;
 }
 
 .profile {
-	height: 400px;
-	width: 960px;
+	padding: 35px 10px;
+	//width: 960px;
 	background-color: #F0F8FF;
 }
 
 .avatar {
-	height: 207px;
-	width:280px;
-	float: left;
-	margin-top: 100px;
-	margin-left: 150px;
-	border: 2px solid #333;
-	position: relative;
+	//height: 207px;
+	//width:280px;
+	//float: left;
+	margin: 17%;
+	//border: 2px solid #333;
+	//position: relative;
+	@media screen and (max-width: $screen-sm-min) {
+		margin: 50px 0;
+	}
 
 	img {
-		@include centerer;
+		//@include centerer;
 		height: 205px;
 		width: 278px;
+		border: 2px solid #333;
 	}
 
 	input[type='file'] {
@@ -38,9 +43,9 @@
 	.upload {
 		height: 71px;
 		width: 69px;
-	    position: absolute;
-	    top: -35px;
-	    left: 242px;
+	    position: fixed;
+		margin-top: -25px;
+		margin-left: -40px;
 		background-image: url('../image/pencil_image.png');
 		background-size: 50%;
 		background-repeat: no-repeat;
@@ -58,7 +63,7 @@
 
 .info {
 	float: left;
-    margin: 125px -40px 0px 70px;	
+    margin-top: 125px;
 
     form {
     	width: 350px;
