@@ -15,7 +15,7 @@ angular.module('myApp').controller('registerController',
                     })
                     .catch(function () {
                         $scope.error = true;
-                        $scope.errorMessage = "This name of user exists!";
+                        $scope.errorMessage = "This name or email of user exists!";
                     });
             };
         }

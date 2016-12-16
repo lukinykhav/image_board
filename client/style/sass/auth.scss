@@ -1,0 +1,62 @@
+$border: 1px solid #756575;
+$screen-sm-min: 768px;
+
+.auth {
+  	margin-top: 50px;
+  	padding: 0;
+	height: auto;
+	border: $border;
+	border-radius: 10px;
+  	@media screen and (min-width: $screen-sm-min) {
+	  margin-top: 60px;
+	}
+
+	.logo {
+	  position: relative;
+	  height: 90px;
+	  width: 90px;
+	  border: $border;
+	  border-radius: 50px;
+	  background-color: #fff;
+	  margin: -70px auto;
+
+	  img {
+		height: 60px;
+		margin: 5px auto;
+		display: block;
+	  }
+	}
+
+
+	form {
+	  	margin-top: 70px;
+	  	padding: 10px 30px;
+
+		.remember {
+			margin-left: 150px;
+			margin-top: 0px;
+		}
+	}
+}
+
+.link_register {
+  	margin: 10px;
+  	text-align: center;
+
+  	@media screen and (max-width: $screen-sm-min) {
+	  margin: 10px 0;
+	}
+}
+
+.form_header {
+		height: 33px;
+		border-bottom: $border;
+		border-radius: 10px;
+	}
+
+.btn-form {
+	width: 100%;
+	margin: 10px auto;
+	display: block;
+}
+

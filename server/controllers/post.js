@@ -7,10 +7,9 @@ var Post = require('../models/post.js');
 var User = require('../controllers/user.js');
 
 exports.addPost = function (req, res) {
-    //var token = req.headers.authorization.split(' ')[1];
-
+    console.log(req.body.caption);
     Account.findOne({token: req.user.token}, function (err, user) {
-      if (!err) {
+      if (!err && req.body.caption !== 'undefined') {
         var post = new Post();
         if(req.file) {
            post.file = req.file.filename;
@@ -23,11 +22,12 @@ exports.addPost = function (req, res) {
         post.post_id = req.body.post_id;
 
         post.save(function(err, post) {
-           if(err) {
-               res.send(err);
-           }
-           res.json({ message: 'Post added!', data: post});
+            if(err) {
+                res.send(err);
+            }
+            res.json({ message: 'Post added!', data: post});
         });
+
       }
       else {
         res.json({errorMessage: 'Caption is required!'});

@@ -13,6 +13,7 @@ angular.module('myApp').controller('addPostController',
             };
 
             $scope.uploadFile = function (post_id, posts) {
+                $scope.error = false;
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
                 $scope.customer.post_id = post_id;
@@ -25,16 +26,22 @@ angular.module('myApp').controller('addPostController',
                         headers: {'Content-Type': undefined}
                     })
                     .success(function(post) {
-                        if(post.data.post_id === null) {
-                            posts.push(post.data);
+                        if(post.errorMessage) {
+                            $scope.error = true;
+                            $scope.errorMessage = "Not valid caption field";
                         }
                         else {
-                            post.data['class'] = 'comment';
-                            posts.push(post.data);
+                            if(post.data.post_id === null) {
+                                posts.push(post.data);
+                            }
+                            else {
+                                post.data['class'] = 'comment';
+                                posts.push(post.data);
+                            }
+                            $scope.add_post.$setPristine();
+                            $scope.add_post.$setUntouched();
+                            $scope.customer = angular.copy(defaultForm);
                         }
-                        $scope.add_post.$setPristine();
-                        $scope.add_post.$setUntouched();
-                        $scope.customer = angular.copy(defaultForm);
                     })
             };
         }
@@ -150,6 +157,7 @@ angular.module('myApp').controller('editPostController',
             PostService.editPost(locals.post_id, fd)
                 .then(function(data) {
                     $scope.posts = PostService.changePost(locals.posts, data);
+                    $mdDialog.cancel();
                 })
                 .catch(function() {
                     $scope.error = true;
@@ -364,7 +372,7 @@ angular.module('myApp').controller('registerController',
                     })
                     .catch(function () {
                         $scope.error = true;
-                        $scope.errorMessage = "This name of user exists!";
+                        $scope.errorMessage = "This name or email of user exists!";
                     });
             };
         }
