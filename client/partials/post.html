@@ -72,3 +72,59 @@
         </div>
     </div>
 </div>
+
+
+<!--<section class="section&#45;&#45;center mdl-grid mdl-grid&#45;&#45;no-spacing mdl-shadow&#45;&#45;2dp">-->
+    <!--<header class="section__play-btn mdl-cell mdl-cell&#45;&#45;3-col-desktop mdl-cell&#45;&#45;2-col-tablet mdl-cell&#45;&#45;4-col-phone mdl-color&#45;&#45;teal-100 mdl-color-text&#45;&#45;white">-->
+        <!--<i class="material-icons">play_circle_filled</i>-->
+    <!--</header>-->
+    <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;9-col-desktop mdl-cell&#45;&#45;6-col-tablet mdl-cell&#45;&#45;4-col-phone">-->
+        <!--<div class="mdl-card__supporting-text">-->
+            <!--<h4>Features</h4>-->
+            <!--Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Nostrud in laboris labore nisi amet do dolor eu fugiat consectetur elit cillum esse.-->
+        <!--</div>-->
+        <!--<div class="mdl-card__actions">-->
+            <!--<a href="#" class="mdl-button">Read our features</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button&#45;&#45;icon" id="btn1">-->
+        <!--<i class="material-icons">more_vert</i>-->
+    <!--</button>-->
+    <!--<ul class="mdl-menu mdl-js-menu mdl-menu&#45;&#45;bottom-right" for="btn1">-->
+        <!--<li class="mdl-menu__item">Lorem</li>-->
+        <!--<li class="mdl-menu__item" disabled>Ipsum</li>-->
+        <!--<li class="mdl-menu__item">Dolor</li>-->
+    <!--</ul>-->
+<!--</section>-->
+
+
+<div class="row">
+    <div class="col s12 m7">
+        <div class="card">
+            <div class="card-image">
+                <img src="images/sample-1.jpg">
+                <span class="card-title">Card Title</span>
+            </div>
+            <div class="card-content">
+                <p>I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.</p>
+            </div>
+            <div class="card-action">
+                <a href="#">This is a link</a>
+                <div class="likes" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(post._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ post.user_like.length }}</span>
+                        </md-button>
+                        <md-button ng-click="dislike(post._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ post.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
