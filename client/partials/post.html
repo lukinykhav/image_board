@@ -1,15 +1,15 @@
-<div class="board" ng-controller="profileController">
-    <div class="post {{post.class}}" ng-repeat="post in posts">
+<div class="board  mdl-grid" ng-controller="profileController">
+    <div class="post mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet {{post.class}}" ng-repeat="post in posts">
         <div>
-            <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
-                 <md-button class="edit-post" ng-click="editPost(post._id)">
-                    <md-icon class="material-icons">mode_edit</md-icon>
-                </md-button>
-                <md-button ng-click="deletePost(post._id)">
-                    <md-icon class="material-icons">clear</md-icon>
-                </md-button>
-            </div>
-            <div class="content parent" ng-switch="post.type_file.split('/')[0]">
+            <!--<div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">-->
+                 <!--<md-button class="edit-post" ng-click="editPost(post._id)">-->
+                    <!--<md-icon class="material-icons">mode_edit</md-icon>-->
+                <!--</md-button>-->
+                <!--<md-button ng-click="deletePost(post._id)">-->
+                    <!--<md-icon class="material-icons">clear</md-icon>-->
+                <!--</md-button>-->
+            <!--</div>-->
+            <div class="post-image" ng-switch="post.type_file.split('/')[0]">
                 <img ng-switch-when="image" src="{{post.file}}">
                 <div ng-switch-when="video">
                     <video width="320" height="240"  controls>
@@ -28,26 +28,30 @@
                 <span>
                    {{post.caption}}
                 </span>
-                <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
-                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
-                </md-button>
+                <!--<md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">-->
+                    <!--<md-icon class="material-icons chat-bubble">chat_bubble</md-icon>-->
+                <!--</md-button>-->
             </div>
-            <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">
-                <md-icon class="material-icons">keyboard_arrow_down</md-icon>
-            </md-button>
-            <div class="likes" ng-controller="likeController">
-                <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
-                <div>
-                    <md-button ng-click="like(post._id)">
-                        <md-icon class="material-icons">thumb_up</md-icon>
-                        <span>{{ post.user_like.length }}</span>
-                    </md-button>
-                      <md-button ng-click="dislike(post._id)">
-                        <md-icon class="material-icons">thumb_down</md-icon>
-                        <span>{{ post.user_dislike.length }}</span>
-                    </md-button>
+            <div class="post-action">
+                <div class="likes" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(post._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ post.user_like.length }}</span>
+                        </md-button>
+                        <md-button ng-click="dislike(post._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ post.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
                 </div>
+                <button class="read-more mdl-button mdl-js-button mdl-button--raised" type="button">Reade More</button>
             </div>
+            <!--<md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">-->
+                <!--<md-icon class="material-icons">keyboard_arrow_down</md-icon>-->
+            <!--</md-button>-->
+
         </div>
         <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
             <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
@@ -97,34 +101,7 @@
     <!--</ul>-->
 <!--</section>-->
 
-
-<div class="row">
-    <div class="col s12 m7">
-        <div class="card">
-            <div class="card-image">
-                <img src="images/sample-1.jpg">
-                <span class="card-title">Card Title</span>
-            </div>
-            <div class="card-content">
-                <p>I am a very simple card. I am good at containing small bits of information.
-                    I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-                <a href="#">This is a link</a>
-                <div class="likes" ng-controller="likeController">
-                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
-                    <div>
-                        <md-button ng-click="like(post._id)">
-                            <md-icon class="material-icons">thumb_up</md-icon>
-                            <span>{{ post.user_like.length }}</span>
-                        </md-button>
-                        <md-button ng-click="dislike(post._id)">
-                            <md-icon class="material-icons">thumb_down</md-icon>
-                            <span>{{ post.user_dislike.length }}</span>
-                        </md-button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
     </div>
 </div>

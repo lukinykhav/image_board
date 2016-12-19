@@ -1,22 +1,29 @@
-<div class="board">
-    <div class="board-logo">
-        <h4>{{board_name}}</h4>
-    </div>
-    <div dir-paginate="post in posts  | itemsPerPage: 3" class="post">
-        <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
-             <md-button class="edit-post" ng-click="editPost(post._id)">
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <!--<div class="board-logo">-->
+        <!--<h4>{{board_name}}</h4>-->
+    <!--</div>-->
+    <div  class="mdl-grid" dir-paginate="post in posts  | itemsPerPage: 3">
+        <!--<div class="mdl-cell mdl-cell&#45;&#45;3-col mdl-cell&#45;&#45;3-col-tablet mdl-cell&#45;&#45;3-col-phone"></div>-->
+        <div class="post mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+            <!--<div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">-->
+            <!--<md-button class="edit-post" ng-click="editPost(post._id)">-->
+            <!--<md-icon class="material-icons">mode_edit</md-icon>-->
+            <!--</md-button>-->
+            <!--<md-button ng-click="deletePost(post._id)">-->
+            <!--<md-icon class="material-icons">clear</md-icon>-->
+            <!--</md-button>-->
+            <!--</div>-->
+            <div class="post-image" ng-switch="post.type_file.split('/')[0]" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+                <md-button class="edit-post" ng-click="editPost(post._id)">
                 <md-icon class="material-icons">mode_edit</md-icon>
-            </md-button>
-            <md-button ng-click="deletePost(post._id)">
+                </md-button>
+                <md-button ng-click="deletePost(post._id)">
                 <md-icon class="material-icons">clear</md-icon>
-            </md-button>
-        </div>
-        <a ui-sref="user.post({id: post._id})">
-            <div class="content parent" ng-switch="post.type_file.split('/')[0]">
+                </md-button>
                 <img ng-switch-when="image" src="{{post.file}}">
                 <div ng-switch-when="video">
                     <video width="320" height="240"  controls>
-                        <source src="{{post.file}}" type="{{post.type_file}}">
                         <source src="{{post.file}}" type="{{post.type_file}}">
                         Your browser does not support the video tag.
                     </video>
@@ -32,23 +39,38 @@
                 <span>
                    {{post.caption}}
                 </span>
+                <!--<md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">-->
+                <!--<md-icon class="material-icons chat-bubble">chat_bubble</md-icon>-->
+                <!--</md-button>-->
             </div>
-        </a>
-        <div class="likes" ng-controller="likeController">
-            <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
-            <div>
-                <md-button ng-click="like(post._id)">
-                    <md-icon class="material-icons">thumb_up</md-icon>
-                    <span>{{ post.user_like.length }}</span>
-                </md-button>
-                  <md-button ng-click="dislike(post._id)">
-                    <md-icon class="material-icons">thumb_down</md-icon>
-                    <span>{{ post.user_dislike.length }}</span>
-                </md-button>
-                
+            <div class="post-action mdl-grid">
+                <div class="likes mdl-cell  mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(post._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ post.user_like.length }}</span>
+                        </md-button>
+                        <md-button ng-click="dislike(post._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ post.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                    <button class="read-more mdl-button mdl-js-button mdl-button--raised" type="button">
+                        <a ui-sref="user.post({id: post._id})">Reade More</a>
+                    </button>
+                </div>
             </div>
+            <!--<md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">-->
+            <!--<md-icon class="material-icons">keyboard_arrow_down</md-icon>-->
+            <!--</md-button>-->
+
         </div>
     </div>
+
+
     <br>
     <div class="paginate">
         <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
@@ -74,6 +96,7 @@
             <span us-spinner spinner-key="spinner" class="spinner"></span>
         </form>
             <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
+    </div>
     </div>
 </div>
 

@@ -1,0 +1,13 @@
+$screen-sm-min: 768px;
+
+header{
+  background-image: url('/image/zi_y7euekfq-kyle-murfin.jpg');
+  background-size: cover;
+  @media screen and (min-width: $screen-sm-min) {
+    background-position-y: -50px;
+  }
+}
+
+.section {
+  margin: 20px;
+}

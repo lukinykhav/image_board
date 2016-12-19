@@ -1,45 +1,84 @@
+$screen-sm-min: 768px;
+
 .post {
-  width: 760px;
-  height: auto;
-  margin: 70px auto;
+  //width: 760px;
+  //height: auto;
   position: relative;
+  margin: 20px auto;
+  background-color: #fff;
+  transition: box-shadow .25s;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 
   a {
     text-decoration: none;
     color: black;
   }
 
-  .panel-post {
-    background-color: rgb(103,58,183);
-      .material-icons {
-        color:white;
-      }
-  }
+  //.panel-post {
+  //  background-color: rgb(103,58,183);
+  //    .material-icons {
+  //      color:white;
+  //    }
+  //}
 
-  .content {
-    background-color: #F0F8FF;
+  .post-image {
+    position: relative;
+    //background-color: #F0F8FF;
 
     img {
-      max-height: 274px;
-      max-width: 747px;
-      height: auto;
-      width: auto;
-      margin: 2% 30%;
+      //max-height: 274px;
+      //max-width: 747px;
+      //height: auto;
+      //width: auto;
+      //margin: 2% 30%;
+      display: block;
+      border-radius: 2px 2px 0 0;
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
     }
 
     video {
-      margin: 2% 30%;
+      display: block;
+      margin: auto;
+      width: 100%;
     }
 
     audio {
-      margin: 2% 30%;
+      margin: auto;
+      display: block;
     }
   }
 
   .description {
-    padding: 5px;
-    height: 50px;
-    border: 1px solid black;
+    padding: 20px;
+    border-radius: 0 0 2px 2px;
+    //padding: 5px;
+    //height: 50px;
+    //border: 1px solid black;
+  }
+
+  .post-action {
+    position: relative;
+    background-color: inherit;
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 20px;
+
+    .mdl-cell {
+      @media screen and (max-width: 370px) {
+        width: calc(100% - 16px);
+      }
+    }
+
+    .read-more {
+      @media screen and (min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
   }
   
   .add-comment {
@@ -50,20 +89,28 @@
   }
 
   .likes {
-    margin-top: 10px;
+    //margin-top: 10px;
     display: inline-block;
     float: left;
+    margin-bottom: 5px;
 
     button {
-      margin: 0 4px;
+      margin: 0;
       padding: 0;
+      min-width: 70px;
+      @media screen and (max-width: $screen-sm-min) {
+        min-width: 56px;
+      }
     }
 
     progress {
-      width: 198px;
+      width: 150px;
       height: 10px;
       border: 1px solid black;
       border-radius: 5px;
+      @media screen and (max-width: $screen-sm-min) {
+        width: 120px;
+      }
     }
 
     progress::-webkit-progress-value {
@@ -74,6 +121,10 @@
       background-color: #fff;
     }
   }
+}
+
+.post:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 3px 15px rgba(0, 0, 0, 0.5);
 }
 
 .comment {
