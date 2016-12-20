@@ -1,4 +1,10 @@
 $screen-sm-min: 768px;
+.wrap-post {
+  border-radius: 20px;
+  max-width: 1600px;
+  width: calc(100% - 16px);
+  margin: 0 auto;
+}
 
 .post {
   //width: 760px;

@@ -1,8 +1,10 @@
 $screen-sm-min: 768px;
 
 header{
-  background-image: url('/image/zi_y7euekfq-kyle-murfin.jpg');
+  background-image: url('/image/l1sqxjxbgd0-gabriel-santiago.jpg');
   background-size: cover;
+  flex-shrink: 0;
+  height: 40vh;
   @media screen and (min-width: $screen-sm-min) {
     background-position-y: -50px;
   }
@@ -10,4 +12,9 @@ header{
 
 .section {
   margin: 20px;
+}
+
+main {
+  margin-top: -20vh;
+  flex-shrink: 0;
 }
