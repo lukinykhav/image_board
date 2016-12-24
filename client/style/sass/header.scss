@@ -1,8 +1,8 @@
 $screen-sm-min: 768px;
 
 header{
-  background-image: url('/image/l1sqxjxbgd0-gabriel-santiago.jpg');
-  background-size: cover;
+  //background-image: url('/image/l1sqxjxbgd0-gabriel-santiago.jpg');
+  //background-size: cover;
   flex-shrink: 0;
   height: 40vh;
   @media screen and (min-width: $screen-sm-min) {
@@ -17,4 +17,11 @@ header{
 main {
   margin-top: -20vh;
   flex-shrink: 0;
+}
+
+body {
+  background-image: url('/image/l1sqxjxbgd0-gabriel-santiago.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  //background-color: #0a2d3e;
 }

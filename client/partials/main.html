@@ -26,13 +26,13 @@
     </div>
     <div class="mdl-layout--large-screen-only mdl-layout__header-row">
     </div>
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-    </div>
     <div class="mdl-js-ripple-effect">
         <a ui-sref="user.boards" class="mdl-layout__tab is-active">Boards</a>
         <a ui-sref="user.profile" class="mdl-layout__tab">Profile</a>
         <a ng-if="user_list" ui-sref="user.list" class="mdl-layout__tab">Users</a>
         <a ng-controller="logoutController" class="mdl-layout__tab" ng-click="logout()" href="">Logout</a>
+    </div>
+    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
     </div>
 </header>
 <main class="mdl-layout__content">

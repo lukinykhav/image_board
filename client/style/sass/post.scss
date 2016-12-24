@@ -1,9 +1,27 @@
 $screen-sm-min: 768px;
 .wrap-post {
-  border-radius: 20px;
+  //border-radius: 20px;
   max-width: 1600px;
-  width: calc(100% - 16px);
-  margin: 0 auto;
+  width: calc(100% - 65px);
+  //margin: 60px auto;
+  background-color: #f5f3f9;
+  margin: 50px auto;
+  border-radius: 10px;
+
+  .post {
+    margin: 30px auto;
+    border: none;
+    box-shadow: none;
+    background-color: inherit;
+
+    .description {
+      margin: 20px;
+      color: #777;
+    }
+  }
+  .post:hover {
+    box-shadow: none;
+  }
 }
 
 .post {
@@ -133,12 +151,12 @@ $screen-sm-min: 768px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 3px 15px rgba(0, 0, 0, 0.5);
 }
 
+
 .comment {
     width: 80% - 10%;
   }
 
 .add-post {
-  border: 1px solid #673ab7;
   margin: 90px auto;
   width: 760px;
   padding: 30px 100px;
