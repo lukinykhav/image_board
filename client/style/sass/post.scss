@@ -1,10 +1,14 @@
 $screen-sm-min: 768px;
+$screen-xs-min: 360px;
 .wrap-post {
   //border-radius: 20px;
-  max-width: 1600px;
-  width: calc(100% - 65px);
+  //max-width: 1600px;
+  //width: calc(100% - 65px);
+  width: calc(80% - 150px);
+  max-width: 1000px;
+  min-width: 300px;
   //margin: 60px auto;
-  background-color: #f5f3f9;
+  //background-color: #f5f3f9;
   margin: 50px auto;
   border-radius: 10px;
 
@@ -12,7 +16,7 @@ $screen-sm-min: 768px;
     margin: 30px auto;
     border: none;
     box-shadow: none;
-    background-color: inherit;
+    background-color: rgba(255, 255, 255, 0.85);
 
     .description {
       margin: 20px;
@@ -22,6 +26,11 @@ $screen-sm-min: 768px;
   .post:hover {
     box-shadow: none;
   }
+
+  .add-post {
+    margin: 0;
+    padding: 70px 40px;
+  }
 }
 
 .post {
@@ -29,7 +38,7 @@ $screen-sm-min: 768px;
   //height: auto;
   position: relative;
   margin: 20px auto;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
   transition: box-shadow .25s;
   border-radius: 2px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
@@ -75,6 +84,9 @@ $screen-sm-min: 768px;
     audio {
       margin: auto;
       display: block;
+      @media screen and (max-width: 530px) {
+        width: 200px;
+      }
     }
   }
 
@@ -107,9 +119,10 @@ $screen-sm-min: 768px;
   
   .add-comment {
     float: right;
-    margin: -18px;
-    height: 71px;
-    width: 71px;
+    margin: 0;
+    //margin: -18px;
+    //height: 71px;
+    //width: 71px;
   }
 
   .likes {
@@ -158,11 +171,10 @@ $screen-sm-min: 768px;
 
 .add-post {
   margin: 90px auto;
-  width: 760px;
-  padding: 30px 100px;
+  padding: 30px 20px;
     .wrap-textarea {
-      width: 80%;
-      float: left;
+      //width: 80%;
+      //float: left;
     }
   button {
     background-color: rgb(255,64,129);
@@ -194,9 +206,15 @@ $screen-sm-min: 768px;
 }
 
 .file_input {
-  float: right;
-  margin-right: 40px;
-  margin-top: 10px;
+  label {
+    float: left;
+  }
+  button {
+    float: right;
+  }
+  //float: right;
+  //margin-right: 40px;
+  //margin-top: 10px;
 }
 
 .none {

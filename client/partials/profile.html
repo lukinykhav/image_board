@@ -1,6 +1,6 @@
 <div class="profile mdl-grid" ng-controller="profileController">
-	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet">
-		<div class="avatar">
+	<div class="mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+		<div class="avatar mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
 			<!--<img src="../image/default-avatar.png">-->
 			<img ng-src="{{image}}">
 			<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored upload">
@@ -11,51 +11,52 @@
 			</div>
 		</div>
 	</div>
-	<div class="info mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet">
-		<form class="form-horizontal" ng-show="formProfile" ng-submit="editProfile" name="form_profile">
+	<div class="info mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+		<div class="mdl-grid">
+			<form class="form-horizontal mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--10-col-phone" ng-show="formProfile" ng-submit="editProfile" name="form_profile">
+				<md-input-container class="md-block">
+				  <label>Name</label>
+				  <input name="name" ng-model="name">
+				  <!-- <div ng-messages="form_profile.name.$error">
+					<div ng-hide="!form_profile.name.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div> -->
+				</md-input-container>
 
-			<md-input-container class="md-block">
-			  <label>Name</label>
-			  <input name="name" ng-model="name">
-			  <!-- <div ng-messages="form_profile.name.$error">
-				<div ng-hide="!form_profile.name.$error.required" ng-message="required" class="form-error">Username is required.</div>
-			  </div> -->
-			</md-input-container>
+				<md-input-container class="md-block">
+				  <label>Email</label>
+				  <input name="email" ng-model="email" required>
+				  <div ng-messages="form_profile.email.$error">
+					<div ng-hide="!form_profile.email.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div>
+				</md-input-container>
 
-			<md-input-container class="md-block">
-			  <label>Email</label>
-			  <input name="email" ng-model="email" required>
-			  <div ng-messages="form_profile.email.$error">
-				<div ng-hide="!form_profile.email.$error.required" ng-message="required" class="form-error">Username is required.</div>
-			  </div>
-			</md-input-container>
+				<md-input-container class="md-block">
+				  <label>Description</label>
+				  <input name="description" ng-model="description">
+				<!--   <div ng-messages="form_profile.description.$error">
+					<div ng-hide="!form_profile.description.$error.required" ng-message="required" class="form-error">Username is required.</div>
+				  </div> -->
+				</md-input-container>
+			</form>
 
-			<md-input-container class="md-block">
-			  <label>Description</label>
-			  <input name="description" ng-model="description">
-			<!--   <div ng-messages="form_profile.description.$error">
-				<div ng-hide="!form_profile.description.$error.required" ng-message="required" class="form-error">Username is required.</div>
-			  </div> -->
-			</md-input-container>
-		</form>
+			<form class="form-horizontal mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--10-col-phone" ng-hide="formProfile">
+				<div class="form-group row col-sm-12">
+					<label>Name </label>
+					<span>{{ name }}</span>
+				</div>
+				<div class="form-group row col-sm-12">
+					<label>Email </label>
+					<span>{{ email }}</span>
 
-		<form class="form-horizontal" ng-hide="formProfile">
-			<div class="form-group row col-sm-12">
-				<label>Name </label>
-				<span>{{ name }}</span>
-			</div>
-			<div class="form-group row col-sm-12">
-				<label>Email </label>
-				<span>{{ email }}</span>
-
-			</div>
-			<div class="form-group row col-sm-12">
-				<label>Description </label>
-				<span>{{ description }}</span>
-			</div>
-		</form>
-		<a href="" class="edit_profile" ng-click="showForm()">
-			<img src="../image/edit_profile.png" >
-		</a>
+				</div>
+				<div class="form-group row col-sm-12">
+					<label>Description </label>
+					<span>{{ description }}</span>
+				</div>
+			</form>
+			<a href="" class="edit_profile mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--2-col-phone" ng-click="showForm()">
+				<img src="../image/edit_profile.png" >
+			</a>
+		</div>
 	</div>
 </div>

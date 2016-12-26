@@ -1,15 +1,11 @@
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$http', 'dataHolder', '$customHttp', 'usSpinnerService',
-        function ($scope, $location, $http, dataHolder, $customHttp, usSpinnerService) {
+    ['$scope', '$location', '$http', 'dataHolder', '$customHttp',
+        function ($scope, $location, $http, dataHolder, $customHttp) {
             var defaultForm = {
                 caption: "",
                 file: "",
                 board_id: "",
                 post_id: ""
-            };
-
-            $scope.startSpin = function() {
-                usSpinnerService.spin('spinner');
             };
 
             $scope.uploadFile = function (post_id, posts) {
@@ -38,6 +34,7 @@ angular.module('myApp').controller('addPostController',
                                 post.data['class'] = 'comment';
                                 posts.push(post.data);
                             }
+                            $scope.addPostForm =! $scope.addPostForm;
                             $scope.add_post.$setPristine();
                             $scope.add_post.$setUntouched();
                             $scope.customer = angular.copy(defaultForm);
@@ -99,12 +96,12 @@ angular.module('myApp').controller('boardsController',
                 $scope.listBoard();
             };
 
-            $scope.listBoard = function () {
+            // $scope.listBoard = function () {
                 BoardService.listBoard()
                     .then(function (data) {
                         $scope.boards = data;
                     })
-            };
+            // };
 
             $scope.addBoard = function () {
                 BoardService.addBoard($scope.name, $scope.description)
@@ -143,6 +140,13 @@ angular.module('myApp').controller('deletePostController',
 );
 angular.module('myApp').controller('editPostController',
     ['$scope', '$http', 'locals', '$mdDialog', 'PostService', function ($scope, $http, locals, $mdDialog, PostService) {
+
+        // var post;
+        // for(post in locals.posts) {
+        //     if (locals.posts[post]['_id'] === locals.post_id) {
+        //         $scope.post = locals.posts[post];
+        //     }
+        // }
 
         $scope.cancel = function() {
             $mdDialog.cancel();

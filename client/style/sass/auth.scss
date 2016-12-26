@@ -7,6 +7,7 @@ $screen-sm-min: 768px;
 	height: auto;
 	border: $border;
 	border-radius: 10px;
+	background-color: rgba(208, 193, 232, 0.26);
   	@media screen and (min-width: $screen-sm-min) {
 	  margin-top: 60px;
 	}
@@ -17,7 +18,7 @@ $screen-sm-min: 768px;
 	  width: 90px;
 	  border: $border;
 	  border-radius: 50px;
-	  background-color: #fff;
+	  background-color: rgb(103,58,183);
 	  margin: -70px auto;
 
 	  img {

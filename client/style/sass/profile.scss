@@ -14,15 +14,19 @@ $screen-sm-min: 768px;
 
 .profile {
 	padding: 35px 10px;
+	margin-top: 70px;
 	//width: 960px;
 	//background-color: #F0F8FF;
 }
 
 .avatar {
+	margin: 0 auto;
+	display: block;
+	width: inherit;
 	//height: 207px;
 	//width:280px;
 	//float: left;
-	margin: 17%;
+	//margin: 17%;
 	//border: 2px solid #333;
 	//position: relative;
 	@media screen and (max-width: $screen-sm-min) {
@@ -43,7 +47,7 @@ $screen-sm-min: 768px;
 	.upload {
 		height: 71px;
 		width: 69px;
-	    position: fixed;
+	    position: relative;
 		margin-top: -25px;
 		margin-left: -40px;
 		background-image: url('../image/pencil_image.png');
@@ -62,21 +66,22 @@ $screen-sm-min: 768px;
 }
 
 .info {
-	float: left;
-    margin-top: 125px;
+	//float: left;
+    //margin-top: 125px;
+	background-color: rgba(123, 117, 134, 0.68);
 
     form {
-    	width: 350px;
+    	//width: 350px;
     }
 
     span {
     	font-size:18px;
-	  	width:300px;
+	  	//width:300px;
 	  	margin-left: 50px;
     }
 
     label {
-    	width: 35px;
+    	//width: 35px;
     }
 
     .form-group {
@@ -88,7 +93,7 @@ $screen-sm-min: 768px;
 
 	img {
 		height: 24px;
-		margin-top: 95px;
+		//margin-top: 95px;
 	}
 }
 

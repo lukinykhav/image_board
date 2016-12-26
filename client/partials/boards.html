@@ -1,14 +1,11 @@
-<div class="boards">
-	<div class="board-logo">
-		<h4>The list of Board</h4>
-	</div>
-	<div ng-hide="addBoardForm" class="list">
-		<div ng-init="listBoard()">
-			<div ng-repeat="board in boards track by $index" class="board">
+<div class="boards mdl-grid">
+	<div ng-hide="addBoardForm" class="list mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+		<div class="mdl-grid">
+			<div ng-repeat="board in boards track by $index" class="board mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
 				<a ui-sref="user.board({id: board._id})">
-					<div class="board_content parent">
-						<h4 class="child both">{{ board.name }}</h4>
-						<span class="child bottom">{{ board.description }}</span>
+					<div class="board_content">
+						<h4>{{ board.name }}</h4>
+						<!--<p>{{ board.description }}</p>-->
 					</div>
 				</a>
 			</div>

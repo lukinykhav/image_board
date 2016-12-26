@@ -1,15 +1,11 @@
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$http', 'dataHolder', '$customHttp', 'usSpinnerService',
-        function ($scope, $location, $http, dataHolder, $customHttp, usSpinnerService) {
+    ['$scope', '$location', '$http', 'dataHolder', '$customHttp',
+        function ($scope, $location, $http, dataHolder, $customHttp) {
             var defaultForm = {
                 caption: "",
                 file: "",
                 board_id: "",
                 post_id: ""
-            };
-
-            $scope.startSpin = function() {
-                usSpinnerService.spin('spinner');
             };
 
             $scope.uploadFile = function (post_id, posts) {
@@ -38,6 +34,7 @@ angular.module('myApp').controller('addPostController',
                                 post.data['class'] = 'comment';
                                 posts.push(post.data);
                             }
+                            $scope.addPostForm =! $scope.addPostForm;
                             $scope.add_post.$setPristine();
                             $scope.add_post.$setUntouched();
                             $scope.customer = angular.copy(defaultForm);

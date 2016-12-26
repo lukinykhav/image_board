@@ -1,21 +1,28 @@
 .boards {
+	background-color: rgba(123, 117, 134, 0.68);
+	margin: 50px 10px;
+	border-radius: 10px;
 
 	.board {
-		//width: 295px;
-		height: 195px;
-		border: 1px solid black;
-		border-radius: 10px;
-		display: inline-block;
-		margin-left: 10px;
+		margin: 10px auto;
+		//height: 195px;
+		//display: inline-block;
+		//margin-left: 10px;
 
 		.board_content {
-			width: 273px;
+			border: 1px solid black;
+			border-radius: 10px;
+			//width: 273px;
 			height: 170px;
-			margin: 10px;
-			background-color: #F0F8FF;
+			//margin: 10px;
+			background-color: #f3f0ff;
 
 			h4 {
-				margin: 0px;
+				text-align: center;
+				//padding: 10px;
+			}
+			span {
+				height: 10px;
 			}
 		}
 	}
@@ -26,8 +33,8 @@
 	}
 
 	.list {
-		width: 930px;
-		margin-left: 20px;
+		//width: 930px;
+		//margin-left: 20px;
 
 		a {
 			text-decoration: none;
@@ -43,8 +50,8 @@
 }
 
 .board {
-	background-color: #f5f3f9;
-	margin: 50px;
+	background-color: rgba(123, 117, 134, 0.68);
+	margin: 50px 10px;
 	border-radius: 10px;
 }
 

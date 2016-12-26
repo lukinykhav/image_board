@@ -1,14 +1,14 @@
-<div class="mdl-grid wrap-post" ng-controller="profileController">
-    <div class="post mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet {{post.class}}" ng-repeat="post in posts">
+<div class="wrap-post">
+    <div class="post {{post.class}}" ng-repeat="post in posts">
         <div>
-            <!--<div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">-->
-                 <!--<md-button class="edit-post" ng-click="editPost(post._id)">-->
-                    <!--<md-icon class="material-icons">mode_edit</md-icon>-->
-                <!--</md-button>-->
-                <!--<md-button ng-click="deletePost(post._id)">-->
-                    <!--<md-icon class="material-icons">clear</md-icon>-->
-                <!--</md-button>-->
-            <!--</div>-->
+            <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+                 <md-button class="edit-post" ng-click="editPost(post._id)">
+                    <md-icon class="material-icons">mode_edit</md-icon>
+                </md-button>
+                <md-button ng-click="deletePost(post._id)">
+                    <md-icon class="material-icons">clear</md-icon>
+                </md-button>
+            </div>
             <div class="post-image" ng-switch="post.type_file.split('/')[0]">
                 <img ng-switch-when="image" src="{{post.file}}">
                 <div ng-switch-when="video">
@@ -28,9 +28,6 @@
                 <span>
                    {{post.caption}}
                 </span>
-                <!--<md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">-->
-                    <!--<md-icon class="material-icons chat-bubble">chat_bubble</md-icon>-->
-                <!--</md-button>-->
             </div>
             <div class="post-action">
                 <div class="likes" ng-controller="likeController">
@@ -46,14 +43,18 @@
                         </md-button>
                     </div>
                 </div>
+                <md-button class="md-fab md-mini" ng-click="getComments(post._id)">
+                    <md-icon class="material-icons">keyboard_arrow_down</md-icon>
+                </md-button>
+                <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
+                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+                </md-button>
             </div>
-            <!--<md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="comments">-->
-                <!--<md-icon class="material-icons">keyboard_arrow_down</md-icon>-->
-            <!--</md-button>-->
-
         </div>
+
         <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
             <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
+            <h3 id="reply-title" class="comment-reply-title">Add post</h3>
             <form name="add_post" novalidate>
                 <div layout layout-sm="column" class="wrap-textarea">
                     <md-input-container flex>
@@ -68,10 +69,9 @@
                             <input id="file_input_file"  type="file" file-model="customer.file"/>
                         </md-input-container>
                     </label>
+                    <md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
                 </div>
-                <span us-spinner spinner-key="spinner" class="spinner"></span>
             </form>
-            <md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised" ng-disabled="add_post.$invalid">Save</md-button>
         </div>
     </div>
 </div>
