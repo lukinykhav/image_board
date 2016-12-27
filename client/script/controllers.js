@@ -334,7 +334,6 @@ angular.module('myApp').controller('profileController',
                 });
 
             $scope.profile = function () {
-                console.log(1);
                AuthService.profile()
                    .then(function (data) {
                        console.log(data);
