@@ -1,14 +1,9 @@
 $screen-sm-min: 768px;
 $screen-xs-min: 360px;
 .wrap-post {
-  //border-radius: 20px;
-  //max-width: 1600px;
-  //width: calc(100% - 65px);
   width: calc(80% - 150px);
   max-width: 1000px;
   min-width: 300px;
-  //margin: 60px auto;
-  //background-color: #f5f3f9;
   margin: 20px auto;
   border-radius: 10px;
 
@@ -34,8 +29,6 @@ $screen-xs-min: 360px;
 }
 
 .post {
-  //width: 760px;
-  //height: auto;
   position: relative;
   margin: 20px auto;
   background-color: rgba(255, 255, 255, 0.85);
@@ -48,23 +41,10 @@ $screen-xs-min: 360px;
     color: black;
   }
 
-  //.panel-post {
-  //  background-color: rgb(103,58,183);
-  //    .material-icons {
-  //      color:white;
-  //    }
-  //}
-
   .post-image {
     position: relative;
-    //background-color: #F0F8FF;
 
     img {
-      //max-height: 274px;
-      //max-width: 747px;
-      //height: auto;
-      //width: auto;
-      //margin: 2% 30%;
       display: block;
       border-radius: 2px 2px 0 0;
       position: relative;
@@ -93,9 +73,6 @@ $screen-xs-min: 360px;
   .description {
     padding: 20px;
     border-radius: 0 0 2px 2px;
-    //padding: 5px;
-    //height: 50px;
-    //border: 1px solid black;
   }
 
   .post-action {
@@ -120,13 +97,9 @@ $screen-xs-min: 360px;
   .add-comment {
     float: right;
     margin: 0;
-    //margin: -18px;
-    //height: 71px;
-    //width: 71px;
   }
 
   .likes {
-    //margin-top: 10px;
     display: inline-block;
     float: left;
     margin-bottom: 5px;
@@ -172,10 +145,7 @@ $screen-xs-min: 360px;
 .add-post {
   margin: 90px auto;
   padding: 30px 20px;
-    .wrap-textarea {
-      //width: 80%;
-      //float: left;
-    }
+
   button {
     background-color: rgb(255,64,129);
   }
@@ -212,9 +182,6 @@ $screen-xs-min: 360px;
   button {
     float: right;
   }
-  //float: right;
-  //margin-right: 40px;
-  //margin-top: 10px;
 }
 
 .none {

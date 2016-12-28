@@ -10,7 +10,6 @@ $screen-sm-min: 768px;
 
 .profile {
 	padding: 35px 10px;
-	//margin-top: 70px;
 	max-width: 1000px;
 	width: 100%;
 
@@ -90,93 +89,3 @@ $screen-sm-min: 768px;
 		}
 	}
 }
-
-//.avatar {
-//	margin: 0 auto;
-//	display: block;
-//	width: inherit;
-//	//height: 207px;
-//	//width:280px;
-//	//float: left;
-//	//margin: 17%;
-//	//border: 2px solid #333;
-//	//position: relative;
-//	@media screen and (max-width: $screen-sm-min) {
-//		margin: 50px 0;
-//	}
-//
-//	img {
-//		//@include centerer;
-//		height: 205px;
-//		width: 278px;
-//		border: 2px solid #333;
-//	}
-//
-//	input[type='file'] {
-//		opacity:0
-//	}
-//
-//	.upload {
-//		height: 71px;
-//		width: 69px;
-//	    position: relative;
-//		margin-top: -25px;
-//		margin-left: -40px;
-//		background-image: url('../image/pencil_image.png');
-//		background-size: 50%;
-//		background-repeat: no-repeat;
-//		background-position: center;
-//		z-index: 5;
-//
-//		input {
-//			height: 71px;
-//			width: 69px;
-//			top: -35px;
-//			left: 242px;
-//		}
-//	}
-//}
-//
-//.info {
-//	//float: left;
-//    //margin-top: 125px;
-//	background-color: rgba(123, 117, 134, 0.68);
-//
-//    form {
-//    	//width: 350px;
-//    }
-//
-//    span {
-//    	font-size:18px;
-//	  	//width:300px;
-//	  	margin-left: 50px;
-//    }
-//
-//    label {
-//    	//width: 35px;
-//    }
-//
-//    .form-group {
-//    	margin-top: 10px;
-//    }
-//}
-//
-//.edit_profile {
-//
-//	img {
-//		height: 24px;
-//		//margin-top: 95px;
-//	}
-//}
-//
-//canvas {
-//	border: 1px solid #c3c3c3;
-//	height: 205px;
-//	width: 278px;
-//	@include centerer;
-//
-//}
-//
-//.save {
-//
-//}

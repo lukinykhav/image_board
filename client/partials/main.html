@@ -1,75 +1,53 @@
-<!--<div class="mdl-layout__content">-->
-    <!--<div class="mdl-grid mdl-layout&#45;&#45;fixed-header navbar">-->
-    <!--<header class="mdl-layout__header">-->
-      <!--<div class="mdl-layout__header-row">-->
-        <!--&lt;!&ndash; Title &ndash;&gt;-->
-
-        <!--&lt;!&ndash; Add spacer, to align navigation to the right &ndash;&gt;-->
-        <!--<div class="mdl-layout-spacer col-lg-3 col-md-3 col-xs-3"> <span class="mdl-layout-title">ImageBoard</span></div>-->
-        <!--&lt;!&ndash; Navigation. We hide it in small screens. &ndash;&gt;-->
-        <!--<nav class="mdl-navigation mdl-layout&#45;&#45;large-screen-only row">-->
-          <!--<a class="mdl-navigation__link col-lg-3 col-md-3" ui-sref="user.boards">Boards</a>-->
-          <!--<a class="mdl-navigation__link col-lg-3 col-md-3" ui-sref="user.profile">Profile</a>-->
-          <!--<a class="mdl-navigation__link col-lg-3 col-md-3" ng-if="user_list" ui-sref="user.list">Users</a>-->
-          <!--<a ng-controller="logoutController" class="ng-scope" ng-click="logout()" class="mdl-navigation__link" href="">Logout</a>-->
-        <!--</nav>-->
-      <!--</div>-->
-    <!--</header>-->
+<!--<header class="mdl-layout__header&#45;&#45;scroll">-->
+    <!--<div class="mdl-layout&#45;&#45;large-screen-only mdl-layout__header-row">-->
+        <!--<h3>ImageBoard</h3>-->
     <!--</div>-->
-    <!--<main class="mdl-grid">-->
-        <!--<div class="" ui-view></div>-->
-    <!--</main>-->
-<!--</div>-->
-<header class="mdl-layout__header--scroll">
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-        <h3>ImageBoard</h3>
-    </div>
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-    </div>
-    <div class="mdl-js-ripple-effect">
-        <a ui-sref="user.boards" class="mdl-layout__tab is-active">Boards</a>
-        <a ui-sref="user.profile" class="mdl-layout__tab">Profile</a>
-        <a ng-if="user_list" ui-sref="user.list" class="mdl-layout__tab">Users</a>
-        <a ng-controller="logoutController" class="mdl-layout__tab" ng-click="logout()" href="">Logout</a>
-    </div>
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-    </div>
-</header>
-<!--<header id="masthead" class="site-header" role="banner">-->
-    <!--<nav role="navigation" id="navbar-main">-->
-        <!--<div class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">-->
-            <!--<div class="container">-->
-                <!--&lt;!&ndash; .navbar-toggle is used as the toggle for collapsed navbar content &ndash;&gt;-->
-                <!--<div class="navbar-header">-->
-                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">-->
-                        <!--<span class="icon-bar"></span>-->
-                        <!--<span class="icon-bar"></span>-->
-                        <!--<span class="icon-bar"></span>-->
-                    <!--</button>-->
-
-                    <!--<a class="navbar-brand">imageBoard</a>-->
-                <!--</div>-->
-
-                <!--<div class="navbar-collapse collapse navbar-responsive-collapse">-->
-                    <!--<ul id="menu-primary" class="nav navbar-nav navbar-right">-->
-                        <!--<li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23">-->
-                            <!--<a ui-sref="user.boards" class="mdl-layout__tab is-active">Boards</a>-->
-                        <!--</li>-->
-                        <!--<li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-22">-->
-                            <!--<a ui-sref="user.profile" class="mdl-layout__tab">Profile</a>-->
-                        <!--</li>-->
-                        <!--<li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">-->
-                            <!--<a ng-if="user_list" ui-sref="user.list" class="mdl-layout__tab">Users</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a ng-controller="logoutController" class="mdl-layout__tab" ng-click="logout()" href="">Logout</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</nav>-->
+    <!--<div class="mdl-layout&#45;&#45;large-screen-only mdl-layout__header-row">-->
+    <!--</div>-->
+    <!--<div class="mdl-js-ripple-effect">-->
+        <!--<a ui-sref="user.boards" class="mdl-layout__tab is-active">Boards</a>-->
+        <!--<a ui-sref="user.profile" class="mdl-layout__tab">Profile</a>-->
+        <!--<a ng-if="user_list" ui-sref="user.list" class="mdl-layout__tab">Users</a>-->
+        <!--<a ng-controller="logoutController" class="mdl-layout__tab" ng-click="logout()" href="">Logout</a>-->
+    <!--</div>-->
+    <!--<div class="mdl-layout&#45;&#45;large-screen-only mdl-layout__header-row">-->
+    <!--</div>-->
 <!--</header>-->
+<header id="masthead" class="site-header" role="banner">
+    <nav role="navigation" id="navbar-main">
+        <div class="navbar navbar-transparent navbar-fixed-top navbar-color-on-scroll">
+            <div class="container">
+                <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand">imageBoard</a>
+                </div>
+
+                <div class="navbar-collapse collapse navbar-responsive-collapse">
+                    <ul id="menu-primary" class="nav navbar-nav navbar-right">
+                        <li id="menu-item-23" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23">
+                            <a ui-sref="user.boards" class="mdl-layout__tab is-active">Boards</a>
+                        </li>
+                        <li id="menu-item-22" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent menu-item-22">
+                            <a ui-sref="user.profile" class="mdl-layout__tab">Profile</a>
+                        </li>
+                        <li id="menu-item-27" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27">
+                            <a ng-if="user_list" ui-sref="user.list" class="mdl-layout__tab">Users</a>
+                        </li>
+                        <li>
+                            <a ng-controller="logoutController" class="mdl-layout__tab" ng-click="logout()" href="">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
 <main class="mdl-layout__content">
     <div class="mdl-layout__tab-panel is-active" ui-view ng-cloak>
         <div class="wrap_content"></div>
