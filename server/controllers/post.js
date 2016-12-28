@@ -66,7 +66,7 @@ exports.deletePost = function (req, res) {
               fs.unlink('./uploads/' + post.file);
             }
             post.remove();
-            res.json({ message: 'Successfully deleted' });
+            res.json({ message: 'Successfully deleted', post: post });
           }
           else {
             res.send(403);
