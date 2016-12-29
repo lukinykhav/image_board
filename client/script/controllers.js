@@ -359,6 +359,11 @@ angular.module('myApp').controller('profileController',
                url: '/load_avatar',
                autoUpload: true
             });
+
+            $scope.uploader.onSuccessItem = function() {
+                $state.reload();
+            };
+
         }
     ]
 );

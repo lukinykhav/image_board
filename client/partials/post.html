@@ -52,7 +52,30 @@
             </div>
         </div>
 
-        <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
+        <!--<div ng-controller="addPostController" class="add-post" ng-show="addPostForm">-->
+            <!--<div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>-->
+            <!--<h3 id="reply-title" class="comment-reply-title">Add post</h3>-->
+            <!--<form name="add_post" novalidate>-->
+                <!--<div layout layout-sm="column" class="wrap-textarea">-->
+                    <!--<md-input-container flex>-->
+                        <!--<label>Caption</label>-->
+                        <!--<textarea md-maxlength="150" rows="3" md-select-on-focus="" ng-model="customer.caption" name="caption" placeholder="Caption (required)" required></textarea>-->
+                    <!--</md-input-container>-->
+                <!--</div>-->
+                <!--<div class="file_input">-->
+                    <!--<label spinner-start-active="true" ng-click="startSpin()" class="mdl-button&#45;&#45;fab mdl-button&#45;&#45;mini-fab mdl-js-ripple-effect mdl-button&#45;&#45;colored">-->
+                        <!--<i class="material-icons">file_upload</i>-->
+                        <!--<md-input-container class="none">-->
+                            <!--<input id="file_input_file"  type="file" file-model="customer.file"/>-->
+                        <!--</md-input-container>-->
+                    <!--</label>-->
+                    <!--<md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    </div>
+    <div class="md-grid">
+        <div ng-controller="addPostController" class="add-post mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
             <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
             <h3 id="reply-title" class="comment-reply-title">Add post</h3>
             <form name="add_post" novalidate>
@@ -69,9 +92,10 @@
                             <input id="file_input_file"  type="file" file-model="customer.file"/>
                         </md-input-container>
                     </label>
-                    <md-button ng-click="uploadFile(post._id, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
+                    <md-button ng-click="uploadFile(null, posts)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
                 </div>
             </form>
         </div>
     </div>
+</div>
 </div>
