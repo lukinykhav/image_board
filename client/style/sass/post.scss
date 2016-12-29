@@ -73,6 +73,7 @@ $screen-xs-min: 360px;
   .description {
     padding: 20px;
     border-radius: 0 0 2px 2px;
+    word-wrap: break-word;
   }
 
   .post-action {

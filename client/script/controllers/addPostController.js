@@ -37,6 +37,7 @@ angular.module('myApp').controller('addPostController',
                             $scope.addPostForm =! $scope.addPostForm;
                             $scope.add_post.$setPristine();
                             $scope.add_post.$setUntouched();
+                            $scope.add_post.$invalid = true;
                             $scope.customer = angular.copy(defaultForm);
                         }
                     })
