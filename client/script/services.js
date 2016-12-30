@@ -333,6 +333,7 @@ angular.module('myApp').factory('filter', function () {
 angular.module('myApp').service('PostService', ['$http', '$q', function ($http, $q) {
     return ({
         getPost: getPost,
+        getComments: getComments,
         getUserPost: getUserPost,
         editPost: editPost,
         liking: liking,
@@ -350,6 +351,20 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
                 deferred.reject(data);
             });
         
+        return deferred.promise;
+    }
+
+    function getComments (id) {
+        var deferred = $q.defer();
+
+        $http.get('/get_comments/:' + id)
+            .success(function (data) {
+                deferred.resolve(data);
+            })
+            .error(function (data) {
+                deferred.reject(data);
+            });
+
         return deferred.promise;
     }
 

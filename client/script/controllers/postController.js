@@ -34,18 +34,23 @@ angular.module('myApp').controller('postController',
             $scope.getComments = function (post_id) {
                 if(arr_id.indexOf(post_id) === -1) {
                     arr_id.push(post_id);
-                    PostService.getPost(post_id)
+                    // PostService.getPost(post_id)
+                    //     .then(function (data) {
+                    //         console.log(data);
+                    //         filtred = filter.filterPosts(data);
+                    //         for(var i = 0; i < filtred.comments.length; i++) {
+                    //             if(filtred.comments[i]['_id'] === post_id) {
+                    //                 filtred.comments.splice(i, 1);
+                    //             }
+                    //             if (filtred.comments[i]) {
+                    //                 filtred.comments[i]['class'] = 'comment';
+                    //                 $scope.posts.push(filtred.comments[i]);
+                    //             }
+                    //         }
+                    //     });
+                    PostService.getComments(post_id)
                         .then(function (data) {
-                            filtred = filter.filterPosts(data);
-                            for(var i = 0; i < filtred.comments.length; i++) {
-                                if(filtred.comments[i]['_id'] === post_id) {
-                                    filtred.comments.splice(i, 1);
-                                }
-                                if (filtred.comments[i]) {
-                                    filtred.comments[i]['class'] = 'comment';
-                                    $scope.posts.push(filtred.comments[i]);
-                                }
-                            }
+                            console.log(data);
                         });
                 }
             };

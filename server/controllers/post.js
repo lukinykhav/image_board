@@ -5,6 +5,7 @@ var Account = require('../models/account.js');
 var Board = require('../models/board.js');
 var Post = require('../models/post.js');
 var User = require('../controllers/user.js');
+var post = require('../controllers/post.js');
 
 exports.addPost = function (req, res) {
     Account.findOne({token: req.user.token}, function (err, user) {
@@ -44,6 +45,49 @@ exports.getPost = function (req, res) {
           res.send(posts);
       }
   });
+};
+
+exports.getChildComments = function (post_id, callback) {
+    Post.find({post_id: post_id}, function (err, comments) {
+        if(comments.length) {
+            callback(post_id);
+        }
+        else {
+            callback(false);
+        }
+    });
+};
+
+exports.getComments = function (req, res) {
+    var post_id = req.params.id.substring(1);
+    Post.find({post_id: post_id}, function (err, posts) {
+        if(err) {
+            res.send('err')
+        }
+        else {
+            var arr = [];
+            for (var i = 0; i < posts.length; i++) {
+                post.getChildComments(posts[i]._id, function (data) {
+                    if(data) {
+                        arr.push(data);
+                        console.log(posts[i]);
+                    }
+                });
+                console.log(arr);
+                // var promise = Post.find({post_id: posts[i]._id}, function (err, comments) {
+                //     // console.log(posts[i]);
+                //     if(comments.length) {
+                //         return true;
+                //         // console.log(posts[i]);
+                //     }
+                // });
+                // promise.then(function (result) {
+                //     console.log(result);
+                // })
+            }
+            res.send(posts);
+        }
+    });
 };
 
 exports.getUserPost = function (req, res) {

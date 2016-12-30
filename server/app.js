@@ -84,6 +84,7 @@ app.get('/all_boards', board.allBoards);
 app.get('/get_board/:_id', board.getBoard);
 
 app.get('/get_post/:id', post.getPost);
+app.get('/get_comments/:id', post.getComments);
 app.post('/get_user_post/:id', post.getUserPost);
 app.get('/delete_post/:id', post.deletePost);
 app.post('/edit_post/:id', upload.single('file'), post.editPost);
