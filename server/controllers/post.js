@@ -20,10 +20,23 @@ exports.addPost = function (req, res) {
         post.user_id = user._id;
         post.data_create = Date.now();
         post.post_id = req.body.post_id;
+        post.children = null;
 
         post.save(function(err, post) {
             if(err) {
                 res.send(err);
+            }
+            console.log(req.body.comment);
+            if (req.body.comment === 'true') {
+                Post.findOne({_id: post.post_id}, function (err, post) {
+                    var arr = [];
+                    if (post.children !== null) {
+                        arr.push(post.children)
+                    }
+                    arr.push(post._id);
+                    post.children = arr;
+                    post.save();
+                })
             }
             res.json({ message: 'Post added!', data: post});
         });
@@ -47,45 +60,85 @@ exports.getPost = function (req, res) {
   });
 };
 
-exports.getChildComments = function (post_id, callback) {
-    Post.find({post_id: post_id}, function (err, comments) {
-        if(comments.length) {
-            callback(post_id);
-        }
-        else {
-            callback(false);
-        }
-    });
+exports.getChildComments = function (post) {
+    var arr = [];
+    // for (var i = 0; i < posts.length; i++) {
+        var promise = Post.find({board_id: post.board_id}, function (err, result) {
+            for (var i = 0; i < result.length; i++) {
+                if (result[i].post_id === post._id) {
+                    console.log(result[i]);
+                }
+            }
+            // if(result.length) {
+            //     callback(result[0].post_id);
+            // }
+        });
+        console.log(promise);
+    // }
+    // callback(arr);
+    // Post.find({post_id: post_id}, function (err, comments) {
+    //     callback(comments, posts);
+    //     // if(comments.length) {
+    //     //     callback(post_id);
+    //     // }
+    //     // else {
+    //     //     callback(false);
+    //     // }
+    // });
 };
 
 exports.getComments = function (req, res) {
+    var arr = [];
     var post_id = req.params.id.substring(1);
     Post.find({post_id: post_id}, function (err, posts) {
         if(err) {
             res.send('err')
         }
         else {
-            var arr = [];
-            for (var i = 0; i < posts.length; i++) {
-                post.getChildComments(posts[i]._id, function (data) {
-                    if(data) {
-                        arr.push(data);
-                        console.log(posts[i]);
-                    }
-                });
-                console.log(arr);
-                // var promise = Post.find({post_id: posts[i]._id}, function (err, comments) {
-                //     // console.log(posts[i]);
-                //     if(comments.length) {
-                //         return true;
-                //         // console.log(posts[i]);
-                //     }
-                // });
-                // promise.then(function (result) {
-                //     console.log(result);
-                // })
-            }
-            res.send(posts);
+            // Post.find({board_id: posts[0].board_id}, function (err, result) {
+            //
+            //     for (var i = 0; i < result.length; i++) {
+            //         if(result[i].post_id !== 'null' && arr.indexOf(result[i].post_id) === -1) {
+            //             arr.push(result[i]._id);
+            //         }
+            //     }
+            //     res.json({posts: posts, arr: arr});
+            //     // for (var i = 0; i < posts.length; i++) {
+            //     //     console.log(arr);
+            //     //     console.log(posts[i]._id);
+            //     //     if (arr.indexOf(posts[i].post_id) !== -1) {
+            //     //         console.log(1);
+            //     //         posts[i].child = 'true';
+            //     //     }
+            //     //     console.log(posts[i]);
+            //     // }
+            // });
+            // console.log(posts);
+            // for (var i = 0; i < posts.length; i++) {
+            //     post.getChildComments().then(function (res) {
+            //         console.log(res);
+            //     });
+            //     // post.getChildComments(posts[i]._id, posts, function (comments, posts) {
+            //     //     console.log(comments, posts);
+            //     //     if(comments) {
+            //     //         console.log(posts[i]);
+            //     //         // posts[i].push({'child': true});
+            //     //     }
+            //     // });
+            //     // console.log(posts[i]);
+            //     var promise = Post.find({post_id: posts[i]._id}, function (err, comments) {
+            //     });
+            //     promise.then(function (result) {
+            //        if(result.length) {
+            //           arr.push(result[0].post_id);
+            //            console.log(arr);
+            //        }
+            //     });
+            //
+            //     // console.log(arr[i]);
+            // }
+            // console.log(arr);
+
         }
     });
 };

@@ -9,6 +9,7 @@ var Post = new Schema({
     user_id: String,
     data_created: Date,
     post_id: String,
+    children: String,
     user_like: Array,
     user_dislike: Array
 });

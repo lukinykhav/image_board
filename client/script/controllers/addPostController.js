@@ -8,11 +8,12 @@ angular.module('myApp').controller('addPostController',
                 post_id: ""
             };
 
-            $scope.uploadFile = function (post_id, posts) {
+            $scope.uploadFile = function (post_id, posts, comment) {
                 $scope.error = false;
                 var fd = new FormData();
                 $scope.customer.board_id = dataHolder.getValue();
                 $scope.customer.post_id = post_id;
+                $scope.customer.comment = comment;
                 for (var key in $scope.customer) {
                     fd.append(key, $scope.customer[key]);
                 }
