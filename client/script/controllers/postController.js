@@ -5,14 +5,15 @@ angular.module('myApp').controller('postController',
             var filtred = [];
             var arr_id = [];
             var token = localStorage.getItem('token');
+            $scope.comments = [];
 
             PostService.getPost(id)
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
-                    $scope.posts = filtred.posts;
-                    if(filtred.comments.length > 0) {
-                        $scope.comments = true;
-                    }
+                    $scope.post = filtred.posts[0];
+                    // if(filtred.comments.length > 0) {
+                    //     $scope.comments = true;
+                    // }
                     PostService.getUserPost(id, token)
                         .then(function (data) {
                             $scope.userRole = data[1];
@@ -32,27 +33,49 @@ angular.module('myApp').controller('postController',
             };
 
             $scope.getComments = function (post_id) {
-                if(arr_id.indexOf(post_id) === -1) {
-                    arr_id.push(post_id);
-                    // PostService.getPost(post_id)
-                    //     .then(function (data) {
-                    //         console.log(data);
-                    //         filtred = filter.filterPosts(data);
-                    //         for(var i = 0; i < filtred.comments.length; i++) {
-                    //             if(filtred.comments[i]['_id'] === post_id) {
-                    //                 filtred.comments.splice(i, 1);
-                    //             }
-                    //             if (filtred.comments[i]) {
-                    //                 filtred.comments[i]['class'] = 'comment';
-                    //                 $scope.posts.push(filtred.comments[i]);
-                    //             }
-                    //         }
-                    //     });
-                    PostService.getComments(post_id)
-                        .then(function (data) {
-                            console.log(data);
-                        });
-                }
+
+                PostService.getComments(post_id)
+                    .then(function (data) {
+                        var index;
+
+                        if($scope.comments.length) {
+                            for (var j = 0; j < $scope.comments.length; j++) {
+                                if(post_id === $scope.comments[j]['_id']) {
+                                    index = j;
+                                }
+                            }
+                        }
+                        else {
+                            index = -1;
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            $scope.comments.splice(index+1, 0, data[i]);
+                        }
+                    });
+                // if(arr_id.indexOf(post_id) === -1) {
+                //     arr_id.push(post_id);
+                //     // PostService.getPost(post_id)
+                //     //     .then(function (data) {
+                //     //         // console.log(data);
+                //     //         filtred = filter.filterPosts(data);
+                //     //         for(var i = 0; i < filtred.comments.length; i++) {
+                //     //             if(filtred.comments[i]['_id'] === post_id) {
+                //     //                 filtred.comments.splice(i, 1);
+                //     //             }
+                //     //             console.log(filtred.comments);
+                //     //             if (filtred.comments[i]) {
+                //     //                 filtred.comments[i]['class'] = 'comment';
+                //     //                 $scope.posts.push(filtred.comments[i]);
+                //     //             }
+                //     //         }
+                //     //     });
+                //     PostService.getComments(post_id)
+                //         .then(function (data) {
+                //             console.log(data);
+                //             $scope.comments.push(data);
+                //
+                //         });
+                // }
             };
         }
     ]

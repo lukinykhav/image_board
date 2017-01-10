@@ -20,7 +20,7 @@ angular.module('myApp').controller('editPostController',
 
             PostService.editPost(locals.post_id, fd)
                 .then(function(data) {
-                    $scope.posts = PostService.changePost(locals.posts, data);
+                    // $scope.posts = PostService.changePost(locals.posts, data);
                     $mdDialog.cancel();
                 })
                 .catch(function() {

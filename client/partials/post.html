@@ -1,5 +1,5 @@
 <div class="wrap-post">
-    <div class="post {{post.class}}" ng-repeat="post in posts">
+    <div class="post">
         <div>
             <div class="panel-post" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
                  <md-button class="edit-post" ng-click="editPost(post._id)">
@@ -43,7 +43,7 @@
                         </md-button>
                     </div>
                 </div>
-                <md-button class="md-fab md-mini" ng-click="getComments(post._id)">
+                <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="post.children !== null">
                     <md-icon class="material-icons">keyboard_arrow_down</md-icon>
                 </md-button>
                 <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
@@ -54,7 +54,7 @@
 
         <div ng-controller="addPostController" class="add-post" ng-show="addPostForm">
             <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
-            <h3 id="reply-title" class="comment-reply-title">Add post</h3>
+            <!--<h3 id="reply-title" class="comment-reply-title">Add post</h3>-->
             <form name="add_post" novalidate>
                 <div layout layout-sm="column" class="wrap-textarea">
                     <md-input-container flex>
@@ -77,7 +77,6 @@
     <!--<div class="md-grid">-->
         <!--<div ng-controller="addPostController" class="add-post mdl-cell mdl-cell&#45;&#45;12-col mdl-cell&#45;&#45;12-col-tablet mdl-cell&#45;&#45;12-col-phone">-->
             <!--<div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>-->
-            <!--<h3 id="reply-title" class="comment-reply-title">Add post</h3>-->
             <!--<form name="add_post" novalidate>-->
                 <!--<div layout layout-sm="column" class="wrap-textarea">-->
                     <!--<md-input-container flex>-->
@@ -98,4 +97,63 @@
         <!--</div>-->
     <!--</div>-->
 </div>
+</div>
+
+<!--<div class="wrap-post">-->
+    <!--<div class="post comment" ng-repeat="comment in comments" ng-include="'partials/comment.html'"></div>-->
+<!--</div>-->
+<div class="wrap-post">
+    <div class="post comment" ng-repeat="comment in comments">
+        <div>
+            <div class="panel-post" ng-if="changePost.indexOf(comment._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+                <md-button class="edit-post" ng-click="editPost(comment._id)">
+                    <md-icon class="material-icons">mode_edit</md-icon>
+                </md-button>
+                <md-button ng-click="deletePost(comment._id)">
+                    <md-icon class="material-icons">clear</md-icon>
+                </md-button>
+            </div>
+            <div class="post-image" ng-switch="post.type_file.split('/')[0]">
+                <img ng-switch-when="image" src="{{comment.file}}">
+                <div ng-switch-when="video">
+                    <video width="320" height="240"  controls>
+                        <source src="{{comment.file}}" type="{{comment.type_file}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div ng-switch-when="audio">
+                    <audio controls>
+                        <source src="{{comment.file}}" type="{{comment.type_file}}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            <div class="description">
+                <span>
+                   {{comment.caption}}
+                </span>
+            </div>
+            <div class="post-action">
+                <div class="likes" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(post._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ post.user_like.length }}</span>
+                        </md-button>
+                        <md-button ng-click="dislike(post._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ post.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
+                </div>
+                <md-button class="md-fab md-mini" ng-click="getComments(comment._id)" ng-show="comment.children !== null">
+                    <md-icon class="material-icons">keyboard_arrow_down</md-icon>
+                </md-button>
+                <md-button class="md-fab add-comment" arial-label="Add" ng-click="addPostForm =! addPostForm">
+                    <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
 </div>

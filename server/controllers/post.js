@@ -95,6 +95,7 @@ exports.getComments = function (req, res) {
             res.send('err')
         }
         else {
+            res.send(posts);
             // Post.find({board_id: posts[0].board_id}, function (err, result) {
             //
             //     for (var i = 0; i < result.length; i++) {
