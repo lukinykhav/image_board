@@ -162,7 +162,21 @@ exports.deletePost = function (req, res) {
             if (fs.existsSync('./uploads/' + post.file)) {
               fs.unlink('./uploads/' + post.file);
             }
-            post.remove();
+            post.remove(function (err, post) {
+                if (post.post_id !== 'null') {
+                    var children = post._id;
+                    Post.findOne({_id: post.post_id}, function (err, post) {
+                        var arr = post.children.split(",");
+                        arr.splice(arr.indexOf(children), 1);
+                        console.log(arr.length);
+                        if (!arr.length) {
+                            arr = null;
+                        }
+                        post.children = arr;
+                        post.save();
+                    });
+                }
+            });
             res.json({ message: 'Successfully deleted', post: post });
           }
           else {

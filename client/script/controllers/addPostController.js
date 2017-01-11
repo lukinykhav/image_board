@@ -1,6 +1,6 @@
 angular.module('myApp').controller('addPostController',
-    ['$scope', '$location', '$http', 'dataHolder', '$customHttp',
-        function ($scope, $location, $http, dataHolder, $customHttp) {
+    ['$scope', '$location', '$http', 'dataHolder', '$customHttp', '$rootScope',
+        function ($scope, $location, $http, dataHolder, $customHttp, $rootScope) {
             var defaultForm = {
                 caption: "",
                 file: "",
@@ -35,7 +35,7 @@ angular.module('myApp').controller('addPostController',
                                 post.data['class'] = 'comment';
                                 posts.push(post.data);
                             }
-                            $scope.addPostForm =! $scope.addPostForm;
+                            $rootScope.addPostForm =! $rootScope.addPostForm;
                             $scope.add_post.$setPristine();
                             $scope.add_post.$setUntouched();
                             $scope.add_post.$invalid = true;

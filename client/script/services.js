@@ -415,14 +415,14 @@ angular.module('myApp').service('PostService', ['$http', '$q', function ($http, 
     }
 
    function changePost (posts, data) {
-        for (var i = 0; i < posts.length; i++) {
-            if (posts[i]['_id'] === data._id) {
-                if(posts[i]['class'] === 'comment') {
-                    data['class'] = 'comment';
-                }
-                posts[i] = data;
-            }
-        }
+       for (var i = 0; i < posts.length; i++) {
+           if (posts[i]['_id'] === data._id) {
+               if(posts[i]['class'] === 'comment') {
+                   data['class'] = 'comment';
+               }
+               posts[i] = data;
+           }
+       }
         return posts;
     }
 }]);

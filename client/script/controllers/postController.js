@@ -1,16 +1,15 @@
 angular.module('myApp').controller('postController',
-    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter',
-        function ($scope, $location, PostService, $mdDialog, $http, filter) {
+    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter', '$rootScope',
+        function ($scope, $location, PostService, $mdDialog, $http, filter, $rootScope) {
             var id = $location.path().split('/')[2];
             var filtred = [];
             var arr_id = [];
             var token = localStorage.getItem('token');
-            $scope.comments = [];
 
             PostService.getPost(id)
                 .then(function (data) {
                     filtred = filter.filterPosts(data);
-                    $scope.post = filtred.posts[0];
+                    $scope.posts = filtred.posts;
                     // if(filtred.comments.length > 0) {
                     //     $scope.comments = true;
                     // }
@@ -32,50 +31,33 @@ angular.module('myApp').controller('postController',
                 });
             };
 
+            $scope.addComment = function (id, posts) {
+                $rootScope.addPostForm = !$rootScope.addPostForm;
+                $scope.id = id;
+                $scope.arr_posts = posts;
+
+            };
+
             $scope.getComments = function (post_id) {
 
                 PostService.getComments(post_id)
                     .then(function (data) {
-                        var index;
+                        var index, arr_posts_id = [];
 
-                        if($scope.comments.length) {
-                            for (var j = 0; j < $scope.comments.length; j++) {
-                                if(post_id === $scope.comments[j]['_id']) {
-                                    index = j;
-                                }
+                        for (var j = 0; j < $scope.posts.length; j++) {
+                            arr_posts_id.push($scope.posts[j]['_id']);
+                            if(post_id === $scope.posts[j]['_id']) {
+                                index = j;
                             }
                         }
-                        else {
-                            index = -1;
-                        }
+
                         for (var i = 0; i < data.length; i++) {
-                            $scope.comments.splice(index+1, 0, data[i]);
+                            if(arr_posts_id.indexOf(data[i]._id) === -1) {
+                                data[i]['class'] = 'comment';
+                                $scope.posts.splice(index+1, 0, data[i]);
+                            }
                         }
                     });
-                // if(arr_id.indexOf(post_id) === -1) {
-                //     arr_id.push(post_id);
-                //     // PostService.getPost(post_id)
-                //     //     .then(function (data) {
-                //     //         // console.log(data);
-                //     //         filtred = filter.filterPosts(data);
-                //     //         for(var i = 0; i < filtred.comments.length; i++) {
-                //     //             if(filtred.comments[i]['_id'] === post_id) {
-                //     //                 filtred.comments.splice(i, 1);
-                //     //             }
-                //     //             console.log(filtred.comments);
-                //     //             if (filtred.comments[i]) {
-                //     //                 filtred.comments[i]['class'] = 'comment';
-                //     //                 $scope.posts.push(filtred.comments[i]);
-                //     //             }
-                //     //         }
-                //     //     });
-                //     PostService.getComments(post_id)
-                //         .then(function (data) {
-                //             console.log(data);
-                //             $scope.comments.push(data);
-                //
-                //         });
-                // }
             };
         }
     ]

@@ -1,5 +1,5 @@
 angular.module('myApp').controller('editPostController',
-    ['$scope', '$http', 'locals', '$mdDialog', 'PostService', function ($scope, $http, locals, $mdDialog, PostService) {
+    ['$scope', '$http', 'locals', '$mdDialog', 'PostService', '$state', function ($scope, $http, locals, $mdDialog, PostService, $state) {
 
         // var post;
         // for(post in locals.posts) {
@@ -20,7 +20,18 @@ angular.module('myApp').controller('editPostController',
 
             PostService.editPost(locals.post_id, fd)
                 .then(function(data) {
-                    // $scope.posts = PostService.changePost(locals.posts, data);
+                    $scope.posts = PostService.changePost(locals.posts, data);
+                    // if(locals.post || locals.comments) {
+                    //     if (locals.post[0]._id === data._id) {
+                    //         $scope.posts = PostService.changePost(locals.post, data);
+                    //     }
+                    //     else {
+                    //         $scope.comments = PostService.changePost(locals.comments, data);
+                    //     }
+                    // }
+                    // else {
+                    //     $scope.posts = PostService.changePost(locals.posts, data);
+                    // }
                     $mdDialog.cancel();
                 })
                 .catch(function() {
