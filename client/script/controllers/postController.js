@@ -1,10 +1,11 @@
 angular.module('myApp').controller('postController',
-    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter', '$rootScope',
-        function ($scope, $location, PostService, $mdDialog, $http, filter, $rootScope) {
+    ['$scope', '$location', 'PostService', '$mdDialog', '$http', 'filter', '$rootScope', '$document',
+        function ($scope, $location, PostService, $mdDialog, $http, filter, $rootScope, $document) {
             var id = $location.path().split('/')[2];
             var filtred = [];
             var arr_id = [];
             var token = localStorage.getItem('token');
+            $scope.arr_display = [];
 
             PostService.getPost(id)
                 .then(function (data) {
@@ -40,6 +41,13 @@ angular.module('myApp').controller('postController',
 
             $scope.getComments = function (post_id) {
 
+                if($scope.arr_display.indexOf(post_id) === -1) {
+                    $scope.arr_display.push(post_id);
+                }
+                else {
+                    $scope.arr_display.splice($scope.arr_display.indexOf(post_id), 1)
+                }
+
                 PostService.getComments(post_id)
                     .then(function (data) {
                         var index, arr_posts_id = [];
@@ -55,6 +63,11 @@ angular.module('myApp').controller('postController',
                             if(arr_posts_id.indexOf(data[i]._id) === -1) {
                                 data[i]['class'] = 'comment';
                                 $scope.posts.splice(index+1, 0, data[i]);
+                                $scope.displayComments = true;
+                            }
+                            else {
+                                $scope.posts.splice(index+1, 1);
+                                $scope.displayComments = false;
                             }
                         }
                     });

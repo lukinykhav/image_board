@@ -94,6 +94,14 @@ $screen-xs-min: 360px;
         float: right;
       }
     }
+
+    .display-comments {
+      -moz-transform: rotate(180deg); /* Для Firefox */
+      -ms-transform: rotate(180deg); /* Для IE */
+      -webkit-transform: rotate(180deg); /* Для Safari, Chrome, iOS */
+      -o-transform: rotate(180deg); /* Для Opera */
+      transform: rotate(180deg);
+    }
   }
   
   .add-comment {
