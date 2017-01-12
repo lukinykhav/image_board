@@ -5,7 +5,7 @@ angular.module('myApp').controller('postController',
             var filtred = [];
             var arr_id = [];
             var token = localStorage.getItem('token');
-            $scope.arr_display = [];
+            $rootScope.arr_display = [];
 
             PostService.getPost(id)
                 .then(function (data) {
@@ -41,11 +41,11 @@ angular.module('myApp').controller('postController',
 
             $scope.getComments = function (post_id) {
 
-                if($scope.arr_display.indexOf(post_id) === -1) {
-                    $scope.arr_display.push(post_id);
+                if ($rootScope.arr_display.indexOf(post_id) === -1) {
+                    $rootScope.arr_display.push(post_id);
                 }
                 else {
-                    $scope.arr_display.splice($scope.arr_display.indexOf(post_id), 1)
+                    $rootScope.arr_display.splice($rootScope.arr_display.indexOf(post_id), 1);
                 }
 
                 PostService.getComments(post_id)
