@@ -51,6 +51,5 @@
     "gulp-ngmin": "^0.3.0",
     "gulp-nodemon": "^2.0.6",
     "gulp-sass": "^2.2.0",
-    "node-bourbon": "^4.2.3"
   }
 }
