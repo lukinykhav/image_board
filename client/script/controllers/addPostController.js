@@ -22,24 +22,25 @@ angular.module('myApp').controller('addPostController',
                         transformRequest: angular.identity,
                         headers: {'Content-Type': undefined}
                     })
-                    .success(function(post) {
+                    .success(function(data) {
                         var index;
-                        if(post.errorMessage) {
+                        if(data.errorMessage) {
                             $scope.error = true;
                             $scope.errorMessage = "Not valid caption field";
                         }
                         else {
-                            if (post.data.post_id === null) {
-                                posts.push(post.data);
+                            if (data.comment.post_id === null) {
+                                posts.push(data.comment);
                             }
                             else {
-                                post.data['class'] = 'comment';
+                                data.comment['class'] = 'comment';
                                 for (var i = 0; i < posts.length; i++) {
-                                    if (posts[i]._id === post.data.post_id) {
+                                    if (posts[i]._id === data.comment.post_id) {
                                         index = i;
+                                        posts[i]['children'] = data.parent.children;
                                     }
                                 }
-                                posts.splice(index+1, 0, post.data);
+                                posts.splice(index+1, 0, data.comment);
                                 // posts.push(post.data);
                             }
                             $rootScope.addPostForm =! $rootScope.addPostForm;

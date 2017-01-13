@@ -26,7 +26,7 @@ exports.addPost = function (req, res) {
             if(err) {
                 res.send(err);
             }
-            console.log(req.body.comment);
+            var comment = post;
             if (req.body.comment === 'true') {
                 Post.findOne({_id: post.post_id}, function (err, post) {
                     var arr = [];
@@ -36,9 +36,9 @@ exports.addPost = function (req, res) {
                     arr.push(post._id);
                     post.children = arr;
                     post.save();
+                    res.json({ message: 'Post added!', comment: comment, parent: post});
                 })
             }
-            res.json({ message: 'Post added!', data: post});
         });
 
       }
@@ -60,33 +60,6 @@ exports.getPost = function (req, res) {
   });
 };
 
-exports.getChildComments = function (post) {
-    var arr = [];
-    // for (var i = 0; i < posts.length; i++) {
-        var promise = Post.find({board_id: post.board_id}, function (err, result) {
-            for (var i = 0; i < result.length; i++) {
-                if (result[i].post_id === post._id) {
-                    console.log(result[i]);
-                }
-            }
-            // if(result.length) {
-            //     callback(result[0].post_id);
-            // }
-        });
-        console.log(promise);
-    // }
-    // callback(arr);
-    // Post.find({post_id: post_id}, function (err, comments) {
-    //     callback(comments, posts);
-    //     // if(comments.length) {
-    //     //     callback(post_id);
-    //     // }
-    //     // else {
-    //     //     callback(false);
-    //     // }
-    // });
-};
-
 exports.getComments = function (req, res) {
     var arr = [];
     var post_id = req.params.id.substring(1);
@@ -96,50 +69,6 @@ exports.getComments = function (req, res) {
         }
         else {
             res.send(posts);
-            // Post.find({board_id: posts[0].board_id}, function (err, result) {
-            //
-            //     for (var i = 0; i < result.length; i++) {
-            //         if(result[i].post_id !== 'null' && arr.indexOf(result[i].post_id) === -1) {
-            //             arr.push(result[i]._id);
-            //         }
-            //     }
-            //     res.json({posts: posts, arr: arr});
-            //     // for (var i = 0; i < posts.length; i++) {
-            //     //     console.log(arr);
-            //     //     console.log(posts[i]._id);
-            //     //     if (arr.indexOf(posts[i].post_id) !== -1) {
-            //     //         console.log(1);
-            //     //         posts[i].child = 'true';
-            //     //     }
-            //     //     console.log(posts[i]);
-            //     // }
-            // });
-            // console.log(posts);
-            // for (var i = 0; i < posts.length; i++) {
-            //     post.getChildComments().then(function (res) {
-            //         console.log(res);
-            //     });
-            //     // post.getChildComments(posts[i]._id, posts, function (comments, posts) {
-            //     //     console.log(comments, posts);
-            //     //     if(comments) {
-            //     //         console.log(posts[i]);
-            //     //         // posts[i].push({'child': true});
-            //     //     }
-            //     // });
-            //     // console.log(posts[i]);
-            //     var promise = Post.find({post_id: posts[i]._id}, function (err, comments) {
-            //     });
-            //     promise.then(function (result) {
-            //        if(result.length) {
-            //           arr.push(result[0].post_id);
-            //            console.log(arr);
-            //        }
-            //     });
-            //
-            //     // console.log(arr[i]);
-            // }
-            // console.log(arr);
-
         }
     });
 };
@@ -162,22 +91,23 @@ exports.deletePost = function (req, res) {
             if (fs.existsSync('./uploads/' + post.file)) {
               fs.unlink('./uploads/' + post.file);
             }
+            var delete_post = post ;
             post.remove(function (err, post) {
                 if (post.post_id !== 'null') {
                     var children = post._id;
                     Post.findOne({_id: post.post_id}, function (err, post) {
+                        console.log(delete_post);
                         var arr = post.children.split(",");
                         arr.splice(arr.indexOf(children), 1);
-                        console.log(arr.length);
                         if (!arr.length) {
                             arr = null;
                         }
                         post.children = arr;
                         post.save();
+                        res.json({ message: 'Successfully deleted', post: delete_post, parent: post });
                     });
                 }
             });
-            res.json({ message: 'Successfully deleted', post: post });
           }
           else {
             res.send(403);

@@ -7,6 +7,9 @@ angular.module('myApp').controller('deletePostController',
                         $state.go('user.board', {id: data.post.board_id})
                     }
                     for (var i = 0; i < $scope.posts.length; i++) {
+                        if ($scope.posts[i]['_id'] === data.parent._id) {
+                            $scope.posts[i]['children'] = data.parent.children;
+                        }
                         if ($scope.posts[i]['_id'] === id) {
                             $scope.posts.splice(i, 1);
                         }
