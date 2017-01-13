@@ -39,6 +39,9 @@ exports.addPost = function (req, res) {
                     res.json({ message: 'Post added!', comment: comment, parent: post});
                 })
             }
+            else {
+                res.json({ message: 'Post added!', comment: comment});
+            }
         });
 
       }
