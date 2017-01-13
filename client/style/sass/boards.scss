@@ -1,0 +1,66 @@
+.boards {
+	background-color: rgba(123, 117, 134, 0.68);
+	margin: 20px 10px;
+	border-radius: 10px;
+
+	.board {
+		margin: 10px auto;
+
+		.board_content {
+			border: 1px solid black;
+			border-radius: 10px;
+			height: 170px;
+			background-color: #f3f0ff;
+
+			h4 {
+				text-align: center;
+			}
+			span {
+				height: 10px;
+			}
+		}
+	}
+
+	form {
+		margin-left: 290px;
+		width: 450px;
+	}
+
+	.list {
+
+		a {
+			text-decoration: none;
+			color: rgb(103, 58, 183);
+		}
+	}
+
+	.add-board {
+		float: right;
+		margin-right: 0px;
+		margin-top: 20px;
+	}
+}
+
+.board {
+	background-color: rgba(123, 117, 134, 0.68);
+	margin: 50px 10px;
+	border-radius: 10px;
+}
+
+.board-logo {
+	margin: auto;
+	border: 1px solid black;
+	margin-bottom: 20px;
+	h4 {
+		margin: 20px 80px;
+		text-align: center;
+	}
+}
+
+.paginate {
+	float:right;
+	margin-right: 100px;
+	.pagination>.active>a {
+		background-color: rgb(255,64,129);
+	}
+}

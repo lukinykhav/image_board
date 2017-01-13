@@ -1,0 +1,10 @@
+<div class="mdl-grid" ng-controller="usersController">
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--10-col-tablet mdl-cell--10-col-phone user-list">
+        <md-list-item ng-repeat="person in people" class="noright">
+            <img ng-src="{{ person.image }}" class="md-avatar">
+            <p>{{ person.username }}</p>
+            <md-checkbox class="md-secondary" ng-model="person.admin" ng-click="assignRole(person.username, person.admin)"></md-checkbox>
+        </md-list-item>
+        </md-list>
+    </div>
+</div>

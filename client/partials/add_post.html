@@ -1,0 +1,22 @@
+<div ng-controller="addPostController" class="add-post">
+    <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
+    <!--<h3 id="reply-title" class="comment-reply-title">Add post</h3>-->
+    <form name="add_post" novalidate>
+        <div layout layout-sm="column" class="wrap-textarea">
+            <md-input-container flex>
+                <label>Caption</label>
+                <textarea md-maxlength="150" rows="3" md-select-on-focus="" ng-model="customer.caption" name="caption" placeholder="Caption (required)" required></textarea>
+            </md-input-container>
+        </div>
+        <div class="file_input">
+            <label spinner-start-active="true" ng-click="startSpin()" class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                <i class="material-icons">file_upload</i>
+                <md-input-container class="none">
+                    <input id="file_input_file"  type="file" file-model="customer.file"/>
+                </md-input-container>
+            </label>
+            <md-button ng-click="$root.addPostForm = !$root.addPostForm" class="md-accent md-raised save-btn">Cancel</md-button>
+            <md-button ng-click="uploadFile(id, arr_posts, true)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
+        </div>
+    </form>
+</div>

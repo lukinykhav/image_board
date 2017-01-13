@@ -1,0 +1,40 @@
+<div class="boards mdl-grid">
+	<div ng-hide="addBoardForm" class="list mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+		<div class="mdl-grid">
+			<div ng-repeat="board in boards track by $index" class="board mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+				<a ui-sref="user.board({id: board._id})">
+					<div class="board_content">
+						<h4>{{ board.name }}</h4>
+						<!--<p>{{ board.description }}</p>-->
+					</div>
+				</a>
+			</div>
+			<br/>
+		</div>
+	 	<md-button class="md-fab add-board" arial-label="Add" ng-click="showAddBoardForm()">
+	        <md-icon class="material-icons plus">add</md-icon>
+	    </md-button>
+	</div>
+	
+    <form class="form" name="add-board" ng-show="addBoardForm">
+      <md-input-container class="md-block">
+        <label>Name</label>
+        <input name="name" ng-model="name" required> 
+      <!--   <div ng-messages="add-board.name.$error"> 
+          <div ng-hide="!add-board.name.$error.required" ng-message="required" class="form-error">Name is required.</div>
+        </div> -->
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Description</label>
+        <input name="description" ng-model="description">
+      </md-input-container>
+
+      <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="addBoard()">Add Board</md-button>
+      <md-button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="showAddBoardForm()">Cancel</md-button>
+    </form>
+</div>
+
+<md-button class="md-fab" ng-click="showAll()">
+    <md-icon class="material-icons">collections</md-icon>
+</md-button>

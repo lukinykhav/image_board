@@ -1,0 +1,214 @@
+$screen-sm-min: 768px;
+$screen-xs-min: 360px;
+.wrap-post {
+  width: calc(80% - 150px);
+  max-width: 1000px;
+  min-width: 300px;
+  margin: 20px auto;
+  border-radius: 10px;
+
+  .post {
+    margin: 30px auto;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.85);
+
+    .description {
+      margin: 20px;
+      color: #777;
+    }
+  }
+  .post:hover {
+    box-shadow: none;
+  }
+
+  .add-post {
+    margin: 0;
+    padding: 70px 40px;
+  }
+}
+
+.post {
+  position: relative;
+  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.85);
+  transition: box-shadow .25s;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .post-image {
+    position: relative;
+
+    img {
+      display: block;
+      border-radius: 2px 2px 0 0;
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    video {
+      display: block;
+      margin: auto;
+      width: 100%;
+    }
+
+    audio {
+      margin: auto;
+      display: block;
+      @media screen and (max-width: 530px) {
+        width: 200px;
+      }
+    }
+  }
+
+  .description {
+    padding: 20px;
+    border-radius: 0 0 2px 2px;
+    word-wrap: break-word;
+  }
+
+  .post-action {
+    position: relative;
+    background-color: inherit;
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 20px;
+    min-height: 90px;
+
+    .mdl-cell {
+      @media screen and (max-width: 370px) {
+        width: calc(100% - 16px);
+      }
+    }
+
+    .read-more {
+      @media screen and (min-width: $screen-sm-min) {
+        float: right;
+      }
+    }
+
+    .display-comments {
+      -moz-transform: rotate(180deg); /* Для Firefox */
+      -ms-transform: rotate(180deg); /* Для IE */
+      -webkit-transform: rotate(180deg); /* Для Safari, Chrome, iOS */
+      -o-transform: rotate(180deg); /* Для Opera */
+      transform: rotate(180deg);
+    }
+  }
+  
+  .add-comment {
+    float: right;
+    margin: 0;
+  }
+
+  .likes {
+    display: inline-block;
+    float: left;
+    margin-bottom: 5px;
+
+    button {
+      margin: 0;
+      padding: 0;
+      min-width: 70px;
+      @media screen and (max-width: $screen-sm-min) {
+        min-width: 56px;
+      }
+    }
+
+    progress {
+      width: 150px;
+      height: 10px;
+      border: 1px solid black;
+      border-radius: 5px;
+      @media screen and (max-width: $screen-sm-min) {
+        width: 120px;
+      }
+    }
+
+    progress::-webkit-progress-value {
+      background-color: rgb(255,64,129);
+    }
+
+    progress::-webkit-progress-bar {
+      background-color: #fff;
+    }
+  }
+}
+
+.post:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 3px 15px rgba(0, 0, 0, 0.5);
+}
+
+
+.comment {
+    width: 80% - 10%;
+  }
+
+.add-post {
+  margin: 90px auto;
+  padding: 30px 20px;
+
+  button {
+    background-color: rgb(255,64,129);
+  }
+}
+
+.delete-post {
+  position: absolute;
+  top: 5px;
+  z-index: 20;
+}
+
+.edit-post {
+  position: absolute;
+  right: 0;
+  z-index: 100;
+
+    input {
+      height: 36px;
+      width: 76px;
+      opacity: 0;
+    }
+}
+
+.file_input_div {
+  margin: auto;
+  width: 250px;
+  height: 40px;
+}
+
+.file_input {
+  label {
+    float: left;
+  }
+  button {
+    float: right;
+  }
+}
+
+.none {
+  display: none;
+}
+
+.no-border {
+  border: none!important;
+}
+
+.spinner {
+  position: relative;
+  left: 40%;
+  top: 25px;
+  z-index: 10;
+}
+
+.hide {
+  visibility: hidden;
+}

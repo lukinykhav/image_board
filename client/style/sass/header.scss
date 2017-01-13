@@ -1,0 +1,30 @@
+$screen-sm-min: 768px;
+
+header{
+  flex-shrink: 0;
+  height: 40vh;
+  @media screen and (min-width: $screen-sm-min) {
+    background-position-y: -50px;
+  }
+  .navbar-toggle {
+    background-color: rgba(123,117,134,0.68);
+    span {
+      background-color: #f3f0ff;
+    }
+  }
+}
+
+.section {
+  margin: 20px;
+}
+
+main {
+  margin-top: -10vh;
+  flex-shrink: 0;
+}
+
+body {
+  background-image: url('/image/l1sqxjxbgd0-gabriel-santiago.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}

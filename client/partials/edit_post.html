@@ -1,0 +1,72 @@
+<md-dialog>
+    <md-dialog-content class="md-padding">
+        <form name="add_post" novalidate>
+            <div layout layout-sm="column">
+                <md-input-container flex>
+                    <label>Caption</label>
+                    <input ng-model="customer.caption" name="caption" placeholder="Caption">
+                </md-input-container>
+                <div class="file_input">
+                    <label class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">file_upload</i>
+                        <md-input-container class="none">
+                            <input id="file_input_file"  type="file" file-model="customer.file"/>
+                        </md-input-container>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </md-dialog-content>
+    <div class="md-actions no-border" layout="row">
+        <span flex></span>
+        <md-button ng-click="cancel()"> Cancel</md-button>
+        <md-button ng-click="uploadFile()" class="md-primary" ng-disabled="add_post.$invalid">Save</md-button>
+    </div>
+</md-dialog>
+
+
+<!--<md-dialog>-->
+    <!--<md-dialog-content class="md-padding">-->
+        <!--<div class="mdl-grid">-->
+            <!--<div class="post mdl-cell mdl-cell&#45;&#45;6-col mdl-cell&#45;&#45;6-col-tablet">-->
+                <!--<form name="add_post" novalidate>-->
+                    <!--<div class="post-image" ng-switch="post.type_file.split('/')[0]">-->
+                        <!--<img ng-switch-when="image" src="{{post.file}}">-->
+                        <!--<div ng-switch-when="video">-->
+                            <!--<video width="320" height="240"  controls>-->
+                                <!--<source src="{{post.file}}" type="{{post.type_file}}">-->
+                                <!--Your browser does not support the video tag.-->
+                            <!--</video>-->
+                        <!--</div>-->
+                        <!--<div ng-switch-when="audio">-->
+                            <!--<audio controls>-->
+                                <!--<source src="{{post.file}}" type="{{post.type_file}}">-->
+                                <!--Your browser does not support the audio element.-->
+                            <!--</audio>-->
+                        <!--</div>-->
+                        <!--<div class="file_input">-->
+                            <!--<label class="mdl-button&#45;&#45;fab mdl-button&#45;&#45;mini-fab mdl-js-ripple-effect mdl-button&#45;&#45;colored" ng-click="showMedia()">-->
+                                <!--<i class="material-icons">file_upload</i>-->
+                                <!--<md-input-container class="none">-->
+                                    <!--<input id="angular.element"  type="file" file-model="post.file"/>-->
+                                <!--</md-input-container>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="description">-->
+                        <!--<md-input-container flex>-->
+                            <!--<label>Caption</label>-->
+                            <!--<input ng-model="post.caption" name="caption" placeholder="Caption">-->
+                        <!--</md-input-container>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</md-dialog-content>-->
+    <!--<div class="md-actions no-border" layout="row">-->
+        <!--<span flex></span>-->
+        <!--<md-button ng-click="cancel()"> Cancel</md-button>-->
+        <!--<md-button ng-click="uploadFile()" class="md-primary" ng-disabled="add_post.$invalid">Save</md-button>-->
+    <!--</div>-->
+<!--</md-dialog>-->
+

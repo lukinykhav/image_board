@@ -1,0 +1,85 @@
+<div class="mdl-grid board">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <div  class="mdl-grid" dir-paginate="post in posts  | itemsPerPage: 3">
+        <div class="post mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+            <div class="post-image" ng-switch="post.type_file.split('/')[0]" ng-if="changePost.indexOf(post._id) > -1 || userRole === 'admin'" ng-controller="deletePostController">
+                <md-button class="edit-post" ng-click="editPost(post._id)">
+                <md-icon class="material-icons">mode_edit</md-icon>
+                </md-button>
+                <md-button ng-click="deletePost(post._id)">
+                <md-icon class="material-icons">clear</md-icon>
+                </md-button>
+                <img ng-switch-when="image" src="{{post.file}}">
+                <div ng-switch-when="video">
+                    <video width="320" height="240"  controls>
+                        <source src="{{post.file}}" type="{{post.type_file}}">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div ng-switch-when="audio">
+                    <audio controls>
+                        <source src="{{post.file}}" type="{{post.type_file}}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            <div class="description">
+                <span>
+                   {{post.caption}}
+                </span>
+            </div>
+            <div class="post-action mdl-grid">
+                <div class="likes mdl-cell  mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone" ng-controller="likeController">
+                    <progress value="{{Math.round(100/(post.user_like.length + post.user_dislike.length) * post.user_like.length)}}" max="100"></progress>
+                    <div>
+                        <md-button ng-click="like(post._id)">
+                            <md-icon class="material-icons">thumb_up</md-icon>
+                            <span>{{ post.user_like.length }}</span>
+                        </md-button>
+                        <md-button ng-click="dislike(post._id)">
+                            <md-icon class="material-icons">thumb_down</md-icon>
+                            <span>{{ post.user_dislike.length }}</span>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                    <button class="read-more mdl-button mdl-js-button mdl-button--raised" type="button">
+                        <a ui-sref="user.post({id: post._id})">Reade More</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="paginate">
+        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+    </div>
+
+    <div class="md-grid">
+        <div ng-controller="addPostController" class="add-post mdl-cell mdl-cell--6-col mdl-cell--6-col-tablet mdl-cell--6-col-phone">
+            <div ng-show="error" class="alert alert-danger login-error">{{errorMessage}}</div>
+            <h3 id="reply-title" class="comment-reply-title">Add post</h3>
+            <form name="add_post" novalidate>
+                <div layout layout-sm="column" class="wrap-textarea">
+                    <md-input-container flex>
+                        <label>Caption</label>
+                        <textarea md-maxlength="150" rows="3" md-select-on-focus="" ng-model="customer.caption" name="caption" placeholder="Caption (required)" required></textarea>
+                    </md-input-container>
+                </div>
+                <div class="file_input">
+                    <label spinner-start-active="true" ng-click="startSpin()" class="mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">file_upload</i>
+                        <md-input-container class="none">
+                            <input id="file_input_file"  type="file" file-model="customer.file"/>
+                        </md-input-container>
+                    </label>
+                    <md-button ng-click="uploadFile(null, posts, false)" class="md-accent md-raised save-btn" ng-disabled="add_post.$invalid">Save</md-button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+
