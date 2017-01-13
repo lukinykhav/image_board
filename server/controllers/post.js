@@ -110,6 +110,9 @@ exports.deletePost = function (req, res) {
                         res.json({ message: 'Successfully deleted', post: delete_post, parent: post });
                     });
                 }
+                else {
+                    res.json({ message: 'Successfully deleted', post: post});
+                }
             });
           }
           else {
