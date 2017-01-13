@@ -7,7 +7,7 @@
   <form name="myForm" class="form" novalidate>
     <div ng-show="error" class="alert alert-danger register-error">{{errorMessage}}</div>
     <md-input-container class="md-block">
-      <label>Username</label>
+      <label>Username*</label>
       <input name="username" ng-model="registerForm.username" required>
       <div ng-messages="myForm.username.$error" role="alert">
         <div ng-message="required" class="form-error">Username is required.</div>
@@ -15,7 +15,7 @@
     </md-input-container>
 
     <md-input-container class="md-block">
-      <label>Email address</label>
+      <label>Email address*</label>
       <input name="email" type="email" ng-model="registerForm.email" required>
       <div ng-messages="myForm.email.$error" role="alert">
         <div ng-message="required">Email is required.</div>
@@ -24,7 +24,7 @@
     </md-input-container>
 
     <md-input-container class="md-block">
-      <label>Password</label>
+      <label>Password*</label>
       <input id="password" name="password" type="password" ng-model="registerForm.password" required>
       <div ng-messages="myForm.password.$error" role="alert">
       <div ng-message="required">Password is required.</div>
@@ -32,7 +32,7 @@
     </md-input-container>
 
     <md-input-container class="md-block">
-      <label>Confirm password</label>
+      <label>Confirm password*</label>
       <input name="password_c" type="password" ng-model="registerForm.password_c" pw-check="password" required>
       <div ng-messages="myForm.password_c.$error">
         <div ng-message="required">Confirm password is required.</div>
