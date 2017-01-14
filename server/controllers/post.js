@@ -33,7 +33,7 @@ exports.addPost = function (req, res) {
                     if (post.children !== null) {
                         arr.push(post.children)
                     }
-                    arr.push(post._id);
+                    arr.push(comment._id);
                     post.children = arr;
                     post.save();
                     res.json({ message: 'Post added!', comment: comment, parent: post});

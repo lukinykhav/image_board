@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <md-button class="md-fab md-mini" ng-click="getComments(post._id)" ng-show="post.children !== null">
-                    <md-icon class="material-icons" ng-class="{'display-comments': $root.arr_display.indexOf(post._id) > -1}">keyboard_arrow_down</md-icon>
+                    <md-icon class="material-icons" ng-class="{'display-comments': $root.arr_display.indexOf(post._id) !== -1}">keyboard_arrow_down</md-icon>
                 </md-button>
                 <md-button class="md-fab add-comment" arial-label="Add" ng-click="addComment(post._id, posts)">
                     <md-icon class="material-icons chat-bubble">chat_bubble</md-icon>
